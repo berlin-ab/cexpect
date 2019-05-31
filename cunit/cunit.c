@@ -32,23 +32,6 @@ struct FormatterData {
 };
 
 
-struct MatcherData {
-  bool (*match)(Matcher *matcher, void *actual_value);
-  void *expected_value;
-};
-
-
-bool match_integers(Matcher *matcher, void *actual_value) {
-  return (int)matcher->expected_value == (int)actual_value;
-}
-
-
-Matcher *is_int_equal_to(void *expected_value) {
-  Matcher *matcher = calloc(1, sizeof(Matcher));
-  matcher->match = match_integers;
-  matcher->expected_value = expected_value;
-  return matcher;
-}
 
 void debug(char *message) {
 //	printf("%s\n", message);
@@ -89,15 +72,6 @@ void assert_equal(Test *test, int expected_value, int actual_value) {
 	}
 }
 
-void assert_that(Test *test, void *actual_value, Matcher *matcher) {
-    bool result = matcher->match(matcher, actual_value);
-
-    if (result) {
-	pass_test(test);
-    } else {
-	fail_test(test);
-    }
-}
 
 void report_failing_test_with_void(Test *test) {
 }

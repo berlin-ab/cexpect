@@ -1,4 +1,5 @@
 #include "cunit.h"
+#include "cmatchers.h"
 
 
 void it_should_pass(Test *test) {
