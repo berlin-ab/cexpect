@@ -6,7 +6,7 @@
 
 typedef struct TestData {
 	bool is_active;
-    void (*test_function)(Test *test);
+  void (*test_function)(Test *test);
 	void (*fail)(Test *test);
 	Runner *runner;
 } Test;
@@ -25,11 +25,30 @@ struct RunnerData {
 	Formatter *formatter;
 };
 
+
 struct FormatterData {
 	void (*fail)(Test *test);
 	void (*success)(Test *test);
 };
 
+
+struct MatcherData {
+  bool (*match)(Matcher *matcher, void *actual_value);
+  void *expected_value;
+};
+
+
+bool match_integers(Matcher *matcher, void *actual_value) {
+  return (int)matcher->expected_value == (int)actual_value;
+}
+
+
+Matcher *is_int_equal_to(void *expected_value) {
+  Matcher *matcher = calloc(1, sizeof(Matcher));
+  matcher->match = match_integers;
+  matcher->expected_value = expected_value;
+  return matcher;
+}
 
 void debug(char *message) {
 //	printf("%s\n", message);
@@ -39,6 +58,7 @@ void debug(char *message) {
 void fail_test(Test *test) {
 	test->fail(test);
 }
+
 
 void pass_test(Test *test) {
 	test->runner->number_of_passing_tests++;
@@ -67,6 +87,16 @@ void assert_equal(Test *test, int expected_value, int actual_value) {
 	} else {
 		fail_test(test);
 	}
+}
+
+void assert_that(Test *test, void *actual_value, Matcher *matcher) {
+    bool result = matcher->match(matcher, actual_value);
+
+    if (result) {
+	pass_test(test);
+    } else {
+	fail_test(test);
+    }
 }
 
 void report_failing_test_with_void(Test *test) {
@@ -139,6 +169,13 @@ void run_suite(Suite *suite) {
 	}
 	
 	debug("after suite");
+}
+
+
+Runner *make_runner() {
+	Runner *runner = malloc(sizeof(runner));
+	runner->formatter = make_void_formatter();
+	return runner;
 }
 
 

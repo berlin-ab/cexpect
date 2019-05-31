@@ -1,8 +1,4 @@
-#include <stdlib.h>
-
-
 #include "cunit.h"
-#include "integers_test.c"
 
 
 void some_failing_test(Test *test) {
@@ -26,7 +22,7 @@ void add_suite_passing_suite(Runner *runner) {
 
 
 void a_suite_should_fail(Test *test) {
-	Runner *runner = malloc(sizeof(runner));
+    Runner *runner = make_runner();
 	set_formatter(runner, make_void_formatter());
 	add_suite_failing_suite(runner);
 	run(runner);
@@ -35,7 +31,7 @@ void a_suite_should_fail(Test *test) {
 }
 
 void a_suite_should_report_successful_tests(Test *test) {
-	Runner *runner = malloc(sizeof(runner));
+  Runner *runner = make_runner();
 	set_formatter(runner, make_void_formatter());
 	add_suite_passing_suite(runner);
 	run(runner);
@@ -51,9 +47,8 @@ void add_suite_cunit(Runner *runner) {
 
 
 int main(int args[]) {
-	Runner *runner = malloc(sizeof(runner));
-	set_formatter(runner, make_dot_formatter());
-	add_suite_cunit(runner);
-	run(runner);
-	exit(0);
+    Runner *runner = make_runner();
+    set_formatter(runner, make_dot_formatter());
+    add_suite_cunit(runner);
+    run(runner);
 }
