@@ -1,5 +1,3 @@
-#include <stdbool.h>
-
 typedef struct FormatterData Formatter;
 typedef struct SuiteData Suite;
 typedef struct TestData Test;
