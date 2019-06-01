@@ -32,7 +32,6 @@ struct FormatterData {
 };
 
 
-
 void debug(char *message) {
 //	printf("%s\n", message);
 };
@@ -58,6 +57,7 @@ int number_of_passing_tests(Runner *runner) {
 	return runner->number_of_passing_tests;
 }
 
+
 void report_failing_test(Test *test) {
 	test->runner->number_of_failed_tests++;
 	test->runner->formatter->fail(test);
@@ -75,6 +75,7 @@ void assert_equal(Test *test, int expected_value, int actual_value) {
 
 void report_failing_test_with_void(Test *test) {
 }
+
 
 void report_successful_test_with_void(Test *test) {
 }
