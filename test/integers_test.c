@@ -8,7 +8,7 @@ void it_should_pass(Test *test) {
 
 
 void add_suite_integer(Runner *runner) {
-    add_test(runner, &it_should_pass);
+    add_test(runner, it_should_pass);
 }
 
 
