@@ -7,15 +7,15 @@ void it_should_pass(Test *test) {
 }
 
 
-void add_suite_integer(Runner *runner) {
-    add_test(runner, it_should_pass);
+void add_suite_integer(Suite *suite) {
+    add_test(suite, it_should_pass);
 }
 
 
 int main(int args[]) {
-    Runner *runner = make_runner();
-    set_formatter(runner, make_dot_formatter());
-    add_suite_integer(runner);
-    run(runner);
+    Suite *suite = make_suite();
+    set_formatter(suite, make_dot_formatter());
+    add_suite_integer(suite);
+    run(suite);
 }
 

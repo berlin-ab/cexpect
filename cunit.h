@@ -1,12 +1,11 @@
 #include <stdbool.h>
 
 typedef struct FormatterData Formatter;
-typedef struct RunnerData Runner;
 typedef struct SuiteData Suite;
 typedef struct TestData Test;
 
 // Tests
-extern void add_test(Runner *runner, void (*test_function)(Test *test));
+extern void add_test(Suite *suite, void (*test_function)(Test *test));
 extern void pass_test(Test *test);
 extern void fail_test(Test *test);
 
@@ -14,12 +13,12 @@ extern void fail_test(Test *test);
 extern void run_suite(Suite *suite);
 
 
-// Runners
-extern Runner *make_runner();
-extern void run(Runner *runner);
-extern int number_of_failed_tests(Runner *runner);
-extern int number_of_passing_tests(Runner *runner);
-extern void set_formatter(Runner *runner, Formatter *formatter);
+// Suites
+extern Suite *make_suite();
+extern void run(Suite *suite);
+extern int number_of_failed_tests(Suite *suite);
+extern int number_of_passing_tests(Suite *suite);
+extern void set_formatter(Suite *suite, Formatter *formatter);
 
 
 // Formatters

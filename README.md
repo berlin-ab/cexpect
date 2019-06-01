@@ -13,15 +13,15 @@ void some_test(Test *test) {
 }
 
 int main(int args[]) {
-    Runner * runner = make_runner();
-    set_formatter(runner, make_dot_formatter());
-    add_test(runner, some_test);
-    run(runner);
+    Suite *suite = make_suite();
+    set_formatter(suite, make_dot_formatter());
+    add_test(suite, some_test);
+    run(suite);
 }
 ```
 
 ## Testing
 
 ```
-make test
+make -s test
 ```

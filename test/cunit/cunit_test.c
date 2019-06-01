@@ -11,44 +11,44 @@ void some_passing_test(Test *test) {
 }
 
 
-void add_suite_failing_suite(Runner *runner) {
-    add_test(runner, some_failing_test);
+void add_suite_failing_suite(Suite *suite) {
+    add_test(suite, some_failing_test);
 }
 
 
-void add_suite_passing_suite(Runner *runner) {
-    add_test(runner, some_passing_test);
+void add_suite_passing_suite(Suite *suite) {
+    add_test(suite, some_passing_test);
 }
 
 
 void a_suite_should_fail(Test *test) {
-    Runner *runner = make_runner();
-    set_formatter(runner, make_void_formatter());
-    add_suite_failing_suite(runner);
-    run(runner);
+    Suite *suite = make_suite();
+    set_formatter(suite, make_void_formatter());
+    add_suite_failing_suite(suite);
+    run(suite);
 	
-    assert_equal(test, number_of_failed_tests(runner), 1);
+    assert_equal(test, number_of_failed_tests(suite), 1);
 }
 
 
 void a_suite_should_report_successful_tests(Test *test) {
-    Runner *runner = make_runner();
-    set_formatter(runner, make_void_formatter());
-    add_suite_passing_suite(runner);
-    run(runner);
-    assert_equal(test, number_of_passing_tests(runner), 1);
+    Suite *suite = make_suite();
+    set_formatter(suite, make_void_formatter());
+    add_suite_passing_suite(suite);
+    run(suite);
+    assert_equal(test, number_of_passing_tests(suite), 1);
 }
 
 
-void add_suite_cunit(Runner *runner) {
-    add_test(runner, a_suite_should_fail);
-    add_test(runner, a_suite_should_report_successful_tests);
+void add_suite_cunit(Suite *suite) {
+    add_test(suite, a_suite_should_fail);
+    add_test(suite, a_suite_should_report_successful_tests);
 }
 
 
 int main(int args[]) {
-    Runner *runner = make_runner();
-    set_formatter(runner, make_dot_formatter());
-    add_suite_cunit(runner);
-    run(runner);
+    Suite *suite = make_suite();
+    set_formatter(suite, make_dot_formatter());
+    add_suite_cunit(suite);
+    run(suite);
 }
