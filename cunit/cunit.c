@@ -6,11 +6,11 @@
 
 #define MAX_SUITE_SIZE 100
 
-typedef struct TestData {
+struct TestData {
     bool is_active;
     void (*test_function)(Test *test);
     Suite *suite;
-} Test;
+};
 
 
 struct SuiteData {
