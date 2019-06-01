@@ -43,11 +43,14 @@ make: *** [readme_test] Error 1```
 
 ## Design goals
 
-* xunit-like framework with extensible matchers, similar to hamcrest
-* extensible reporting and formatting
-* code coverage reporting enabled
-* self-tested
-* No magic. This includes #import of c files, or use of macros for assertions.
+
+* xunit-like framework similar to hamcrest
+* Extensible matchers
+* Extensible formatting
+* Code coverage reporting enabled.
+* Self-tested. No additional frameworks.
+* No magic. No #include of c files, or use of macros for assertions.
+* Should be useable in isolated unit tests and also in integrated system tests.
 
 
 ## Planned improvements
