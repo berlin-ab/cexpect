@@ -27,6 +27,16 @@ int main(int args[]) {
 }
 ```
 
+
+## Matchers
+
+* is_int_equal_to
+* is_true
+* is_false
+
+
+## Example output
+
 ```
 make -s readme_test
 Running suite: Readme suite
