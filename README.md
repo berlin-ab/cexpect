@@ -41,6 +41,24 @@ Makefile:48: recipe for target 'readme_test' failed
 make: *** [readme_test] Error 1```
 ```
 
+## Design goals
+
+* xunit-like framework with extensible matchers, similar to hamcrest
+* extensible reporting and formatting
+* code coverage reporting enabled
+* self-tested
+* No magic. This includes #import of c files, or use of macros for assertions.
+
+
+## Planned improvements
+
+* individual test failure detailed reporting in summary
+* dynamic test list (currently hard coded array)
+* test-anything-protocol output formatter
+* lcov/gcov
+* make Makefile more idiomatic
+
+
 ## Testing
 
 ```
