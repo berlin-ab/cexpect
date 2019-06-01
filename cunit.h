@@ -21,7 +21,7 @@ extern Formatter *make_dot_formatter();
 
 
 // Int matchers
-extern void assert_equal(Test *test, int expected_value, int actual_value);
+extern void expect_equal(Test *test, int expected_value, int actual_value);
 
 
 // Runner

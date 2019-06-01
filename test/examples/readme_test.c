@@ -3,12 +3,12 @@
 
 
 void some_failing_test(Test *test) {
-     assert_that(test, 1, is_int_equal_to(2));
+     expect(test, 1, is_int_equal_to(2));
 }
 
 
 void some_passing_test(Test *test) {
-     assert_that(test, 1, is_int_equal_to(1));
+     expect(test, 1, is_int_equal_to(1));
 }
 
 

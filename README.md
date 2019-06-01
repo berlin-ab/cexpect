@@ -8,13 +8,16 @@ A testing framework for C inspired by hamcrest
 #include "cunit.h"
 #include "cunit_cmatchers.h"
 
+
 void some_failing_test(Test *test) {
-     assert_that(test, 1, is_int_equal_to(2));
+    expect(test, 1, is_int_equal_to(2));
 }
 
+
 void some_passing_test(Test *test) {
-     assert_that(test, 1, is_int_equal_to(1));
+    expect(test, 1, is_int_equal_to(1));
 }
+
 
 int main(int args[]) {
     Suite *suite = make_suite();

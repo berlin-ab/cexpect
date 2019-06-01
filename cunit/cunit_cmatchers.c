@@ -21,7 +21,7 @@ bool match_booleans(Matcher *matcher, void *actual_value) {
 }
 
 
-void assert_that(Test *test, void *actual_value, Matcher *matcher) {
+void expect(Test *test, void *actual_value, Matcher *matcher) {
     bool result = matcher->match(matcher, actual_value);
 
     if (result) {

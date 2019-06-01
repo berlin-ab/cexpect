@@ -53,7 +53,7 @@ void fail_test(Test *test) {
 }
 
 
-void assert_equal(Test *test, int expected_value, int actual_value) {
+void expect_equal(Test *test, int expected_value, int actual_value) {
     if (expected_value == actual_value) {
 	pass_test(test);
     } else {

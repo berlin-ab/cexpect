@@ -2,12 +2,12 @@
 
 
 void some_failing_test(Test *test) {
-    assert_equal(test, 1, 2);
+    expect_equal(test, 1, 2);
 }
 
 
 void some_passing_test(Test *test) {
-    assert_equal(test, 1, 1);
+    expect_equal(test, 1, 1);
 }
 
 
@@ -27,7 +27,7 @@ void a_suite_should_fail(Test *test) {
     add_suite_failing_suite(suite);
     run_suite(suite);
 	
-    assert_equal(test, number_of_failed_tests(suite), 1);
+    expect_equal(test, number_of_failed_tests(suite), 1);
 }
 
 
@@ -37,7 +37,7 @@ void a_passing_suite_should_return_zero_status_code(Test *test) {
     add_suite_passing_suite(suite);
     
     int status_code = run_suite(suite);	
-    assert_equal(test, status_code, 0);
+    expect_equal(test, status_code, 0);
 }
 
 
@@ -47,7 +47,7 @@ void a_failing_suite_should_return_non_zero_status_code(Test *test) {
     add_suite_failing_suite(suite);
     
     int status_code = run_suite(suite);	
-    assert_equal(test, status_code, 1);
+    expect_equal(test, status_code, 1);
 }
 
 
@@ -56,7 +56,7 @@ void a_suite_should_report_successful_tests(Test *test) {
     set_formatter(suite, make_void_formatter());
     add_suite_passing_suite(suite);
     run_suite(suite);
-    assert_equal(test, number_of_passing_tests(suite), 1);
+    expect_equal(test, number_of_passing_tests(suite), 1);
 }
 
 
@@ -66,8 +66,8 @@ void a_suite_should_contain_passes_and_failures(Test *test) {
     add_test(suite, some_passing_test);
     add_test(suite, some_failing_test);
     run_suite(suite);
-    assert_equal(test, number_of_passing_tests(suite), 1);
-    assert_equal(test, number_of_failed_tests(suite), 1);
+    expect_equal(test, number_of_passing_tests(suite), 1);
+    expect_equal(test, number_of_failed_tests(suite), 1);
 }
 
 
