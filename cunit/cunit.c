@@ -6,6 +6,7 @@
 
 #define MAX_SUITE_SIZE 100
 
+
 struct TestData {
     bool is_active;
     void (*test_function)(Test *test);

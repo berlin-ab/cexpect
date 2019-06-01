@@ -36,12 +36,23 @@ build_integers_test:
 		-o build/integers_test.o
 
 
+build_booleans_test:
+	gcc -Wno-int-conversion -g test/matchers/booleans_test.c \
+	-I . \
+	build/cunit.so build/cunit_cmatchers.so \
+	-o build/booleans_test.o
+
+
 test_cunit: clean build_cunit build_cunit_matchers build_cunit_test
 	./build/cunit_test.o
 
 
 test_integers: clean build_cunit build_cunit_matchers build_integers_test
 	./build/integers_test.o
+
+
+test_booleans: clean build_cunit build_cunit_matchers build_booleans_test
+	./build/booleans_test.o
 
 
 readme_test: clean build_cunit build_cunit_matchers
@@ -52,6 +63,6 @@ readme_test: clean build_cunit build_cunit_matchers
 	./build/readme_test.o
 
 
-test: test_cunit test_integers readme_test
+test: test_cunit test_integers test_booleans
 
 
