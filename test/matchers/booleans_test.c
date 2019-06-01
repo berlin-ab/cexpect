@@ -27,41 +27,38 @@ void is_true_with_false_statement(Test *test) {
 }
 
 
-void is_false_should_pass_when_given_a_false_statement(Test *test) {
+Suite *run_example_suite(void (*test_function)(Test *test)) {
     Suite *suite = make_suite("suite");
     set_formatter(suite, make_void_formatter());
-    add_test(suite, is_false_with_false_statement);
+    add_test(suite, test_function);
     run_suite(suite);
+    return suite;
+}
+
+
+void is_false_should_pass_when_given_a_false_statement(Test *test) {
+    Suite *suite = run_example_suite(is_false_with_false_statement);
     
     assert_that(test, number_of_passing_tests(suite), is_int_equal_to(1));
 }
 
 
 void is_false_should_fail_when_given_a_true_statement(Test *test) {
-    Suite *suite = make_suite("suite");
-    set_formatter(suite, make_void_formatter());
-    add_test(suite, is_false_with_true_statement);
-    run_suite(suite);
+    Suite *suite = run_example_suite(is_false_with_true_statement);
     
     assert_that(test, number_of_failed_tests(suite), is_int_equal_to(1));
 }
  
 
 void is_true_should_pass_when_given_a_true_statement(Test *test) {
-    Suite *suite = make_suite("suite");
-    set_formatter(suite, make_void_formatter());
-    add_test(suite, is_true_with_true_statement);
-    run_suite(suite);
+    Suite *suite = run_example_suite(is_true_with_true_statement);
 
     assert_that(test, number_of_passing_tests(suite), is_int_equal_to(1));
 }
 
 
 void is_true_should_fail_when_given_a_false_statement(Test *test) {
-    Suite *suite = make_suite("suite");
-    set_formatter(suite, make_void_formatter());
-    add_test(suite, is_true_with_false_statement);
-    run_suite(suite);
+    Suite *suite = run_example_suite(is_true_with_false_statement);
 
     assert_that(test, number_of_failed_tests(suite), is_int_equal_to(1));
 }
