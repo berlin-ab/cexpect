@@ -2,14 +2,19 @@
 #include "cunit_cmatchers.h"
 
 
-void some_test(Test *test) {
+void some_failing_test(Test *test) {
      assert_that(test, 1, is_int_equal_to(2));
 }
 
 
+void some_passing_test(Test *test) {
+     assert_that(test, 1, is_int_equal_to(1));
+}
+
+
 int main(int args[]) {
-    Suite * suite = make_suite();
-    set_formatter(suite, make_dot_formatter());
-    add_test(suite, some_test);
+    Suite * suite = make_suite("Readme suite");
+    add_test(suite, some_passing_test);
+    add_test(suite, some_failing_test);
     run(suite);
 }

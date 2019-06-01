@@ -22,7 +22,7 @@ void add_suite_passing_suite(Suite *suite) {
 
 
 void a_suite_should_fail(Test *test) {
-    Suite *suite = make_suite();
+    Suite *suite = make_suite("Failing suite.");
     set_formatter(suite, make_void_formatter());
     add_suite_failing_suite(suite);
     run(suite);
@@ -32,7 +32,7 @@ void a_suite_should_fail(Test *test) {
 
 
 void a_suite_should_report_successful_tests(Test *test) {
-    Suite *suite = make_suite();
+    Suite *suite = make_suite("Successful suite.");
     set_formatter(suite, make_void_formatter());
     add_suite_passing_suite(suite);
     run(suite);
@@ -47,7 +47,7 @@ void add_suite_cunit(Suite *suite) {
 
 
 int main(int args[]) {
-    Suite *suite = make_suite();
+    Suite *suite = make_suite("CUnit suite");
     set_formatter(suite, make_dot_formatter());
     add_suite_cunit(suite);
     run(suite);

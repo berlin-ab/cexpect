@@ -3,44 +3,36 @@
 #include <stdbool.h>
 #include "cunit.h"
 
+#define MAX_SUITE_SIZE 100
 
 typedef struct TestData {
-	bool is_active;
-  void (*test_function)(Test *test);
-	void (*fail)(Test *test);
-	Suite *suite;
+    bool is_active;
+    void (*test_function)(Test *test);
+    Suite *suite;
 } Test;
 
 
 struct SuiteData {
-	Test tests[100];
-	int size;
-	int number_of_failed_tests;
-	int number_of_passing_tests;
-	Formatter *formatter;
+    char *name;
+    Test tests[MAX_SUITE_SIZE];
+    int size;
+    int number_of_failed_tests;
+    int number_of_passing_tests;
+    Formatter *formatter;
 };
+
 
 struct FormatterData {
     void (*fail)(Test *test);
     void (*success)(Test *test);
     void (*summary)(Suite *suite);
+    void (*report_start)(Suite *suite);
 };
 
 
 void debug(char *message) {
 //	printf("%s\n", message);
 };
-
-
-void fail_test(Test *test) {
-	test->fail(test);
-}
-
-
-void pass_test(Test *test) {
-	test->suite->number_of_passing_tests++;
-	test->suite->formatter->success(test);
-}
 
 
 int number_of_failed_tests(Suite *suite) {
@@ -52,8 +44,13 @@ int number_of_passing_tests(Suite *suite) {
 	return suite->number_of_passing_tests;
 }
 
+void pass_test(Test *test) {
+	test->suite->number_of_passing_tests++;
+	test->suite->formatter->success(test);
+}
 
-void report_failing_test(Test *test) {
+
+void fail_test(Test *test) {
 	test->suite->number_of_failed_tests++;
 	test->suite->formatter->fail(test);
 }
@@ -80,6 +77,10 @@ void report_summary_for_void(Suite *suite) {
 }
 
 
+void report_start_for_void(Suite *suite) {
+}
+
+
 void report_failing_test_with_dot(Test *test) {
     printf("F");
 }
@@ -87,6 +88,11 @@ void report_failing_test_with_dot(Test *test) {
 
 void report_successful_test_with_dot(Test *test) {
     printf(".");
+}
+
+
+void report_start_for_dots(Suite *suite) {
+    printf("Running suite: %s\n", suite->name);
 }
 
 
@@ -98,7 +104,7 @@ void report_summary_for_dots(Suite *suite) {
 	   suite->size,
 	   suite->number_of_passing_tests,
 	   suite->number_of_failed_tests);
-    printf("\n\n");
+    printf("\n\n\n\n");
 }
 
 
@@ -107,6 +113,7 @@ Formatter *make_void_formatter() {
     formatter->fail = report_failing_test_with_void;
     formatter->success = report_successful_test_with_void;
     formatter->summary = report_summary_for_void;
+    formatter->report_start = report_start_for_void;
     return formatter;
 }
 
@@ -116,21 +123,15 @@ Formatter *make_dot_formatter() {
     formatter->fail = report_failing_test_with_dot;
     formatter->success = report_successful_test_with_dot;
     formatter->summary = report_summary_for_dots;
+    formatter->report_start = report_start_for_dots;
     return formatter;
 }
 
 
 void add_test(Suite *suite, void (*test_function)(Test *test)) {
-    for (int i = 0; i < 100; i++) {
-        Test test;
-	test.is_active = false;
-	suite->tests[i] = test;
-    }
-
     Test test;
     test.is_active = true;
     test.test_function = test_function;
-    test.fail = report_failing_test;
     test.suite = suite;
     
     suite->tests[suite->size] = test;
@@ -146,6 +147,8 @@ void set_formatter(Suite *suite, Formatter *formatter) {
 void run_suite(Suite *suite) {
     debug("before suite");
 
+    suite->formatter->report_start(suite);
+
     for (Test *test = suite->tests; test->is_active == true; test = test+1) {
 	debug("before test");
 	test->test_function(test);
@@ -157,9 +160,17 @@ void run_suite(Suite *suite) {
 }
 
 
-Suite *make_suite() {
-    Suite *suite = calloc(1,sizeof(Suite));
+Suite *make_suite(char *suite_name) {
+    Suite *suite = calloc(1, sizeof(Suite));
     suite->formatter = make_dot_formatter();
+    suite->name = suite_name;
+
+    for (int i = 0; i < MAX_SUITE_SIZE; i++) {
+        Test test;
+	test.is_active = false;
+	suite->tests[i] = test;
+    }
+
     return suite;
 }
 

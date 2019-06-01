@@ -14,7 +14,7 @@ extern void run_suite(Suite *suite);
 
 
 // Suites
-extern Suite *make_suite();
+extern Suite *make_suite(char *suite_name);
 extern void run(Suite *suite);
 extern int number_of_failed_tests(Suite *suite);
 extern int number_of_passing_tests(Suite *suite);
