@@ -31,11 +31,6 @@ struct FormatterData {
 };
 
 
-void debug(char *message) {
-//	printf("%s\n", message);
-};
-
-
 int number_of_failed_tests(Suite *suite) {
 	return suite->number_of_failed_tests;
 }
@@ -146,18 +141,13 @@ void set_formatter(Suite *suite, Formatter *formatter) {
 
 
 int run_suite(Suite *suite) {
-    debug("before suite");
-
     suite->formatter->report_start(suite);
 
     for (Test *test = suite->tests; test->is_active == true; test = test+1) {
-	debug("before test");
 	test->test_function(test);
-	debug("after test");
     }
 
     suite->formatter->summary(suite);
-    debug("after suite");
 
     return suite->number_of_failed_tests > 0;
 }
