@@ -16,5 +16,5 @@ int main(int args[]) {
     Suite * suite = make_suite("Readme suite");
     add_test(suite, some_passing_test);
     add_test(suite, some_failing_test);
-    run(suite);
+    cunit_start(suite);
 }

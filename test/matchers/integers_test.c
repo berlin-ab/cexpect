@@ -16,6 +16,6 @@ int main(int args[]) {
     Suite *suite = make_suite("Matchers suite");
     set_formatter(suite, make_dot_formatter());
     add_suite_integer(suite);
-    run(suite);
+    cunit_start(suite);
 }
 

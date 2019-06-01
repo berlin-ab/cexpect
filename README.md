@@ -20,7 +20,7 @@ int main(int args[]) {
     Suite *suite = make_suite();
     add_test(suite, some_failing_test);
     add_test(suite, some_passing_test);
-    run(suite);
+    cunit_start(suite);
 }
 ```
 
@@ -34,6 +34,11 @@ Summary:
 Ran 2 test(s).
 
 1 passed, 1 failed
+
+
+
+Makefile:48: recipe for target 'readme_test' failed
+make: *** [readme_test] Error 1```
 ```
 
 ## Testing

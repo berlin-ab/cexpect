@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+
 #include "cunit.h"
 
 #define MAX_SUITE_SIZE 100
@@ -144,7 +145,7 @@ void set_formatter(Suite *suite, Formatter *formatter) {
 }
 
 
-void run_suite(Suite *suite) {
+int run_suite(Suite *suite) {
     debug("before suite");
 
     suite->formatter->report_start(suite);
@@ -157,6 +158,8 @@ void run_suite(Suite *suite) {
 
     suite->formatter->summary(suite);
     debug("after suite");
+
+    return suite->number_of_failed_tests > 0;
 }
 
 
@@ -175,8 +178,7 @@ Suite *make_suite(char *suite_name) {
 }
 
 
-void run(Suite *suite) {
-    debug("start");
-    run_suite(suite);
-    debug("end");
+void cunit_start(Suite *suite) {
+    exit(run_suite(suite));
 }
+
