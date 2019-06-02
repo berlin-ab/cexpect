@@ -7,7 +7,9 @@ clean:
 
 
 build_cunit: clean
-	gcc -Wno-pointer-to-int-cast \
+	gcc -g \
+		--coverage \
+		-Wno-pointer-to-int-cast \
 		-shared cunit/cunit.c \
 		-fPIC \
 		-I . \
@@ -15,7 +17,9 @@ build_cunit: clean
 
 
 build_cunit_matchers: clean
-	gcc -Wno-pointer-to-int-cast \
+	gcc -g \
+		--coverage \
+		-Wno-pointer-to-int-cast \
 		-shared cunit/cunit_cmatchers.c \
 		-fPIC \
 		-I . \
@@ -23,24 +27,32 @@ build_cunit_matchers: clean
 
 
 build_cunit_test:
-	gcc -g test/cunit/cunit_test.c \
+	gcc -g \
+		--coverage \
+		test/cunit/cunit_test.c \
 		-I . \
 		build/cunit.so \
 		-o build/cunit_test.o
 
 
 build_integers_test:
-	gcc -Wno-int-conversion -g test/matchers/integers_test.c \
+	gcc --coverage \
+		-Wno-int-conversion \
+		-g \
+		test/matchers/integers_test.c \
 		-I . \
 		build/cunit.so build/cunit_cmatchers.so \
 		-o build/integers_test.o
 
 
 build_booleans_test:
-	gcc -Wno-int-conversion -g test/matchers/booleans_test.c \
-	-I . \
-	build/cunit.so build/cunit_cmatchers.so \
-	-o build/booleans_test.o
+	gcc --coverage \
+		-Wno-int-conversion \
+		-g \
+		test/matchers/booleans_test.c \
+		-I . \
+		build/cunit.so build/cunit_cmatchers.so \
+		-o build/booleans_test.o
 
 
 test_cunit: clean build_cunit build_cunit_matchers build_cunit_test
