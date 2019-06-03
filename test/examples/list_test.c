@@ -45,16 +45,16 @@ void add_to_list(List *list, void *value) {
 
 int list_size(List *list) {
 	int size = 1;
-	
+
 	if (list->first == NULL) 
 		return 0;
-	
+
 	ListItem *list_item;
-	
+
 	for(list_item = list->first; list_item->next != NULL; list_item = list_item->next) {
 		size++;
 	}
-	
+
 	return size;
 }
 
@@ -131,12 +131,12 @@ void a_list_is_no_longer_empty_after_adding_to_list(Test *test) {
 	char *something = "a";
 	
 	add_to_list(list, something);
-	add_to_list(list, "b");
 	int *expected_size = calloc(1, sizeof(int));
 	*expected_size = 1;
 	
 	expect(test, list, list_has_size(expected_size));
 }
+
 
 void a_list_starts_with_size_zero(Test *test) {
 	List *list = make_list();
@@ -153,5 +153,5 @@ int main(int argc, char *args[]) {
   add_test(suite, a_list_starts_as_empty);
   add_test(suite, a_list_starts_with_size_zero);
   add_test(suite, a_list_is_no_longer_empty_after_adding_to_list);
-  cexpect_start(suite);
+  start_cexpect(suite);
 }

@@ -194,7 +194,7 @@ Suite *make_suite(char *suite_name) {
 }
 
 
-void cexpect_start(Suite *suite) {
+void start_cexpect(Suite *suite) {
     exit(run_suite(suite));
 }
 

@@ -25,4 +25,4 @@ extern void expect_equal(Test *test, int expected_value, int actual_value);
 
 
 // Runner
-extern void cexpect_start(Suite *suite);
+extern void start_cexpect(Suite *suite);

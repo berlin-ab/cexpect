@@ -16,7 +16,7 @@ int main(int argc, char *args[]) {
     Suite *suite = make_suite("Matchers suite");
     set_formatter(suite, make_dot_formatter());
     add_suite_integer(suite);
-    cexpect_start(suite);
+    start_cexpect(suite);
 }
 
 

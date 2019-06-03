@@ -80,5 +80,5 @@ int main(int argc, char *args[]) {
     add_test(suite, a_failing_suite_should_return_non_zero_status_code);
     add_test(suite, a_passing_suite_should_return_zero_status_code);
 
-    cexpect_start(suite);
+    start_cexpect(suite);
 }

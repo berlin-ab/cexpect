@@ -21,7 +21,7 @@ int main(int argc, char *args[]) {
     Suite * suite = make_suite("Readme suite");
     add_test(suite, some_passing_test);
     add_test(suite, some_failing_test);
-    cexpect_start(suite);
+    start_cexpect(suite);
 }
 
 

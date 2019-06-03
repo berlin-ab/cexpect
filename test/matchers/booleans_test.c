@@ -69,5 +69,5 @@ int main(int argc, char *args[]) {
     add_test(suite, is_false_should_fail_when_given_a_true_statement);
     add_test(suite, is_true_should_pass_when_given_a_true_statement);
     add_test(suite, is_true_should_fail_when_given_a_false_statement);
-    cexpect_start(suite);
+    start_cexpect(suite);
 }
