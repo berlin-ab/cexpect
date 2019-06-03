@@ -71,7 +71,7 @@ void a_suite_should_contain_passes_and_failures(Test *test) {
 }
 
 
-int main(int args[]) {
+int main(int argc, char *args[]) {
     Suite *suite = make_suite("cexpect suite");
     set_formatter(suite, make_dot_formatter());
     add_test(suite, a_suite_should_fail);

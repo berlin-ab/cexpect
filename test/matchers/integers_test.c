@@ -12,7 +12,7 @@ void add_suite_integer(Suite *suite) {
 }
 
 
-int main(int args[]) {
+int main(int argc, char *args[]) {
     Suite *suite = make_suite("Matchers suite");
     set_formatter(suite, make_dot_formatter());
     add_suite_integer(suite);
