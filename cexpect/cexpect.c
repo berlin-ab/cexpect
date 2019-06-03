@@ -9,38 +9,38 @@
 
 
 struct TestData {
-    bool is_active;
-    void (*test_function)(Test *test);
-    Suite *suite;
-    int line_number;
-    char *file_name;
+	bool is_active;
+	void (*test_function)(Test *test);
+	Suite *suite;
+	int line_number;
+	char *file_name;
 };
 
 
 struct FailedTestData {
-    char *expected_value;
-    char *actual_value;
-    int line_number;
-    char *file_name;
+	char *expected_value;
+	char *actual_value;
+	int line_number;
+	char *file_name;
 };
 
 
 struct SuiteData {
-    char *name;
-    Test tests[MAX_SUITE_SIZE];
-    FailedTest failed_tests[MAX_SUITE_SIZE];
-    int size;
-    int number_of_failed_tests;
-    int number_of_passing_tests;
-    Formatter *formatter;
+	char *name;
+	Test tests[MAX_SUITE_SIZE];
+	FailedTest failed_tests[MAX_SUITE_SIZE];
+	int size;
+	int number_of_failed_tests;
+	int number_of_passing_tests;
+	Formatter *formatter;
 };
 
 
 struct FormatterData {
-    void (*fail)(Test *test);
-    void (*success)(Test *test);
-    void (*summary)(Suite *suite);
-    void (*report_start)(Suite *suite);
+	void (*fail)(Test *test);
+	void (*success)(Test *test);
+	void (*summary)(Suite *suite);
+	void (*report_start)(Suite *suite);
 };
 
 
@@ -132,15 +132,15 @@ void pass_test(Test *test) {
 
 
 void fail_test(Test *test, char *expected_value, char *actual_value) {
-    FailedTest failed_test;
-    failed_test.expected_value = expected_value;
-    failed_test.actual_value = actual_value;
-    failed_test.line_number = test->line_number;
-    failed_test.file_name = test->file_name;
+	FailedTest failed_test;
+	failed_test.expected_value = expected_value;
+	failed_test.actual_value = actual_value;
+	failed_test.line_number = test->line_number;
+	failed_test.file_name = test->file_name;
 
-    test->suite->failed_tests[test->suite->number_of_failed_tests] = failed_test;
-    test->suite->number_of_failed_tests++;
-    test->suite->formatter->fail(test);
+	test->suite->failed_tests[test->suite->number_of_failed_tests] = failed_test;
+	test->suite->number_of_failed_tests++;
+	test->suite->formatter->fail(test);
 }
 
 
@@ -148,9 +148,9 @@ void fail_test(Test *test, char *expected_value, char *actual_value) {
  * Assertions
  */
 void expect_equal(Test *test, int expected_value, int actual_value) {
-    if (expected_value == actual_value) {
+	if (expected_value == actual_value) {
 		pass_test(test);
-    } else {
+	} else {
 		char *expected_value_string = calloc(100, sizeof(char));
 		char *actual_value_string = calloc(100, sizeof(char));
 
@@ -181,7 +181,7 @@ Formatter *make_formatter(
 
 
 void set_formatter(Suite *suite, Formatter *formatter) {
-    suite->formatter = formatter;
+	suite->formatter = formatter;
 }
 
 
@@ -189,19 +189,19 @@ void set_formatter(Suite *suite, Formatter *formatter) {
  * Runner
  */
 int run_suite(Suite *suite) {
-    suite->formatter->report_start(suite);
+	suite->formatter->report_start(suite);
 
-    for (Test *test = suite->tests; test->is_active == true; test = test+1) {
-	test->test_function(test);
-    }
+	for (Test *test = suite->tests; test->is_active == true; test = test+1) {
+		test->test_function(test);
+	}
 
-    suite->formatter->summary(suite);
+	suite->formatter->summary(suite);
 
-    return suite->number_of_failed_tests > 0;
+	return suite->number_of_failed_tests > 0;
 }
 
 
 void start_cexpect(Suite *suite) {
-    exit(run_suite(suite));
+	exit(run_suite(suite));
 }
 
