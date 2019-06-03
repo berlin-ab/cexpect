@@ -3,7 +3,8 @@ typedef struct SuiteData Suite;
 typedef struct TestData Test;
 
 // Tests
-extern void add_test(Suite *suite, void (*test_function)(Test *test));
+#define add_test(suite, test_function) add_test_to_suite(suite, test_function, __LINE__, __FILE__)
+extern void add_test_to_suite(Suite *suite, void (*test_function)(Test *test), int line_number, char *file_name);
 extern void pass_test(Test *test);
 extern void fail_test(Test *test, char *expected_value, char *actual_value);
 

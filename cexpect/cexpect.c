@@ -11,12 +11,16 @@ struct TestData {
     bool is_active;
     void (*test_function)(Test *test);
     Suite *suite;
+    int line_number;
+    char *file_name;
 };
 
 
 typedef struct FailedTestData {
     char *expected_value;
     char *actual_value;
+    int line_number;
+    char *file_name;
 } FailedTest;
 
 
@@ -58,6 +62,8 @@ void fail_test(Test *test, char *expected_value, char *actual_value) {
     FailedTest failed_test;
     failed_test.expected_value = expected_value;
     failed_test.actual_value = actual_value;
+    failed_test.line_number = test->line_number;
+    failed_test.file_name = test->file_name;
 
     test->suite->failed_tests[test->suite->number_of_failed_tests] = failed_test;
     test->suite->number_of_failed_tests++;
@@ -122,9 +128,11 @@ void report_summary_for_dots(Suite *suite) {
     printf("\n\n");
     for(int i = 0; i < suite->number_of_failed_tests; i++) {
         FailedTest failed_test = suite->failed_tests[i];
-        printf("expected %s, got %s\n",
+        printf("expected %s, got %s -- %s:%d\n",
 	       failed_test.expected_value,
-	       failed_test.actual_value);
+	       failed_test.actual_value,
+	       failed_test.file_name,
+	       failed_test.line_number);
     }
     printf("\n\n\n\n");
 }
@@ -150,10 +158,12 @@ Formatter *make_dot_formatter() {
 }
 
 
-void add_test(Suite *suite, void (*test_function)(Test *test)) {
+void add_test_to_suite(Suite *suite, void (*test_function)(Test *test), int line_number, char *file_name) {
     Test test;
     test.is_active = true;
     test.test_function = test_function;
+    test.line_number = line_number;
+    test.file_name = file_name;
     test.suite = suite;
     
     suite->tests[suite->size] = test;
