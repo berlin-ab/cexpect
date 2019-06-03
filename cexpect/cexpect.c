@@ -160,33 +160,6 @@ void expect_equal(Test *test, int expected_value, int actual_value) {
 }
 
 
-/* 
- * Void formatter 
- */
-void report_failing_test_with_void(Test *test) {
-}
-
-
-void report_successful_test_with_void(Test *test) {
-}
-
-
-void report_summary_for_void(Suite *suite) {
-}
-
-
-void report_start_for_void(Suite *suite) {
-}
-
-
-Formatter *make_void_formatter() {
-	return make_formatter(
-		report_failing_test_with_void,
-		report_successful_test_with_void,
-		report_summary_for_void,
-		report_start_for_void);
-}
-
 /*
  * Formatter extension point
  */
