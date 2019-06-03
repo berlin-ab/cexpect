@@ -2,6 +2,7 @@
 
 #include "cexpect.h"
 #include "cexpect_cmatchers.h"
+#include "cexpect_void_formatter.h"
 
 
 void is_false_with_false_statement(Test *test) {

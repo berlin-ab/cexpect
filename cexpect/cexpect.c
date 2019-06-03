@@ -3,6 +3,7 @@
 #include <stdbool.h>
 
 #include "cexpect.h"
+#include "cexpect_dot_formatter.h"
 
 #define MAX_SUITE_SIZE 100
 

@@ -19,6 +19,7 @@ extern int number_of_passing_tests(Suite *suite);
 extern char *get_suite_name(Suite *suite);
 extern void set_formatter(Suite *suite, Formatter *formatter);
 
+
 // Failed tests
 extern FailedTest *get_failed_test(Suite *suite, int test_number);
 extern char *get_failing_test_expected_value(FailedTest *failed_test);
@@ -27,10 +28,7 @@ extern int get_failing_test_line_number(FailedTest *failed_test);
 extern char *get_failing_test_file_name(FailedTest *failed_test);
 
 
-
 // Formatters
-extern Formatter *make_void_formatter();
-extern Formatter *make_dot_formatter();
 Formatter *make_formatter(
 	void (*fail)(Test *test),
 	void (*success)(Test *test),

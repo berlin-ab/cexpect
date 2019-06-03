@@ -1,5 +1,6 @@
 #include "cexpect.h"
 #include "cexpect_cmatchers.h"
+#include "cexpect_dot_formatter.h"
 
 
 void it_should_pass(Test *test) {
