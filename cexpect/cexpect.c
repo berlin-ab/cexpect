@@ -43,6 +43,41 @@ struct FormatterData {
 };
 
 
+char *get_suite_name(Suite *suite) {
+	return suite->name;
+}
+
+
+FailedTest *get_failed_test(Suite *suite, int test_number) {
+	return &suite->failed_tests[test_number];
+}
+
+
+char *get_failing_test_expected_value(FailedTest *failed_test) {
+	return failed_test->expected_value;
+}
+
+
+char *get_failing_test_actual_value(FailedTest *failed_test) {
+	return failed_test->actual_value;
+}
+
+
+int get_failing_test_line_number(FailedTest *failed_test) {
+	return failed_test->line_number;
+}
+
+
+char *get_failing_test_file_name(FailedTest *failed_test) {
+	return failed_test->file_name;
+}
+
+
+int number_of_tests(Suite *suite) {
+	return suite->size;
+}
+
+
 int number_of_failed_tests(Suite *suite) {
 	return suite->number_of_failed_tests;
 }
@@ -73,15 +108,15 @@ void fail_test(Test *test, char *expected_value, char *actual_value) {
 
 void expect_equal(Test *test, int expected_value, int actual_value) {
     if (expected_value == actual_value) {
-	pass_test(test);
+		pass_test(test);
     } else {
-        char *expected_value_string = calloc(100, sizeof(char));
-        char *actual_value_string = calloc(100, sizeof(char));
+		char *expected_value_string = calloc(100, sizeof(char));
+		char *actual_value_string = calloc(100, sizeof(char));
 
-	sprintf(expected_value_string, "%d", expected_value);
-	sprintf(actual_value_string, "%d", actual_value);
+		sprintf(expected_value_string, "%d", expected_value);
+		sprintf(actual_value_string, "%d", actual_value);
 
-	fail_test(test, expected_value_string, actual_value_string);
+		fail_test(test, expected_value_string, actual_value_string);
     }
 }
 
@@ -102,42 +137,6 @@ void report_start_for_void(Suite *suite) {
 }
 
 
-void report_failing_test_with_dot(Test *test) {
-    printf("F");
-}
-
-
-void report_successful_test_with_dot(Test *test) {
-    printf(".");
-}
-
-
-void report_start_for_dots(Suite *suite) {
-    printf("Running suite: %s\n", suite->name);
-}
-
-
-void report_summary_for_dots(Suite *suite) {
-    printf("\n");
-    printf("\n");
-    printf("Summary:\n");
-    printf("\nRan %d test(s).\n\n%d passed, %d failed",
-	   suite->size,
-	   suite->number_of_passing_tests,
-	   suite->number_of_failed_tests);
-    printf("\n\n");
-    for(int i = 0; i < suite->number_of_failed_tests; i++) {
-        FailedTest failed_test = suite->failed_tests[i];
-        printf("expected %s, got %s -- %s:%d\n",
-	       failed_test.expected_value,
-	       failed_test.actual_value,
-	       failed_test.file_name,
-	       failed_test.line_number);
-    }
-    printf("\n\n\n\n");
-}
-
-
 Formatter *make_void_formatter() {
     Formatter *formatter = calloc(1, sizeof(Formatter));
     formatter->fail = report_failing_test_with_void;
@@ -148,13 +147,18 @@ Formatter *make_void_formatter() {
 }
 
 
-Formatter *make_dot_formatter() {
-    Formatter *formatter = calloc(1, sizeof(Formatter));
-    formatter->fail = report_failing_test_with_dot;
-    formatter->success = report_successful_test_with_dot;
-    formatter->summary = report_summary_for_dots;
-    formatter->report_start = report_start_for_dots;
-    return formatter;
+Formatter *make_formatter(
+	void (*fail)(Test *test),
+	void (*success)(Test *test),
+	void (*summary)(Suite *suite),
+	void (*start)(Suite *suite)
+	) {
+	Formatter *formatter = calloc(1, sizeof(Formatter));
+	formatter->fail = fail;
+	formatter->success = success;
+	formatter->summary = summary;
+	formatter->report_start = start;
+	return formatter;
 }
 
 

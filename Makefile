@@ -7,7 +7,7 @@ clean:
 
 
 build_cexpect: clean
-	gcc -g -Wno-pointer-to-int-cast -shared cexpect/cexpect.c -fPIC -I cexpect -o build/cexpect.so
+	gcc -g -Wno-pointer-to-int-cast -shared cexpect/cexpect.c cexpect/dot_formatter.c -fPIC -I cexpect -o build/cexpect.so
 
 
 build_cexpect_matchers: clean
