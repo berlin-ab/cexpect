@@ -16,12 +16,12 @@ struct TestData {
 };
 
 
-typedef struct FailedTestData {
+struct FailedTestData {
     char *expected_value;
     char *actual_value;
     int line_number;
     char *file_name;
-} FailedTest;
+};
 
 
 struct SuiteData {
@@ -41,6 +41,7 @@ struct FormatterData {
     void (*summary)(Suite *suite);
     void (*report_start)(Suite *suite);
 };
+
 
 /*
  * Suite
