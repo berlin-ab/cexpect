@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+
 struct MatchResult {
     bool is_match;
     char *expected_message;
@@ -93,3 +94,7 @@ Matcher *is_int_equal_to(void *expected_value) {
     return matcher;
 }
 
+Matcher *make_inspection_matcher(struct MatcherResult (*inspection_function)(Matcher *matcher, void *actual_value)) {
+    Matcher *matcher = calloc(1, sizeof(Matcher));
+    return matcher;
+}

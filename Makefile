@@ -1,5 +1,7 @@
-.PHONY: test
+test_compile_flags = --coverage -Wno-int-conversion -g -I cexpect build/cexpect.so build/cexpect_cmatchers.so
 
+
+.PHONY: test
 
 clean:
 	rm -rf build/
@@ -36,38 +38,37 @@ build_cexpect_test:
 
 
 build_integers_test:
-	gcc --coverage \
-		-Wno-int-conversion \
-		-g \
-		test/matchers/integers_test.c \
-		-I cexpect \
-		build/cexpect.so build/cexpect_cmatchers.so \
-		-o build/integers_test.o
+	gcc test/matchers/integers_test.c $(test_compile_flags) -o build/integers_test.o
 
 
 build_booleans_test:
-	gcc --coverage \
-		-Wno-int-conversion \
-		-g \
-		test/matchers/booleans_test.c \
-		-I cexpect \
-		build/cexpect.so build/cexpect_cmatchers.so \
-		-o build/booleans_test.o
+	gcc test/matchers/booleans_test.c $(test_compile_flags) -o build/booleans_test.o
 
 
-test_cexpect: clean build_cexpect build_cexpect_matchers build_cexpect_test
+build_list_test:
+	gcc test/examples/list_test.c $(test_compile_flags) -o build/list_test.o
+
+
+build_libraries: clean build_cexpect build_cexpect_matchers
+
+
+test_cexpect: build_libraries build_cexpect_test
 	./build/cexpect_test.o
 
 
-test_integers: clean build_cexpect build_cexpect_matchers build_integers_test
+test_integers: build_libraries build_integers_test
 	./build/integers_test.o
 
 
-test_booleans: clean build_cexpect build_cexpect_matchers build_booleans_test
+test_booleans: build_libraries build_booleans_test
 	./build/booleans_test.o
 
 
-readme_test: clean build_cexpect build_cexpect_matchers
+test_list: build_libraries build_list_test
+	./build/list_test.o
+
+
+test_readme: clean build_cexpect build_cexpect_matchers
 	gcc -Wno-int-conversion -g test/examples/readme_test.c \
 		-I cexpect \
 		build/cexpect.so build/cexpect_cmatchers.so \
