@@ -28,7 +28,8 @@ build_booleans_test:
 
 build_list_test:
 	gcc -g test/examples/list.c -shared -fPIC -o build/list.so
-	gcc -Wno-int-conversion -g test/examples/list_test.c -I cexpect build/cexpect.so build/cexpect_cmatchers.so build/list.so -o build/list_test.o
+	gcc -g test/examples/custom_list_matchers.c -I cexpect -shared -fPIC build/cexpect_cmatchers.so build/list.so -o build/custom_list_matchers.so
+	gcc -Wno-int-conversion -g test/examples/list_test.c -I cexpect build/cexpect.so build/cexpect_cmatchers.so build/list.so build/custom_list_matchers.so -o build/list_test.o
 
 
 test_cexpect: clean build_cexpect build_cexpect_matchers build_cexpect_test
