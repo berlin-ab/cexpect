@@ -24,6 +24,10 @@ build_integers_test: clean build_cexpect build_cexpect_matchers
 
 build_booleans_test:
 	gcc --coverage -Wno-int-conversion -g test/matchers/booleans_test.c -I cexpect build/cexpect.so build/cexpect_cmatchers.so -o build/booleans_test.o
+	
+
+build_list_test:
+	gcc --coverage -Wno-int-conversion -g test/examples/list_test.c -I cexpect build/cexpect.so build/cexpect_cmatchers.so -o build/list_test.o
 
 
 test_cexpect: clean build_cexpect build_cexpect_matchers build_cexpect_test
@@ -38,10 +42,14 @@ test_booleans: clean build_cexpect build_cexpect_matchers build_booleans_test
 	./build/booleans_test.o
 
 
+test_list: clean build_cexpect build_cexpect_matchers build_list_test
+	./build/list_test.o
+	
+
 readme_test: clean build_cexpect build_cexpect_matchers
 	gcc -Wno-int-conversion -g test/examples/readme_test.c -I cexpect build/cexpect.so build/cexpect_cmatchers.so -o build/readme_test.o
 	./build/readme_test.o
 
 
-test: test_cexpect test_integers test_booleans
+test: test_cexpect test_integers test_booleans test_list
 
