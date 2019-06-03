@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "cunit.h"
+#include "cexpect.h"
 
 #define MAX_SUITE_SIZE 100
 
@@ -169,7 +169,7 @@ Suite *make_suite(char *suite_name) {
 }
 
 
-void cunit_start(Suite *suite) {
+void cexpect_start(Suite *suite) {
     exit(run_suite(suite));
 }
 

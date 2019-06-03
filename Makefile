@@ -6,33 +6,33 @@ clean:
 	mkdir -p build/
 
 
-build_cunit: clean
+build_cexpect: clean
 	gcc -g \
 		--coverage \
 		-Wno-pointer-to-int-cast \
-		-shared cunit/cunit.c \
+		-shared cexpect/cexpect.c \
 		-fPIC \
-		-I . \
-		-o build/cunit.so
+		-I cexpect \
+		-o build/cexpect.so
 
 
-build_cunit_matchers: clean
+build_cexpect_matchers: clean
 	gcc -g \
 		--coverage \
 		-Wno-pointer-to-int-cast \
-		-shared cunit/cunit_cmatchers.c \
+		-shared cexpect/cexpect_cmatchers.c \
 		-fPIC \
-		-I . \
-		-o build/cunit_cmatchers.so
+		-I cexpect \
+		-o build/cexpect_cmatchers.so
 
 
-build_cunit_test:
+build_cexpect_test:
 	gcc -g \
 		--coverage \
-		test/cunit/cunit_test.c \
-		-I . \
-		build/cunit.so \
-		-o build/cunit_test.o
+		test/cexpect/cexpect_test.c \
+		-I cexpect \
+		build/cexpect.so \
+		-o build/cexpect_test.o
 
 
 build_integers_test:
@@ -40,8 +40,8 @@ build_integers_test:
 		-Wno-int-conversion \
 		-g \
 		test/matchers/integers_test.c \
-		-I . \
-		build/cunit.so build/cunit_cmatchers.so \
+		-I cexpect \
+		build/cexpect.so build/cexpect_cmatchers.so \
 		-o build/integers_test.o
 
 
@@ -50,31 +50,30 @@ build_booleans_test:
 		-Wno-int-conversion \
 		-g \
 		test/matchers/booleans_test.c \
-		-I . \
-		build/cunit.so build/cunit_cmatchers.so \
+		-I cexpect \
+		build/cexpect.so build/cexpect_cmatchers.so \
 		-o build/booleans_test.o
 
 
-test_cunit: clean build_cunit build_cunit_matchers build_cunit_test
-	./build/cunit_test.o
+test_cexpect: clean build_cexpect build_cexpect_matchers build_cexpect_test
+	./build/cexpect_test.o
 
 
-test_integers: clean build_cunit build_cunit_matchers build_integers_test
+test_integers: clean build_cexpect build_cexpect_matchers build_integers_test
 	./build/integers_test.o
 
 
-test_booleans: clean build_cunit build_cunit_matchers build_booleans_test
+test_booleans: clean build_cexpect build_cexpect_matchers build_booleans_test
 	./build/booleans_test.o
 
 
-readme_test: clean build_cunit build_cunit_matchers
+readme_test: clean build_cexpect build_cexpect_matchers
 	gcc -Wno-int-conversion -g test/examples/readme_test.c \
-		-I . \
-		build/cunit.so build/cunit_cmatchers.so \
+		-I cexpect \
+		build/cexpect.so build/cexpect_cmatchers.so \
 		-o build/readme_test.o
 	./build/readme_test.o
 
 
-test: test_cunit test_integers test_booleans
-
+test: test_cexpect test_integers test_booleans
 

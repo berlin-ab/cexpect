@@ -1,12 +1,12 @@
-# cUnit
+# cexpect
 
 A testing framework for C inspired by hamcrest
 
 ## Usage
 
 ```
-#include "cunit.h"
-#include "cunit_cmatchers.h"
+#include "cexpect.h"
+#include "cexpect_cmatchers.h"
 
 
 void some_failing_test(Test *test) {
@@ -23,7 +23,7 @@ int main(int args[]) {
     Suite *suite = make_suite();
     add_test(suite, some_failing_test);
     add_test(suite, some_passing_test);
-    cunit_start(suite);
+    cexpect_start(suite);
 }
 ```
 

@@ -1,5 +1,5 @@
-#include "cunit.h"
-#include "cunit_cmatchers.h"
+#include "cexpect.h"
+#include "cexpect_cmatchers.h"
 
 
 void some_failing_test(Test *test) {
@@ -16,5 +16,14 @@ int main(int args[]) {
     Suite * suite = make_suite("Readme suite");
     add_test(suite, some_passing_test);
     add_test(suite, some_failing_test);
-    cunit_start(suite);
+    cexpect_start(suite);
 }
+
+
+
+
+
+
+
+
+

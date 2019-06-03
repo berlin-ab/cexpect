@@ -1,4 +1,4 @@
-#include "cunit.h"
+#include "cexpect.h"
 
 
 void some_failing_test(Test *test) {
@@ -72,7 +72,7 @@ void a_suite_should_contain_passes_and_failures(Test *test) {
 
 
 int main(int args[]) {
-    Suite *suite = make_suite("CUnit suite");
+    Suite *suite = make_suite("cexpect suite");
     set_formatter(suite, make_dot_formatter());
     add_test(suite, a_suite_should_fail);
     add_test(suite, a_suite_should_report_successful_tests);
@@ -80,5 +80,5 @@ int main(int args[]) {
     add_test(suite, a_failing_suite_should_return_non_zero_status_code);
     add_test(suite, a_passing_suite_should_return_zero_status_code);
 
-    cunit_start(suite);
+    cexpect_start(suite);
 }

@@ -1,7 +1,7 @@
 #include <stdio.h>
 
-#include "cunit.h"
-#include "cunit_cmatchers.h"
+#include "cexpect.h"
+#include "cexpect_cmatchers.h"
 
 
 void is_false_with_false_statement(Test *test) {
@@ -69,5 +69,5 @@ int main(int args[]) {
     add_test(suite, is_false_should_fail_when_given_a_true_statement);
     add_test(suite, is_true_should_pass_when_given_a_true_statement);
     add_test(suite, is_true_should_fail_when_given_a_false_statement);
-    cunit_start(suite);
+    cexpect_start(suite);
 }
