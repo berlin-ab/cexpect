@@ -62,6 +62,11 @@ Suite *make_suite(char *suite_name) {
 }
 
 
+void set_formatter(Suite *suite, Formatter *formatter) {
+	suite->formatter = formatter;
+}
+
+
 char *get_suite_name(Suite *suite) {
 	return suite->name;
 }
@@ -177,11 +182,6 @@ Formatter *make_formatter(
 	formatter->summary = summary;
 	formatter->report_start = start;
 	return formatter;
-}
-
-
-void set_formatter(Suite *suite, Formatter *formatter) {
-	suite->formatter = formatter;
 }
 
 
