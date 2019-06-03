@@ -7,28 +7,28 @@ clean:
 
 
 build_cexpect: clean
-	gcc -g --coverage -Wno-pointer-to-int-cast -shared cexpect/cexpect.c -fPIC -I cexpect -o build/cexpect.so
+	gcc -g -Wno-pointer-to-int-cast -shared cexpect/cexpect.c -fPIC -I cexpect -o build/cexpect.so
 
 
 build_cexpect_matchers: clean
-	gcc -g --coverage -Wno-pointer-to-int-cast -shared cexpect/cexpect_cmatchers.c -fPIC -I cexpect build/cexpect.so -o build/cexpect_cmatchers.so
+	gcc -g -Wno-pointer-to-int-cast -shared cexpect/cexpect_cmatchers.c -fPIC -I cexpect build/cexpect.so -o build/cexpect_cmatchers.so
 
 
 build_cexpect_test:
-	gcc -g --coverage test/cexpect/cexpect_test.c -I cexpect build/cexpect.so -o build/cexpect_test.o
+	gcc -g test/cexpect/cexpect_test.c -I cexpect build/cexpect.so -o build/cexpect_test.o
 
 
 build_integers_test: clean build_cexpect build_cexpect_matchers
-	gcc --coverage -Wno-int-conversion -g test/matchers/integers_test.c -I cexpect build/cexpect.so build/cexpect_cmatchers.so -o build/integers_test.o
+	gcc -Wno-int-conversion -g test/matchers/integers_test.c -I cexpect build/cexpect.so build/cexpect_cmatchers.so -o build/integers_test.o
 
 
 build_booleans_test:
-	gcc --coverage -Wno-int-conversion -g test/matchers/booleans_test.c -I cexpect build/cexpect.so build/cexpect_cmatchers.so -o build/booleans_test.o
+	gcc -Wno-int-conversion -g test/matchers/booleans_test.c -I cexpect build/cexpect.so build/cexpect_cmatchers.so -o build/booleans_test.o
 	
 
 build_list_test:
-	gcc --coverage -g test/examples/list.c -shared -fPIC -o build/list.so
-	gcc --coverage -Wno-int-conversion -g test/examples/list_test.c -I cexpect build/cexpect.so build/cexpect_cmatchers.so build/list.so -o build/list_test.o
+	gcc -g test/examples/list.c -shared -fPIC -o build/list.so
+	gcc -Wno-int-conversion -g test/examples/list_test.c -I cexpect build/cexpect.so build/cexpect_cmatchers.so build/list.so -o build/list_test.o
 
 
 test_cexpect: clean build_cexpect build_cexpect_matchers build_cexpect_test
