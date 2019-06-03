@@ -5,7 +5,7 @@ typedef struct TestData Test;
 // Tests
 extern void add_test(Suite *suite, void (*test_function)(Test *test));
 extern void pass_test(Test *test);
-extern void fail_test(Test *test);
+extern void fail_test(Test *test, char *expected_value, char *actual_value);
 
 // Suites
 extern int run_suite(Suite *suite);

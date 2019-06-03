@@ -14,9 +14,16 @@ struct TestData {
 };
 
 
+typedef struct FailedTestData {
+    char *expected_value;
+    char *actual_value;
+} FailedTest;
+
+
 struct SuiteData {
     char *name;
     Test tests[MAX_SUITE_SIZE];
+    FailedTest failed_tests[MAX_SUITE_SIZE];
     int size;
     int number_of_failed_tests;
     int number_of_passing_tests;
@@ -47,9 +54,14 @@ void pass_test(Test *test) {
 }
 
 
-void fail_test(Test *test) {
-	test->suite->number_of_failed_tests++;
-	test->suite->formatter->fail(test);
+void fail_test(Test *test, char *expected_value, char *actual_value) {
+    FailedTest failed_test;
+    failed_test.expected_value = expected_value;
+    failed_test.actual_value = actual_value;
+
+    test->suite->failed_tests[test->suite->number_of_failed_tests] = failed_test;
+    test->suite->number_of_failed_tests++;
+    test->suite->formatter->fail(test);
 }
 
 
@@ -57,7 +69,13 @@ void expect_equal(Test *test, int expected_value, int actual_value) {
     if (expected_value == actual_value) {
 	pass_test(test);
     } else {
-	fail_test(test);
+        char *expected_value_string = calloc(100, sizeof(char));
+        char *actual_value_string = calloc(100, sizeof(char));
+
+	sprintf(expected_value_string, "%d", expected_value);
+	sprintf(actual_value_string, "%d", actual_value);
+
+	fail_test(test, expected_value_string, actual_value_string);
     }
 }
 
@@ -101,6 +119,13 @@ void report_summary_for_dots(Suite *suite) {
 	   suite->size,
 	   suite->number_of_passing_tests,
 	   suite->number_of_failed_tests);
+    printf("\n\n");
+    for(int i = 0; i < suite->number_of_failed_tests; i++) {
+        FailedTest failed_test = suite->failed_tests[i];
+        printf("expected %s, got %s\n",
+	       failed_test.expected_value,
+	       failed_test.actual_value);
+    }
     printf("\n\n\n\n");
 }
 

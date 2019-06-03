@@ -9,6 +9,11 @@ void some_failing_test(Test *test) {
 
 void some_passing_test(Test *test) {
      expect(test, 1, is_int_equal_to(1));
+
+     bool actual_value = true;
+     expect(test, &actual_value, is_false());
+
+     expect_equal(test, 100, 2);
 }
 
 

@@ -1,33 +1,67 @@
 #include "cexpect_cmatchers.h"
 #include <stdlib.h>
+#include <stdio.h>
 
+struct MatchResult {
+    bool is_match;
+    char *expected_message;
+    char *actual_message;
+};
 
+  
 struct MatcherData {
-  bool (*match)(Matcher *matcher, void *actual_value);
-  void *expected_value;
+    struct MatchResult (*match)(Matcher *matcher, void *actual_value);
+    void *expected_value;
 };
 
 
-bool match_integers(Matcher *matcher, void *actual_value) {
-  return (int)matcher->expected_value == (int)actual_value;
+struct MatchResult match_integers(Matcher *matcher, void *actual_value) {
+    struct MatchResult result;
+    result.is_match = (int)matcher->expected_value == (int)actual_value;
+
+    if (result.is_match)
+        return result;
+
+    char *expected_message = calloc(100, sizeof(char));
+    char *actual_message = calloc(100, sizeof(char)); 
+    sprintf(expected_message, "%d", (int)matcher->expected_value);
+    sprintf(actual_message, "%d", (int)actual_value);
+    result.expected_message = expected_message;
+    result.actual_message = actual_message;
+
+    return result;
 }
 
 
-bool match_booleans(Matcher *matcher, void *actual_value) {
-  bool expected_value = *(bool*)matcher->expected_value;
-  bool actual = *(bool *)actual_value;
+struct MatchResult match_booleans(Matcher *matcher, void *actual_value) {
+    bool expected_value = *(bool*)matcher->expected_value;
+    bool actual = *(bool *)actual_value;
 
-  return expected_value == actual;
+    struct MatchResult result;
+    result.is_match = expected_value == actual;
+
+    if (result.is_match)
+        return result;
+    
+    char *expected_message = calloc(100, sizeof(char));
+    char *actual_message = calloc(100, sizeof(char));
+    sprintf(expected_message, "%s", (expected_value ? "true" : "false"));
+    sprintf(actual_message, "%s", (actual ? "true" : "false"));
+    result.expected_message = expected_message;
+    result.actual_message = actual_message;
+    return result;
 }
 
 
 void expect(Test *test, void *actual_value, Matcher *matcher) {
-    bool result = matcher->match(matcher, actual_value);
+    struct MatchResult result = matcher->match(matcher, actual_value);
 
-    if (result) {
+    if (result.is_match) {
 	pass_test(test);
     } else {
-	fail_test(test);
+        fail_test(test,
+		  result.expected_message,
+		  result.actual_message);
     }
 }
 
