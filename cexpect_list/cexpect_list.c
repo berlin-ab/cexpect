@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-#include "list.h"
+#include "cexpect_list.h"
 
 struct ListItemData {
 	ListItem *next;

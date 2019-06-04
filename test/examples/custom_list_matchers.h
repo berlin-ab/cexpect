@@ -5,7 +5,7 @@
 #ifndef CEXPECT_CUSTOM_LIST_MATCHERS_H
 #define CEXPECT_CUSTOM_LIST_MATCHERS_H
 
-#include "list.h"
+#include "cexpect_list.h"
 #include "cexpect_cmatchers.h"
 
 Matcher *list_is_empty();

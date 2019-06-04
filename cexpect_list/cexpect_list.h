@@ -1,7 +1,3 @@
-//
-// Created by Adam Berlin on 2019-06-03.
-//
-
 #ifndef CEXPECT_LIST_H
 #define CEXPECT_LIST_H
 
