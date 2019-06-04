@@ -21,7 +21,7 @@ coverage:
 	genhtml build/coverage.info --output-directory build/coverage
 	rm *.gcno
 	rm *.gcda
-
+	open build/coverage/index.html
 endif 
 
 default_compile_flags = -g $(coverage_flags) -Wno-int-conversion -Wno-pointer-to-int-cast -I $(include_dir) -L $(lib_dir) 
