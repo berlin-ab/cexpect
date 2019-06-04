@@ -8,7 +8,7 @@
 
 
 struct TestData {
-	void (*test_function)(Test *test);
+	test_function_type test_function;
 	Suite *suite;
 	int line_number;
 	char *file_name;
@@ -33,10 +33,10 @@ struct SuiteData {
 
 
 struct FormatterData {
-	void (*fail)(Test *test);
-	void (*success)(Test *test);
-	void (*summary)(Suite *suite);
-	void (*report_start)(Suite *suite);
+	format_failure fail;
+	format_success success;
+	format_summary summary;
+	format_start report_start;
 };
 
 
@@ -118,7 +118,7 @@ char *get_failing_test_file_name(FailedTest *failed_test) {
 /*
  * Tests
  */
-void add_test_to_suite(Suite *suite, void (*test_function)(Test *test), int line_number, char *file_name) {
+void add_test_to_suite(Suite *suite, test_function_type test_function, int line_number, char *file_name) {
 	Test *test = calloc(1, sizeof(Test));
 	test->test_function = test_function;
 	test->line_number = line_number;
@@ -169,10 +169,10 @@ void expect_equal(Test *test, int expected_value, int actual_value) {
  * Formatter extension point
  */
 Formatter *make_formatter(
-	void (*fail)(Test *test),
-	void (*success)(Test *test),
-	void (*summary)(Suite *suite),
-	void (*start)(Suite *suite)
+	format_failure fail,
+	format_success success,
+	format_summary summary,
+	format_start start
 	) {
 	Formatter *formatter = calloc(1, sizeof(Formatter));
 	formatter->fail = fail;

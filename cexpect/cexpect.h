@@ -9,7 +9,8 @@ typedef struct FailedTestData FailedTest;
 
 // Tests
 #define add_test(suite, test_function) add_test_to_suite(suite, test_function, __LINE__, __FILE__)
-extern void add_test_to_suite(Suite *suite, void (*test_function)(Test *test), int line_number, char *file_name);
+typedef void (*test_function_type)(Test *test);
+extern void add_test_to_suite(Suite *suite, test_function_type test_function, int line_number, char *file_name);
 extern void pass_test(Test *test);
 extern void fail_test(Test *test, char *expected_value, char *actual_value);
 
@@ -32,11 +33,16 @@ extern char *get_failing_test_file_name(FailedTest *failed_test);
 
 
 // Formatters
+typedef void (*format_failure)(Test *test);
+typedef void (*format_success)(Test *test);
+typedef void (*format_summary)(Suite *suite);
+typedef void (*format_start)(Suite *suite);
+
 Formatter *make_formatter(
-	void (*fail)(Test *test),
-	void (*success)(Test *test),
-	void (*summary)(Suite *suite),
-	void (*start)(Suite *suite));
+	format_failure failure,
+	format_success success,
+	format_summary summary,
+	format_start start);
 
 
 // Int matchers

@@ -28,7 +28,7 @@ void is_true_with_false_statement(Test *test) {
 }
 
 
-Suite *run_example_suite(void (*test_function)(Test *test)) {
+Suite *run_example_suite(test_function_type test_function) {
     Suite *suite = make_suite("suite");
     set_formatter(suite, make_void_formatter());
     add_test(suite, test_function);
