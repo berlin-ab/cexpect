@@ -84,5 +84,3 @@ extern MatchResult *match_succeeded(MatchResult *match_result);
 extern MatchResult *match_failed(MatchResult* match_result, char *expected_message, char *actual_message);
 extern void *get_expected_value(Matcher *matcher);
 
-
-

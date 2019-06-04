@@ -94,7 +94,7 @@ make: *** [readme_test] Error 1```
 * matchers for all standard C primative data types
 * colorized output
 * report only one passing test per test function.
-
+* separate user-facing headers from library-writer-facing headers
 
 ## Testing
 
