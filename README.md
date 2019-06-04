@@ -72,6 +72,7 @@ make: *** [readme_test] Error 1```
 * xUnit-like framework similar to hamcrest
 * Extensible matchers
 * Extensible formatting
+* No global state.
 * Self-tested. No additional frameworks.
 * No magic. 
 * Should be useable in isolated unit tests and also in integrated system tests.
