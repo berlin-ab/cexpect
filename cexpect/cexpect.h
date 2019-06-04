@@ -1,3 +1,6 @@
+#ifndef CEXPECT_H
+#define CEXPECT_H
+
 typedef struct FormatterData Formatter;
 typedef struct SuiteData Suite;
 typedef struct TestData Test;
@@ -42,3 +45,5 @@ extern void expect_equal(Test *test, int expected_value, int actual_value);
 
 // Runner
 extern void start_cexpect(Suite *suite);
+
+#endif //CEXPECT_H
