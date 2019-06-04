@@ -62,9 +62,9 @@ make: *** [readme_test] Error 1```
 * Extensible formatting
 * Code coverage reporting enabled.
 * Self-tested. No additional frameworks.
-* No magic. No #include of c files, or use of macros for assertions.
+* No magic. 
 * Should be useable in isolated unit tests and also in integrated system tests.
-* Report only one passing test per test function
+* Report only one passing test per test function.
 
 
 ## Planned improvements

@@ -4,14 +4,27 @@ ifndef VERBOSE
 .SILENT:
 endif
 
-
 output_dir = build/
 lib_dir = build/lib
 include_dir = build/include
 test_dir = build/test
+coverage_dir = build/coverage
 
+coverage_flags = ""
 
-default_compile_flags = -Wno-int-conversion -Wno-pointer-to-int-cast -g -I $(include_dir) -L $(lib_dir) 
+ifdef COVERAGE
+coverage_flags = --coverage
+
+coverage:
+	gcov *.gc*
+	lcov --capture --directory . --output-file build/coverage.info
+	genhtml build/coverage.info --output-directory build/coverage
+	rm *.gcno
+	rm *.gcda
+
+endif 
+
+default_compile_flags = -g $(coverage_flags) -Wno-int-conversion -Wno-pointer-to-int-cast -I $(include_dir) -L $(lib_dir) 
 shared_library_flags = -shared -fPIC
 
 
@@ -20,6 +33,7 @@ clean:
 	mkdir -p $(lib_dir)
 	mkdir -p $(include_dir)
 	mkdir -p $(test_dir)
+	mkdir -p build/coverage
 
 
 build_cexpect: clean build_list
