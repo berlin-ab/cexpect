@@ -1,7 +1,3 @@
-//
-// Created by Adam Berlin on 2019-06-03.
-//
-
 #ifndef CEXPECT_DOT_FORMATTER_H
 #define CEXPECT_DOT_FORMATTER_H
 
