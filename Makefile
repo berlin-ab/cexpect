@@ -22,9 +22,9 @@ clean:
 	mkdir -p $(test_dir)
 
 
-build_cexpect: clean
+build_cexpect: clean build_list
 	cp cexpect/*.h build/include/
-	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect/*.c -o $(lib_dir)/libcexpect.so
+	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect/*.c -l cexpect_list -o $(lib_dir)/libcexpect.so
 
 
 build_cexpect_matchers: clean

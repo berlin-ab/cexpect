@@ -2,8 +2,10 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
+#include "cexpect_list.h"
 #include "cexpect.h"
 #include "cexpect_dot_formatter.h"
+
 
 #define MAX_SUITE_SIZE 100
 
@@ -27,7 +29,7 @@ struct FailedTestData {
 
 struct SuiteData {
 	char *name;
-	Test tests[MAX_SUITE_SIZE];
+	List *tests;
 	FailedTest failed_tests[MAX_SUITE_SIZE];
 	int size;
 	int number_of_failed_tests;
@@ -51,12 +53,7 @@ Suite *make_suite(char *suite_name) {
 	Suite *suite = calloc(1, sizeof(Suite));
 	suite->formatter = make_dot_formatter();
 	suite->name = suite_name;
-
-	for (int i = 0; i < MAX_SUITE_SIZE; i++) {
-		Test test;
-		test.is_active = false;
-		suite->tests[i] = test;
-	}
+	suite->tests = make_list();
 
 	return suite;
 }
@@ -118,14 +115,15 @@ char *get_failing_test_file_name(FailedTest *failed_test) {
  * Tests
  */
 void add_test_to_suite(Suite *suite, void (*test_function)(Test *test), int line_number, char *file_name) {
-	Test test;
-	test.is_active = true;
-	test.test_function = test_function;
-	test.line_number = line_number;
-	test.file_name = file_name;
-	test.suite = suite;
-
-	suite->tests[suite->size] = test;
+	Test *test = calloc(1, sizeof(Test));
+	test->is_active = true;
+	test->test_function = test_function;
+	test->line_number = line_number;
+	test->file_name = file_name;
+	test->suite = suite;
+	
+	add_to_list(suite->tests, test);
+	
 	suite->size++;
 }
 
@@ -191,7 +189,8 @@ Formatter *make_formatter(
 int run_suite(Suite *suite) {
 	suite->formatter->report_start(suite);
 
-	for (Test *test = suite->tests; test->is_active == true; test = test+1) {
+	for (ListItem *item = list_first(suite->tests); item; item = list_next(item)) {
+		Test *test = list_value(item);
 		test->test_function(test);
 	}
 
