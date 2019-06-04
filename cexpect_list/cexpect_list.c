@@ -55,6 +55,7 @@ int list_size(List *list) {
 	return size;
 }
 
+
 ListItem *list_first(List *list) {
 	return list->first;
 }
@@ -62,11 +63,6 @@ ListItem *list_first(List *list) {
 
 ListItem *list_next(ListItem *item) {
 	return item->next;
-}
-
-
-bool list_has_next(ListItem *item) {
-	return item->next != NULL;
 }
 
 
