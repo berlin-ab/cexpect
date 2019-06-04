@@ -57,28 +57,35 @@ make: *** [readme_test] Error 1```
 ## Design goals
 
 
-* xunit-like framework similar to hamcrest
+* xUnit-like framework similar to hamcrest
 * Extensible matchers
 * Extensible formatting
-* Code coverage reporting enabled.
 * Self-tested. No additional frameworks.
 * No magic. 
 * Should be useable in isolated unit tests and also in integrated system tests.
-* Report only one passing test per test function.
+
+
+## Features
+
+
+* Ability to custom matchers 
+* Ability to create custom formatters
+* Dot formatting by default
+* Individual test failure detailed reporting in summary
 
 
 ## Planned improvements
 
-* individual test failure detailed reporting in summary
-* dynamic test list (currently hard coded array)
 * test-anything-protocol output formatter
 * lcov/gcov
 * make Makefile more idiomatic
 * matchers for all standard C primative data types
+* colorized output
+* report only one passing test per test function.
 
 
 ## Testing
 
 ```
-make -s test
+make test
 ```
