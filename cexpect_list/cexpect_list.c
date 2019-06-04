@@ -26,32 +26,29 @@ List *make_list(void) {
 
 
 void add_to_list(List *list, void *value) {
-	ListItem *item = calloc(1, sizeof(ListItem));
-	item->next = NULL;
-	item->value = value;
+	ListItem *new_item = calloc(1, sizeof(ListItem));
+	new_item->next = NULL;
+	new_item->value = value;
 
 	if (list->first == NULL) {
-		list->first = item;
+		list->first = new_item;
 		return;
 	}
 
-	ListItem *list_item;
+	ListItem *item;
+	
+	for(item = list_first(list); list_next(item); item = list_next(item)) {
+		// do nothing
+	}
 
-	for(list_item = list->first; list_item->next != NULL; list_item = list_item->next) {}
-
-	list_item->next = item;
+	item->next = new_item;
 }
 
 
 int list_size(List *list) {
-	int size = 1;
-
-	if (list->first == NULL)
-		return 0;
-
-	ListItem *list_item;
-
-	for (list_item = list->first; list_item->next != NULL; list_item = list_item->next) {
+	int size = 0;
+	
+	for (ListItem *item = list_first(list); item; item = list_next(item)) {
 		size++;
 	}
 
@@ -62,13 +59,16 @@ ListItem *list_first(List *list) {
 	return list->first;
 }
 
+
 ListItem *list_next(ListItem *item) {
 	return item->next;
 }
 
+
 bool list_has_next(ListItem *item) {
 	return item->next != NULL;
 }
+
 
 void *list_value(ListItem *item) {
 	return item->value;
