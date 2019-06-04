@@ -37,11 +37,11 @@ build_cexpect_test:
 
 
 build_integers_test: clean build_cexpect build_cexpect_matchers
-	$(CC) $(default_compile_flags) test/matchers/integers_test.c -l cexpect -l cexpect_cmatchers -o $(test_dir)/integers_test.o
+	$(CC) $(default_compile_flags) test/cexpect_matchers/integers_test.c -l cexpect -l cexpect_cmatchers -o $(test_dir)/integers_test.o
 
 
 build_booleans_test:
-	$(CC) $(default_compile_flags) test/matchers/booleans_test.c -l cexpect -l cexpect_cmatchers -o $(test_dir)/booleans_test.o
+	$(CC) $(default_compile_flags) test/cexpect_matchers/booleans_test.c -l cexpect -l cexpect_cmatchers -o $(test_dir)/booleans_test.o
 	
 
 build_list:
@@ -50,11 +50,11 @@ build_list:
 
 
 build_custom_list_matchers:
-	$(CC) $(default_compile_flags) $(shared_library_flags) test/examples/custom_list_matchers.c -l cexpect_cmatchers -l cexpect_list -o $(lib_dir)/libcustom_list_matchers.so
+	$(CC) $(default_compile_flags) $(shared_library_flags) test/cexpect_list/custom_list_matchers.c -l cexpect_cmatchers -l cexpect_list -o $(lib_dir)/libcustom_list_matchers.so
 
 
 build_list_test: build_list build_custom_list_matchers
-	$(CC) $(default_compile_flags) test/examples/list_test.c -l cexpect -l cexpect_cmatchers -l cexpect_list -l custom_list_matchers -o $(test_dir)/list_test.o
+	$(CC) $(default_compile_flags) test/cexpect_list/list_test.c -l cexpect -l cexpect_cmatchers -l cexpect_list -l custom_list_matchers -o $(test_dir)/list_test.o
 
 
 test_cexpect: clean build_cexpect build_cexpect_matchers build_cexpect_test
