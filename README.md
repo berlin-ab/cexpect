@@ -35,6 +35,16 @@ int main(int argc, char *args[]) {
 * is_false
 
 
+### Creating your own matcher:
+
+See `test/cexpect_list/` for an example of how to create domain specific matchers.
+
+```clang
+	List *list = make_list();
+
+	expect(test, list, list_is_empty());
+```
+
 ## Example output
 
 ```
