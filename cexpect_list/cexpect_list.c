@@ -1,15 +1,19 @@
 #include <stdlib.h>
 
+
 #include "cexpect_list.h"
+
 
 struct ListItemData {
 	ListItem *next;
 	void *value;
 };
 
+
 struct ListData {
 	ListItem *first;
 };
+
 
 /*
  * List Functions
@@ -47,9 +51,25 @@ int list_size(List *list) {
 
 	ListItem *list_item;
 
-	for(list_item = list->first; list_item->next != NULL; list_item = list_item->next) {
+	for (list_item = list->first; list_item->next != NULL; list_item = list_item->next) {
 		size++;
 	}
 
 	return size;
+}
+
+ListItem *list_first(List *list) {
+	return list->first;
+}
+
+ListItem *list_next(ListItem *item) {
+	return item->next;
+}
+
+bool list_has_next(ListItem *item) {
+	return item->next != NULL;
+}
+
+void *list_value(ListItem *item) {
+	return item->value;
 }
