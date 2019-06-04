@@ -40,9 +40,11 @@ int main(int argc, char *args[]) {
 See `test/cexpect_list/` for an example of how to create domain specific matchers.
 
 ```clang
+void a_list_starts_as_empty(Test *test) {
 	List *list = make_list();
 
 	expect(test, list, list_is_empty());
+}
 ```
 
 ## Example output
