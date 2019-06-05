@@ -7,14 +7,6 @@
 #include "cexpect_dot_formatter.h"
 
 
-struct FailedTestData {
-	char *expected_value;
-	char *actual_value;
-	int line_number;
-	char *file_name;
-};
-
-
 struct SuiteData {
 	char *name;
 	List *tests;
@@ -70,42 +62,11 @@ int number_of_passing_tests(Suite *suite) {
 	return suite->number_of_passing_tests;
 }
 
-
-/* 
- * Failed tests
- */
-FailedTest *get_failed_test(Suite *suite, int test_number) {
-	int index = 0;
-	
-	for (ListItem *item = list_first(suite->failed_tests); item; item = list_next(item)) {
-		if (test_number == index) {
-			return (FailedTest *)list_value(item);
-		}
-		index++;
-	}
-	
-	return NULL;
+FailedTest *get_failed_test_for_suite(Suite *suite, int test_number) {
+	return get_failed_test(suite->failed_tests, test_number);
 }
 
 
-char *get_failing_test_expected_value(FailedTest *failed_test) {
-	return failed_test->expected_value;
-}
-
-
-char *get_failing_test_actual_value(FailedTest *failed_test) {
-	return failed_test->actual_value;
-}
-
-
-int get_failing_test_line_number(FailedTest *failed_test) {
-	return failed_test->line_number;
-}
-
-
-char *get_failing_test_file_name(FailedTest *failed_test) {
-	return failed_test->file_name;
-}
 
 /*
  * Tests
@@ -123,12 +84,7 @@ void pass_test(Test *test) {
 
 
 void fail_test(Test *test, char *expected_value, char *actual_value) {
-	FailedTest *failed_test = calloc(1, sizeof(FailedTest));
-	failed_test->expected_value = expected_value;
-	failed_test->actual_value = actual_value;
-	failed_test->line_number = get_line_number_for_test(test);
-	failed_test->file_name = get_file_name_for_test(test);
-
+	FailedTest *failed_test = make_failed_test(test, expected_value, actual_value);
 	Suite *suite = get_suite_for_test(test);
 	add_to_list(suite->failed_tests, failed_test);
 	suite->formatter->fail(test);

@@ -29,7 +29,7 @@ static void report_summary_for_dots(Suite *suite) {
 	       number_of_failed_tests(suite));
 	printf("\n\n");
 	for(int i = 0; i < number_of_failed_tests(suite); i++) {
-		FailedTest *failed_test = get_failed_test(suite, i);
+		FailedTest *failed_test = get_failed_test_for_suite(suite, i);
 		printf("expected %s, got %s -- %s:%d\n",
 		       get_failing_test_expected_value(failed_test),
 		       get_failing_test_actual_value(failed_test),

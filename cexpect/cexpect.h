@@ -1,6 +1,8 @@
 #ifndef CEXPECT_H
 #define CEXPECT_H
 
+#include "cexpect_list.h"
+
 typedef struct FormatterData Formatter;
 typedef struct SuiteData Suite;
 typedef struct TestData Test;
@@ -28,10 +30,12 @@ extern int number_of_failed_tests(Suite *suite);
 extern int number_of_passing_tests(Suite *suite);
 extern char *get_suite_name(Suite *suite);
 extern void set_formatter(Suite *suite, Formatter *formatter);
+extern FailedTest *get_failed_test_for_suite(Suite *suite, int test_number);
 
 
 // Failed tests
-extern FailedTest *get_failed_test(Suite *suite, int test_number);
+FailedTest *make_failed_test(Test *test, char *expected_value, char *actual_value);
+extern FailedTest *get_failed_test(List *failed_tests, int test_number);
 extern char *get_failing_test_expected_value(FailedTest *failed_test);
 extern char *get_failing_test_actual_value(FailedTest *failed_test);
 extern int get_failing_test_line_number(FailedTest *failed_test);
