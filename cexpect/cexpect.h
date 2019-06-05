@@ -31,6 +31,8 @@ extern int number_of_passing_tests(Suite *suite);
 extern char *get_suite_name(Suite *suite);
 extern void set_formatter(Suite *suite, Formatter *formatter);
 extern FailedTest *get_failed_test_for_suite(Suite *suite, int test_number);
+extern Formatter *get_formatter(Suite *suite);
+extern List *get_tests(Suite *suite);
 
 
 // Failed tests
@@ -54,6 +56,10 @@ Formatter *make_formatter(
 	format_summary summary,
 	format_start start);
 
+void perform_format_start(Formatter *formatter, Suite *suite);
+void perform_format_success(Formatter *formatter, Test *test);
+void perform_format_fail(Formatter *formatter, Test *test);
+void perform_format_summary(Formatter *formatter, Suite *suite);
 
 // Int matchers
 extern void expect_equal(Test *test, int expected_value, int actual_value);
