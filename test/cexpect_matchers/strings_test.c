@@ -20,12 +20,12 @@ void a_passing_test(Test *test) {
 	expect(test, "a", is_string_equal_to("a"));
 }
 
-void a_partially_matching_from_the_expected(Test *test) {
+void a_partially_matching_test_from_the_expected(Test *test) {
 	expect(test, "a", is_string_equal_to("abc"));
 }
 
 
-void a_partially_matching_from_the_actual(Test *test) {
+void a_partially_matching_test_from_the_actual(Test *test) {
 	expect(test, "abc", is_string_equal_to("a"));
 }
 
@@ -47,12 +47,12 @@ void a_string_matches_when_equal(Test *test) {
 
 
 void a_string_partially_matching_should_not_pass(Test *test) {
-	Suite *suite = run_example_suite(a_partially_matching_from_the_expected);
+	Suite *suite = run_example_suite(a_partially_matching_test_from_the_expected);
 	
 	expect(test, number_of_failed_tests(suite), is_int_equal_to(1));
 	expect(test, number_of_passing_tests(suite), is_int_equal_to(0));
 
-	suite = run_example_suite(a_partially_matching_from_the_actual);
+	suite = run_example_suite(a_partially_matching_test_from_the_actual);
 
 	expect(test, number_of_failed_tests(suite), is_int_equal_to(1));
 	expect(test, number_of_passing_tests(suite), is_int_equal_to(0));
