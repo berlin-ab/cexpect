@@ -7,14 +7,6 @@
 #include "cexpect_dot_formatter.h"
 
 
-struct TestData {
-	test_function_type test_function;
-	Suite *suite;
-	int line_number;
-	char *file_name;
-};
-
-
 struct FailedTestData {
 	char *expected_value;
 	char *actual_value;
@@ -119,19 +111,14 @@ char *get_failing_test_file_name(FailedTest *failed_test) {
  * Tests
  */
 void add_test_to_suite(Suite *suite, test_function_type test_function, int line_number, char *file_name) {
-	Test *test = calloc(1, sizeof(Test));
-	test->test_function = test_function;
-	test->line_number = line_number;
-	test->file_name = file_name;
-	test->suite = suite;
-
-	add_to_list(suite->tests, test);
+	add_to_list(suite->tests, make_test(suite, test_function, line_number, file_name));
 }
 
 
 void pass_test(Test *test) {
-	test->suite->number_of_passing_tests++;
-	test->suite->formatter->success(test);
+	Suite *suite = get_suite_for_test(test);
+	suite->number_of_passing_tests++;
+	suite->formatter->success(test);
 }
 
 
@@ -139,11 +126,12 @@ void fail_test(Test *test, char *expected_value, char *actual_value) {
 	FailedTest *failed_test = calloc(1, sizeof(FailedTest));
 	failed_test->expected_value = expected_value;
 	failed_test->actual_value = actual_value;
-	failed_test->line_number = test->line_number;
-	failed_test->file_name = test->file_name;
+	failed_test->line_number = get_line_number_for_test(test);
+	failed_test->file_name = get_file_name_for_test(test);
 
-	add_to_list(test->suite->failed_tests, failed_test);
-	test->suite->formatter->fail(test);
+	Suite *suite = get_suite_for_test(test);
+	add_to_list(suite->failed_tests, failed_test);
+	suite->formatter->fail(test);
 }
 
 
@@ -191,7 +179,7 @@ int run_suite(Suite *suite) {
 
 	for (ListItem *item = list_first(suite->tests); item; item = list_next(item)) {
 		Test *test = list_value(item);
-		test->test_function(test);
+		perform_test(test);
 	}
 
 	suite->formatter->summary(suite);

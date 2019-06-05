@@ -8,8 +8,14 @@ typedef struct FailedTestData FailedTest;
 
 
 // Tests
-#define add_test(suite, test_function) add_test_to_suite(suite, test_function, __LINE__, __FILE__)
 typedef void (*test_function_type)(Test *test);
+extern void perform_test(Test *test);
+extern int get_line_number_for_test(Test *test);
+extern char *get_file_name_for_test(Test *test);
+extern Suite *get_suite_for_test(Test *test);
+
+#define add_test(suite, test_function) add_test_to_suite(suite, test_function, __LINE__, __FILE__)
+extern Test *make_test(Suite *suite, test_function_type test_function, int line_number, char *file_name);
 extern void add_test_to_suite(Suite *suite, test_function_type test_function, int line_number, char *file_name);
 extern void pass_test(Test *test);
 extern void fail_test(Test *test, char *expected_value, char *actual_value);
