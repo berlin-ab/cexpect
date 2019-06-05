@@ -36,7 +36,7 @@ static void report_summary_for_dots(Suite *suite) {
 		       get_failing_test_file_name(failed_test),
 		       get_failing_test_line_number(failed_test));
 	}
-	printf("\n\n\n\n");
+	printf("\n");
 }
 
 
