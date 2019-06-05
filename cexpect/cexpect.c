@@ -37,6 +37,7 @@ struct FormatterData {
 	format_success success;
 	format_summary summary;
 	format_start report_start;
+	void *extra;
 };
 
 
@@ -45,7 +46,7 @@ struct FormatterData {
  */
 Suite *make_suite(char *suite_name) {
 	Suite *suite = calloc(1, sizeof(Suite));
-	suite->formatter = make_dot_formatter();
+	suite->formatter = make_dot_formatter(printf);
 	suite->name = suite_name;
 	suite->tests = make_list();
 	suite->failed_tests = make_list();
@@ -115,6 +116,7 @@ char *get_failing_test_file_name(FailedTest *failed_test) {
 	return failed_test->file_name;
 }
 
+
 /*
  * Tests
  */
@@ -131,7 +133,9 @@ void add_test_to_suite(Suite *suite, test_function_type test_function, int line_
 
 void pass_test(Test *test) {
 	test->suite->number_of_passing_tests++;
-	test->suite->formatter->success(test);
+	test->suite->formatter->success(
+		test->suite->formatter, 
+		test);
 }
 
 
@@ -143,7 +147,9 @@ void fail_test(Test *test, char *expected_value, char *actual_value) {
 	failed_test->file_name = test->file_name;
 
 	add_to_list(test->suite->failed_tests, failed_test);
-	test->suite->formatter->fail(test);
+	test->suite->formatter->fail(
+		test->suite->formatter, 
+		test);
 }
 
 
@@ -172,14 +178,41 @@ Formatter *make_formatter(
 	format_failure fail,
 	format_success success,
 	format_summary summary,
-	format_start start
+	format_start start,
+	void *extra
 	) {
 	Formatter *formatter = calloc(1, sizeof(Formatter));
 	formatter->fail = fail;
 	formatter->success = success;
 	formatter->summary = summary;
 	formatter->report_start = start;
+	formatter->extra = extra;
 	return formatter;
+}
+
+
+void *get_formatter_extra(Formatter *formatter) {
+	return formatter->extra;
+}
+
+
+void format_failing_test(Formatter *formatter, Test *test) {
+	formatter->fail(formatter, test);
+}
+
+
+void format_successful_test(Formatter *formatter, Test *test) {
+	formatter->success(formatter, test);
+}
+
+
+void format_suite_summary(Formatter *formatter, Suite *suite) {
+	formatter->summary(formatter, suite);
+}
+
+
+void format_suite_start(Formatter *formatter, Suite *suite) {
+	formatter->report_start(formatter, suite);
 }
 
 
@@ -187,14 +220,14 @@ Formatter *make_formatter(
  * Runner
  */
 int run_suite(Suite *suite) {
-	suite->formatter->report_start(suite);
+	suite->formatter->report_start(suite->formatter, suite);
 
 	for (ListItem *item = list_first(suite->tests); item; item = list_next(item)) {
 		Test *test = list_value(item);
 		test->test_function(test);
 	}
 
-	suite->formatter->summary(suite);
+	suite->formatter->summary(suite->formatter, suite);
 
 	return number_of_failed_tests(suite) > 0;
 }

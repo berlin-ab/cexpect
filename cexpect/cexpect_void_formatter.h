@@ -3,6 +3,6 @@
 
 #include "cexpect.h"
 
-extern Formatter *make_void_formatter();
+extern Formatter *make_void_formatter(void);
 
 #endif //CEXPECT_VOID_FORMATTER_H

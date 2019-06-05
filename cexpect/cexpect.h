@@ -33,16 +33,24 @@ extern char *get_failing_test_file_name(FailedTest *failed_test);
 
 
 // Formatters
-typedef void (*format_failure)(Test *test);
-typedef void (*format_success)(Test *test);
-typedef void (*format_summary)(Suite *suite);
-typedef void (*format_start)(Suite *suite);
+typedef void (*format_failure)(Formatter *formatter, Test *test);
+typedef void (*format_success)(Formatter *formatter, Test *test);
+typedef void (*format_summary)(Formatter *formatter, Suite *suite);
+typedef void (*format_start)(Formatter *formatter, Suite *suite);
 
 Formatter *make_formatter(
 	format_failure failure,
 	format_success success,
 	format_summary summary,
-	format_start start);
+	format_start start,
+	void *extra);
+
+
+void *get_formatter_extra(Formatter *formatter);
+void format_failing_test(Formatter *formatter, Test *test);
+void format_successful_test(Formatter *formatter, Test *test);
+void format_suite_summary(Formatter *formatter, Suite *suite);
+void format_suite_start(Formatter *formatter, Suite *suite);
 
 
 // Int matchers

@@ -1,29 +1,31 @@
 #include "cexpect.h"
+#include <stdlib.h>
 
 
 /* 
  * Void formatter 
  */
-static void report_failing_test_with_void(Test *test) {
+static void format_failing_test_with_void(Formatter *formatter, Test *test) {
 }
 
 
-static void report_successful_test_with_void(Test *test) {
+static void format_successful_test_with_void(Formatter *formatter, Test *test) {
 }
 
 
-static void report_summary_for_void(Suite *suite) {
+static void format_suite_summary_for_void(Formatter *formatter, Suite *suite) {
 }
 
 
-static void report_start_for_void(Suite *suite) {
+static void format_suite_start_for_void(Formatter *formatter, Suite *suite) {
 }
 
 
 Formatter *make_void_formatter() {
 	return make_formatter(
-		report_failing_test_with_void,
-		report_successful_test_with_void,
-		report_summary_for_void,
-		report_start_for_void);
+		format_failing_test_with_void,
+		format_successful_test_with_void,
+		format_suite_summary_for_void,
+		format_suite_start_for_void,
+		NULL);
 }

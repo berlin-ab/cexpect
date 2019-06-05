@@ -3,6 +3,7 @@
 
 #include "cexpect.h"
 
-extern Formatter *make_dot_formatter();
+typedef int (*printer_function_type)(const char* format, ...);
+extern Formatter *make_dot_formatter(printer_function_type printer);
 
 #endif //CEXPECT_DOT_FORMATTER_H
