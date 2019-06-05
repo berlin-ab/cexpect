@@ -1,5 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
+
 
 #include "cexpect.h"
 #include "cexpect_cmatchers.h"
@@ -18,6 +20,27 @@ struct MatcherData {
 };
 
 
+/*
+ * base expectation:
+ * 
+ */
+void expect(Test *test, void *actual_value, Matcher *matcher) {
+	MatchResult *result = matcher->match(matcher, actual_value);
+
+	if (result->is_match) {
+		pass_test(test);
+	} else {
+		fail_test(test,
+		          result->expected_message,
+		          result->actual_message);
+	}
+}
+
+
+/* 
+ * primitive matchers:
+ * 
+ */
 MatchResult *match_integers(Matcher *matcher, void *actual_value) {
     MatchResult *result = calloc(1, sizeof(MatchResult));
     result->is_match = (int)matcher->expected_value == (int)actual_value;
@@ -36,6 +59,18 @@ MatchResult *match_integers(Matcher *matcher, void *actual_value) {
 }
 
 
+Matcher *is_int_equal_to(void *expected_value) {
+	Matcher *matcher = calloc(1, sizeof(Matcher));
+	matcher->match = match_integers;
+	matcher->expected_value = expected_value;
+	return matcher;
+}
+
+
+/*
+ * boolean matchers:
+ * 
+ */
 MatchResult *match_booleans(Matcher *matcher, void *actual_value) {
     bool expected_value = *(bool*)matcher->expected_value;
     bool actual = *(bool *)actual_value;
@@ -56,47 +91,57 @@ MatchResult *match_booleans(Matcher *matcher, void *actual_value) {
 }
 
 
-void expect(Test *test, void *actual_value, Matcher *matcher) {
-    MatchResult *result = matcher->match(matcher, actual_value);
-
-    if (result->is_match) {
-		pass_test(test);
-    } else {
-        fail_test(test,
-		  result->expected_message,
-		  result->actual_message);
-    }
-}
-
-
 Matcher *is_false(void) {
-    Matcher *matcher = calloc(1, sizeof(Matcher));
-    bool *expected_value = calloc(1, sizeof(bool));
-    *expected_value = false;
-    matcher->match = match_booleans;
-    matcher->expected_value = expected_value;
-    return matcher;
+	Matcher *matcher = calloc(1, sizeof(Matcher));
+	bool *expected_value = calloc(1, sizeof(bool));
+	*expected_value = false;
+	matcher->match = match_booleans;
+	matcher->expected_value = expected_value;
+	return matcher;
 }
 
 
 Matcher *is_true(void) {
-    Matcher *matcher = calloc(1, sizeof(Matcher));
-    bool *expected_value = calloc(1, sizeof(bool));
-    *expected_value = true;
-    matcher->match = match_booleans;
-    matcher->expected_value = ((void *) expected_value);
-    return matcher;
+	Matcher *matcher = calloc(1, sizeof(Matcher));
+	bool *expected_value = calloc(1, sizeof(bool));
+	*expected_value = true;
+	matcher->match = match_booleans;
+	matcher->expected_value = ((void *) expected_value);
+	return matcher;
 }
 
 
-Matcher *is_int_equal_to(void *expected_value) {
-    Matcher *matcher = calloc(1, sizeof(Matcher));
-    matcher->match = match_integers;
-    matcher->expected_value = expected_value;
-    return matcher;
+/* 
+ * string matchers:
+ * 
+ */
+MatchResult *string_matcher(Matcher *matcher, void *actual_value) {
+	char *actual = (char *)actual_value;
+	char *expected = (char *)get_expected_value(matcher);
+
+	MatchResult *result = make_match_result();
+
+	if (strcmp(actual, expected) == 0) {
+		match_succeeded(result);
+	} else {
+		match_failed(result, expected, actual);
+	}
+
+	return result;
 }
 
 
+Matcher *is_string_equal_to(char *expected_string) {
+	return make_comparison_matcher(
+		string_matcher,
+		expected_string);
+}
+
+
+/* 
+ * library extension functions:
+ * 
+ */
 Matcher *make_inspection_matcher(MatchResult *(*inspection_function)(Matcher *matcher, void *actual_value)) {
     Matcher *matcher = calloc(1, sizeof(Matcher));
     matcher->match = inspection_function;
@@ -134,3 +179,4 @@ MatchResult *match_succeeded(MatchResult *match_result) {
 void *get_expected_value(Matcher *matcher) {
 	return matcher->expected_value;
 }
+

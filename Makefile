@@ -58,6 +58,10 @@ build_booleans_test:
 	$(CC) $(default_compile_flags) test/cexpect_matchers/booleans_test.c -l cexpect -l cexpect_cmatchers -o $(test_dir)/booleans_test.o
 	
 
+build_strings_test:
+	$(CC) $(default_compile_flags) test/cexpect_matchers/strings_test.c -l cexpect -l cexpect_cmatchers -o $(test_dir)/strings_test.o
+	
+
 build_list:
 	cp cexpect_list/*.h $(include_dir)/
 	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect_list/*.c -o $(lib_dir)/libcexpect_list.so
@@ -83,6 +87,10 @@ test_booleans: clean build_cexpect build_cexpect_matchers build_booleans_test
 	./$(test_dir)/booleans_test.o
 
 
+test_strings: clean build_cexpect build_cexpect_matchers build_strings_test
+	./$(test_dir)/strings_test.o
+	
+
 test_list: clean build_cexpect build_cexpect_matchers build_list_test
 	./$(test_dir)/list_test.o
 	
@@ -95,4 +103,4 @@ readme_test: clean build_cexpect build_cexpect_matchers build_readme_test
 	./$(test_dir)/readme_test.o
 
 
-test: test_cexpect test_integers test_booleans test_list
+test: test_cexpect test_integers test_booleans test_list test_strings

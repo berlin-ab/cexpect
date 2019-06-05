@@ -32,6 +32,12 @@ extern void expect(Test *test, void *actual_value, Matcher *matcher);
  */
 extern Matcher *is_int_equal_to(void *expected_value);
 
+
+/*
+ * string matchers:
+ */
+extern Matcher *is_string_equal_to(char *expected_string);
+
 /*
  * boolean matchers:
  * 
@@ -70,7 +76,10 @@ extern Matcher *make_inspection_matcher(MatchResult *(*inspection_function)(Matc
  *      expect(test, 1, is_int_equal_to(2));
  *      
  */
-extern Matcher *make_comparison_matcher(MatchResult *(*comparison_function)(Matcher *matcher, void *actual_value), void *expected_value);
+typedef MatchResult *(*comparison_function_type)(Matcher *matcher, void *actual_value);
+extern Matcher *make_comparison_matcher(
+	comparison_function_type comparison_function, 
+	void *expected_value);
 
 /*
  * Communicate results from custom matchers:
