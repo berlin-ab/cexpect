@@ -69,7 +69,7 @@ build_cexpect: clean build_list present_external_interface present_cexpect_dot_f
 
 
 build_cexpect_matchers: clean build_cexpect_core
-	cp cexpect_matchers/*.h build/include/
+	cp cexpect_matchers/*.h $(include_dir)
 	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect_matchers/*.c -lcexpect_core -o $(lib_dir)/libcexpect_cmatchers.so
 
 
