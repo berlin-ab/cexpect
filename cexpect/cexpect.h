@@ -4,13 +4,22 @@
 
 typedef struct SuiteData Suite;
 typedef struct TestData Test;
+typedef struct MatcherData Matcher;
 
 
 #include "cexpect_formatter.h"
 
 
-#define add_test(suite, test_function) add_test_to_suite(suite, test_function, __LINE__, __FILE__)
-typedef void (*test_function_type)(Test *test);
+/*
+ * for example:
+ * 
+ *   expect(test, true, is_true()); # passes
+ *   expect(test, false, is_false()); # passes
+ *   expect(test, true, is_false()); # fails
+ *   
+ */
+extern void expect(Test *test, void *actual_value, Matcher *matcher);
+
 
 /*
  * create a new suite instance:
@@ -18,11 +27,17 @@ typedef void (*test_function_type)(Test *test);
  */
 extern Suite *create_suite(char *suite_name);
 
+
 /*
  * Add tests to a suite:
  * 
  */
+#define add_test(suite, test_function) add_test_to_suite(suite, test_function, __LINE__, __FILE__)
+
+typedef void (*test_function_type)(Test *test);
+
 extern void add_test_to_suite(Suite *suite, test_function_type test_function, int line_number, char *file_name);
+
 
 
 /*

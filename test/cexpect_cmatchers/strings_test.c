@@ -2,6 +2,7 @@
 #include "cexpect_cmatchers.h"
 #include "cexpect_void_formatter.h"
 
+
 Suite *run_example_suite(test_function_type test_function) {
 	Suite *suite = create_suite("suite");
 	set_formatter(suite, make_void_formatter());

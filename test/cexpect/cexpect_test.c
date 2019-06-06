@@ -12,17 +12,7 @@
  * Assertions
  */
 void expect_equal(Test *test, int expected_value, int actual_value) {
-	if (expected_value == actual_value) {
-		pass_test(test);
-	} else {
-		char *expected_value_string = calloc(100, sizeof(char));
-		char *actual_value_string = calloc(100, sizeof(char));
-
-		sprintf(expected_value_string, "%d", expected_value);
-		sprintf(actual_value_string, "%d", actual_value);
-
-		fail_test(test, expected_value_string, actual_value_string);
-	}
+	expect(test, expected_value, is_int_equal_to(actual_value));
 }
 
 

@@ -1,7 +1,10 @@
+#include <string.h>
+
+
 #include "cexpect.h"
 #include "cexpect_dot_formatter.h"
-#include <string.h>
 #include "cexpect_cmatchers.h"
+
 
 static char *printed_message = "something invalid";
 

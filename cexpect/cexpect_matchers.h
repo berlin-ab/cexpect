@@ -4,21 +4,10 @@
 #include "cexpect.h"
 
 
-typedef struct MatcherData Matcher;
 typedef struct MatchResultData MatchResult;
 
 
-/*
- * for example:
- * 
- *   expect(test, true, is_true()); # passes
- *   expect(test, false, is_false()); # passes
- *   expect(test, true, is_false()); # fails
- *   
- */
-extern void expect(Test *test, void *actual_value, Matcher *matcher);
-extern void pass_test(Test *test);
-extern void fail_test(Test *test, char *expected_value, char *actual_value);
+
 
 
 /*
@@ -63,5 +52,7 @@ extern MatchResult *make_match_result();
 extern MatchResult *match_succeeded(MatchResult *match_result);
 extern MatchResult *match_failed(MatchResult* match_result, char *expected_message, char *actual_message);
 extern void *get_expected_value(Matcher *matcher);
+
+
 
 #endif //CEXPECT_CEXPECT_MATCHERS_H
