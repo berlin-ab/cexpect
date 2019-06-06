@@ -53,9 +53,6 @@ int number_of_passing_tests(Suite *suite) {
 	return suite->number_of_passing_tests;
 }
 
-FailedTest *get_failed_test_for_suite(Suite *suite, int test_number) {
-	return get_failed_test(suite->failed_tests, test_number);
-}
 
 /*
  * Tests
