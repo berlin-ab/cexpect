@@ -17,7 +17,7 @@ static void report_summary_for_void(
 	int number_of_tests,
 	int number_of_passing_tests,
 	int number_of_failed_tests,
-	List *failed_tests
+	FailedTest failed_tests[]
 ) {
 }
 

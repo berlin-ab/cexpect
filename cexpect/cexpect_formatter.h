@@ -21,7 +21,7 @@ typedef void (*format_summary)(
 	int number_of_tests,
 	int number_of_passing_tests,
 	int number_of_failed_tests,
-	List *failed_tests
+	FailedTest failed_tests[]
 );
 typedef void (*format_start)(char *suite_name);
 

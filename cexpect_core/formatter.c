@@ -1,6 +1,6 @@
 #include <stdlib.h>
 
-
+#include "cexpect_formatter.h"
 #include "cexpect_internal.h"
 
 
@@ -46,10 +46,21 @@ void perform_format_start(Formatter *formatter, Suite *suite) {
 
 
 void perform_format_summary(Formatter *formatter, Suite *suite) {
+	int _number_of_failed_tests = number_of_failed_tests(suite);
+	FailedTest failed_tests[_number_of_failed_tests];
+	
+	int i = 0;
+	
+	for(ListItem *list_item = list_first(get_failed_tests(suite)); list_item; list_item = list_next(list_item)) {
+		failed_tests[i] = *(FailedTest *)list_value(list_item);
+		i++;
+	}
+	
+	
 	formatter->summary(
 		number_of_tests(suite),
 		number_of_passing_tests(suite),
-		number_of_failed_tests(suite),
-		get_failed_tests(suite)
+		_number_of_failed_tests,
+		failed_tests
 		);
 }
