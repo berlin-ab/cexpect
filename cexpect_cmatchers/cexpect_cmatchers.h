@@ -5,8 +5,7 @@
 
 
 /*
- * 
- * Provided matchers
+ * C datatype matchers:
  * 
  */
 
