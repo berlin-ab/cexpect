@@ -45,6 +45,9 @@ present_external_interface: clean
 	
 
 present_internal_interface: clean
+	cp cexpect/test.h $(internal_include_dir)
+	cp cexpect/suite.h $(internal_include_dir)
+	cp cexpect/failed_test.h $(internal_include_dir)
 	cp cexpect/cexpect_internal.h $(internal_include_dir)
 
 
