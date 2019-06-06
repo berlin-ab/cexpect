@@ -3,7 +3,8 @@
 
 typedef struct SuiteData Suite;
 typedef struct TestData Test;
-typedef struct FormatterData Formatter;
+
+#include "cexpect_formatter.h"
 
 #define add_test(suite, test_function) add_test_to_suite(suite, test_function, __LINE__, __FILE__)
 typedef void (*test_function_type)(Test *test);

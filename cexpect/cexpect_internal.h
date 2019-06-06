@@ -4,7 +4,6 @@
 #include "cexpect_list.h"
 #include "cexpect.h"
 
-typedef struct FailedTestData FailedTest;
 
 
 // Tests
@@ -26,6 +25,7 @@ extern char *get_suite_name(Suite *suite);
 extern FailedTest *get_failed_test_for_suite(Suite *suite, int test_number);
 extern Formatter *get_formatter(Suite *suite);
 extern List *get_tests(Suite *suite);
+extern List *get_failed_tests(Suite *suite);
 
 
 // Failed tests
@@ -38,21 +38,11 @@ extern char *get_failing_test_file_name(FailedTest *failed_test);
 
 
 // Formatters
-typedef void (*format_failure)(Test *test);
-typedef void (*format_success)(Test *test);
-typedef void (*format_summary)(Suite *suite);
-typedef void (*format_start)(Suite *suite);
-
-Formatter *make_formatter(
-	format_failure failure,
-	format_success success,
-	format_summary summary,
-	format_start start);
-
 void perform_format_start(Formatter *formatter, Suite *suite);
 void perform_format_success(Formatter *formatter, Test *test);
 void perform_format_fail(Formatter *formatter, Test *test);
 void perform_format_summary(Formatter *formatter, Suite *suite);
+
 
 // Int matchers
 extern void expect_equal(Test *test, int expected_value, int actual_value);

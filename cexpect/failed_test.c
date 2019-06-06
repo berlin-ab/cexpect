@@ -5,14 +5,6 @@
 #include "cexpect_list.h"
 
 
-struct FailedTestData {
-	char *expected_value;
-	char *actual_value;
-	int line_number;
-	char *file_name;
-};
-
-
 FailedTest *make_failed_test(Test *test, char *expected_value, char *actual_value) {
 	FailedTest *failed_test = calloc(1, sizeof(FailedTest));
 	failed_test->expected_value = expected_value;
