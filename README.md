@@ -9,30 +9,53 @@ A testing framework for C inspired by hamcrest
 #include "cexpect_cmatchers.h"
 
 
+void before_each() {
+	// before each hook
+}
+
+
+void after_each() {
+	// after each hook
+}
+
+
 void some_failing_test(Test *test) {
-    expect(test, 1, is_int_equal_to(2));
+	expect(test, 1, is_int_equal_to(2));
 }
 
 
 void some_passing_test(Test *test) {
-    expect(test, 1, is_int_equal_to(1));
+	expect(test, 1, is_int_equal_to(1));
 }
 
 
 int main(int argc, char *args[]) {
-    Suite *suite = create_suite("Some suite name");
-    add_test(suite, some_failing_test);
-    add_test(suite, some_passing_test);
-    start_cexpect(suite);
+	Suite *suite = create_suite("Some suite name");
+	add_before_each(suite, before_each);
+	add_test(suite, some_failing_test);
+	add_test(suite, some_passing_test);
+	add_after_each(suite, after_each);
+	start_cexpect(suite);
 }
 ```
 
 
 ## Matchers
 
-* is_int_equal_to
-* is_true
-* is_false
+### booleans
+
+* is_true()
+* is_false()
+
+
+### primitives
+
+* is_int_equal_to(expected)
+
+
+### strings
+
+* is_string_equal_to(expected)
 
 
 ### Creating your own matcher:
