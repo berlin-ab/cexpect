@@ -1,7 +1,7 @@
 #include <stdio.h>
 
 
-#include "cexpect.h"
+#include "cexpect_internal.h"
 
 
 static void report_failing_test_with_dot(Test *test) {

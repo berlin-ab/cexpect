@@ -2,7 +2,7 @@
 #include <stdio.h>
 
 
-#include "cexpect.h"
+#include "cexpect_internal.h"
 #include "cexpect_void_formatter.h"
 #include "cexpect_dot_formatter.h"
 

@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "cexpect.h"
+#include "cexpect_internal.h"
 #include "cexpect_cmatchers.h"
 #include "cexpect_void_formatter.h"
 
