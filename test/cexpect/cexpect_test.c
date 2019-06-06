@@ -46,7 +46,7 @@ void add_suite_passing_suite(Suite *suite) {
 
 
 void a_suite_should_fail(Test *test) {
-    Suite *suite = make_suite("Failing suite.");
+    Suite *suite = create_suite("Failing suite.");
     set_formatter(suite, make_void_formatter());
     add_suite_failing_suite(suite);
     run_suite(suite);
@@ -56,7 +56,7 @@ void a_suite_should_fail(Test *test) {
 
 
 void a_passing_suite_should_return_zero_status_code(Test *test) {
-    Suite *suite = make_suite("Failing suite.");
+    Suite *suite = create_suite("Failing suite.");
     set_formatter(suite, make_void_formatter());
     add_suite_passing_suite(suite);
     
@@ -66,7 +66,7 @@ void a_passing_suite_should_return_zero_status_code(Test *test) {
 
 
 void a_failing_suite_should_return_non_zero_status_code(Test *test) {
-    Suite *suite = make_suite("Failing suite.");
+    Suite *suite = create_suite("Failing suite.");
     set_formatter(suite, make_void_formatter());
     add_suite_failing_suite(suite);
     
@@ -76,7 +76,7 @@ void a_failing_suite_should_return_non_zero_status_code(Test *test) {
 
 
 void a_suite_should_report_successful_tests(Test *test) {
-    Suite *suite = make_suite("Successful suite.");
+    Suite *suite = create_suite("Successful suite.");
     set_formatter(suite, make_void_formatter());
     add_suite_passing_suite(suite);
     run_suite(suite);
@@ -85,7 +85,7 @@ void a_suite_should_report_successful_tests(Test *test) {
 
 
 void a_suite_should_contain_passes_and_failures(Test *test) {
-    Suite *suite = make_suite("Successful suite.");
+    Suite *suite = create_suite("Successful suite.");
     set_formatter(suite, make_void_formatter());
     add_test(suite, some_passing_test);
     add_test(suite, some_failing_test);
@@ -96,7 +96,7 @@ void a_suite_should_contain_passes_and_failures(Test *test) {
 
 
 int main(int argc, char *args[]) {
-    Suite *suite = make_suite("cexpect suite");
+    Suite *suite = create_suite("cexpect suite");
     set_formatter(suite, make_dot_formatter());
     add_test(suite, a_suite_should_fail);
     add_test(suite, a_suite_should_report_successful_tests);

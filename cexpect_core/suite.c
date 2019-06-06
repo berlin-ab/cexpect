@@ -18,9 +18,9 @@ struct SuiteData {
 /*
  * Suite
  */
-Suite *make_suite(char *suite_name) {
+Suite *make_suite(char *suite_name, Formatter *formatter) {
 	Suite *suite = calloc(1, sizeof(Suite));
-	suite->formatter = make_dot_formatter();
+	suite->formatter = formatter;
 	suite->name = suite_name;
 	suite->tests = make_list();
 	suite->failed_tests = make_list();
@@ -29,7 +29,7 @@ Suite *make_suite(char *suite_name) {
 }
 
 
-void set_formatter(Suite *suite, Formatter *formatter) {
+void set_formatter_for_suite(Suite *suite, Formatter *formatter) {
 	suite->formatter = formatter;
 }
 
@@ -57,11 +57,6 @@ int number_of_passing_tests(Suite *suite) {
 /*
  * Tests
  */
-void add_test_to_suite(Suite *suite, test_function_type test_function, int line_number, char *file_name) {
-	add_to_list(suite->tests, make_test(suite, test_function, line_number, file_name));
-}
-
-
 void pass_test(Test *test) {
 	Suite *suite = get_suite_for_test(test);
 	suite->number_of_passing_tests++;

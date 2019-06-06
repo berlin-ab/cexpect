@@ -1,5 +1,7 @@
 #include <stdbool.h>
-#include "cexpect_internal.h"
+
+
+#include "cexpect.h"
 
 
 typedef struct MatcherData Matcher;

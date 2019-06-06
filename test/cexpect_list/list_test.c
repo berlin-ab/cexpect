@@ -74,7 +74,7 @@ void a_list_can_store_and_retrieve_values(Test *test) {
 
 
 int main(int argc, char *args[]) {
-	Suite *suite = make_suite("List test");
+	Suite *suite = create_suite("List test");
 	add_test(suite, a_list_starts_as_empty);
 	add_test(suite, a_list_starts_with_size_zero);
 	add_test(suite, a_list_is_no_longer_empty_after_adding_to_list);

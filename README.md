@@ -20,7 +20,7 @@ void some_passing_test(Test *test) {
 
 
 int main(int argc, char *args[]) {
-    Suite *suite = make_suite();
+    Suite *suite = create_suite();
     add_test(suite, some_failing_test);
     add_test(suite, some_passing_test);
     start_cexpect(suite);

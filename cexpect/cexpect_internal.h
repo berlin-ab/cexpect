@@ -17,7 +17,8 @@ extern void pass_test(Test *test);
 extern void fail_test(Test *test, char *expected_value, char *actual_value);
 
 // Suites
-extern Suite *make_suite(char *suite_name);
+extern Suite *make_suite(char *suite_name, Formatter *formatter);
+extern void set_formatter_for_suite(Suite *suite, Formatter *formatter);
 extern int number_of_tests(Suite *suite);
 extern int number_of_failed_tests(Suite *suite);
 extern int number_of_passing_tests(Suite *suite);

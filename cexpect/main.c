@@ -1,9 +1,27 @@
 #include <stdlib.h>
 
 
+#include "cexpect.h"
 #include "cexpect_list.h"
 #include "cexpect_internal.h"
 #include "cexpect_dot_formatter.h"
+
+
+Suite *create_suite(char *suite_name) {
+	return make_suite(suite_name, make_dot_formatter());
+}
+
+
+void set_formatter(Suite *suite, Formatter *formatter) {
+	set_formatter_for_suite(suite, formatter);
+}
+
+
+void add_test_to_suite(Suite *suite, test_function_type test_function, int line_number, char *file_name) {
+	add_to_list(
+		get_tests(suite), 
+		make_test(suite, test_function, line_number, file_name));
+}
 
 
 /*

@@ -3,7 +3,7 @@
 #include "cexpect_void_formatter.h"
 
 Suite *run_example_suite(test_function_type test_function) {
-	Suite *suite = make_suite("suite");
+	Suite *suite = create_suite("suite");
 	set_formatter(suite, make_void_formatter());
 	add_test(suite, test_function);
 	run_suite(suite);
@@ -60,7 +60,7 @@ void a_string_partially_matching_should_not_pass(Test *test) {
 
 
 int main(int argc, char *args[]) {
-	Suite *suite = make_suite("string matchers");
+	Suite *suite = create_suite("string matchers");
 	add_test(suite, a_string_fails_when_not_equal);
 	add_test(suite, a_string_matches_when_equal);
 	add_test(suite, a_string_partially_matching_should_not_pass);
