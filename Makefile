@@ -121,7 +121,7 @@ test_list: clean build_cexpect build_cexpect_matchers build_list_test
 	
 
 build_readme_test:  clean build_cexpect build_cexpect_matchers
-	$(CC) $(default_compile_flags) test/examples/readme_test.c -l cexpect -l cexpect_cmatchers -o $(test_dir)/readme_test.o
+	$(CC) $(default_compile_flags) test/examples/readme_test.c -l cexpect -l cexpect_cmatchers -l cexpect_core -o $(test_dir)/readme_test.o
 
 
 readme_test: clean build_cexpect build_cexpect_matchers build_readme_test

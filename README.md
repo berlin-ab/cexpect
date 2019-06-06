@@ -5,7 +5,7 @@ A testing framework for C inspired by hamcrest
 ## Usage
 
 ```
-#include "cexpect_internal.h"
+#include "cexpect.h"
 #include "cexpect_cmatchers.h"
 
 
@@ -20,7 +20,7 @@ void some_passing_test(Test *test) {
 
 
 int main(int argc, char *args[]) {
-    Suite *suite = create_suite();
+    Suite *suite = create_suite("Some suite name");
     add_test(suite, some_failing_test);
     add_test(suite, some_passing_test);
     start_cexpect(suite);
