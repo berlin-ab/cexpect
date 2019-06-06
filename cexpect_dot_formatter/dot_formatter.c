@@ -2,6 +2,7 @@
 
 
 #include "cexpect.h"
+#include "cexpect_formatter.h"
 #include "cexpect_list.h"
 
 

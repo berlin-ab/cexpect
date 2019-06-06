@@ -36,9 +36,18 @@ clean:
 	mkdir -p build/coverage
 
 
-build_cexpect: clean build_list
+present_external_interface: clean
+	cp cexpect/cexpect.h $(include_dir)
+	cp cexpect/cexpect_formatter.h $(include_dir)
+
+
+present_cexpect_dot_formatter_external_interface: present_external_interface
+	cp cexpect_dot_formatter/cexpect_dot_formatter.h $(include_dir)
+	
+
+build_cexpect: clean build_list present_cexpect_dot_formatter_external_interface
 	cp cexpect/*.h build/include/
-	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect/*.c -l cexpect_list -o $(lib_dir)/libcexpect.so
+	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect/*.c cexpect_dot_formatter/*.c -l cexpect_list -o $(lib_dir)/libcexpect.so
 
 
 build_cexpect_matchers: clean
