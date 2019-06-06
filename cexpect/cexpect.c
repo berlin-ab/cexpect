@@ -8,6 +8,26 @@
 #include "cexpect_dot_formatter.h"
 
 
+static void perform_format_summary(Formatter *formatter, Suite *suite) {
+	int _number_of_failed_tests = number_of_failed_tests(suite);
+	FailedTest failed_tests[_number_of_failed_tests];
+
+	int i = 0;
+
+	for(ListItem *list_item = list_first(get_failed_tests(suite)); list_item; list_item = list_next(list_item)) {
+		failed_tests[i] = *(FailedTest *)list_value(list_item);
+		i++;
+	}
+
+	do_format_summary(
+		formatter,
+		number_of_tests(suite),
+		number_of_passing_tests(suite),
+		_number_of_failed_tests,
+		failed_tests);
+}
+
+
 Suite *create_suite(char *suite_name) {
 	return make_suite(suite_name, make_dot_formatter(&printf));
 }
@@ -37,7 +57,7 @@ void add_after_each(Suite *suite, void (*after_each_function)()) {
 
 int run_suite(Suite *suite) {
 	Formatter *formatter = get_formatter(suite);
-	perform_format_start(formatter, suite);
+	do_format_start(formatter, get_suite_name(suite));
 
 	for (ListItem *item = list_first(get_tests(suite)); item; item = list_next(item)) {
 		Test *test = list_value(item);

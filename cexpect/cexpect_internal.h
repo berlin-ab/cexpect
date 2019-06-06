@@ -31,13 +31,6 @@ extern List *get_failed_tests(Suite *suite);
 FailedTest *make_failed_test(Test *test, char *expected_value, char *actual_value);
 
 
-// Formatters
-void perform_format_start(Formatter *formatter, Suite *suite);
-void perform_format_success(Formatter *formatter, Test *test);
-void perform_format_fail(Formatter *formatter, Test *test);
-void perform_format_summary(Formatter *formatter, Suite *suite);
-
-
 // Int matchers
 extern void expect_equal(Test *test, int expected_value, int actual_value);
 

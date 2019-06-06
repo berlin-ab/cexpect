@@ -90,7 +90,7 @@ void pass_test(Test *test) {
 	suite->number_of_passing_tests++;
 
 	Formatter *formatter = get_formatter(suite);
-	perform_format_success(formatter, test);
+	do_format_success(formatter);
 }
 
 
@@ -98,7 +98,7 @@ void fail_test(Test *test, char *expected_value, char *actual_value) {
 	FailedTest *failed_test = make_failed_test(test, expected_value, actual_value);
 	Suite *suite = get_suite_for_test(test);
 	add_to_list(suite->failed_tests, failed_test);
-	perform_format_fail(suite->formatter, test);
+	do_format_failure(suite->formatter);
 }
 
 
