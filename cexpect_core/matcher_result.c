@@ -31,13 +31,16 @@ MatchResult *match_succeeded(MatchResult *match_result) {
 	return match_result;
 }
 
+
 char *expected_message(MatchResult *result) {
 	return result->expected_message;
 }
 
+
 char *actual_message(MatchResult *result) {
 	return result->actual_message;
 }
+
 
 bool is_match(MatchResult *result) {
 	return result->is_match;

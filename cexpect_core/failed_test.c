@@ -1,9 +1,7 @@
 #include <stdlib.h>
 
 
-#include "cexpect_list.h"
 #include "cexpect.h"
-#include "cexpect_formatter.h"
 #include "internal/test.h"
 
 
