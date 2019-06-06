@@ -1,8 +1,6 @@
 #ifndef CEXPECT_LIST_H
 #define CEXPECT_LIST_H
 
-#include <stdbool.h>
-
 typedef struct ListItemData ListItem;
 typedef struct ListData List;
 
