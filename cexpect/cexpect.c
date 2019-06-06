@@ -25,12 +25,18 @@ void add_test_to_suite(Suite *suite, test_function_type test_function, int line_
 }
 
 
+void add_before_each(Suite *suite, void (*before_each_function)()) {
+	add_before_each_to_suite(suite, before_each_function);
+}
+
+
 int run_suite(Suite *suite) {
 	Formatter *formatter = get_formatter(suite);
 	perform_format_start(formatter, suite);
 
 	for (ListItem *item = list_first(get_tests(suite)); item; item = list_next(item)) {
 		Test *test = list_value(item);
+		before_each(suite);
 		perform_test(test);
 	}
 

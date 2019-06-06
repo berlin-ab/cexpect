@@ -12,8 +12,12 @@ static int printer(const char *format, ...) {
 } 
 
 
-void a_failing_test_prints_an_F(Test *test) {
+void before_each(void) {
 	printed_message = "something invalid";
+}
+
+
+void a_failing_test_prints_an_F(Test *test) {
 	Formatter *formatter = make_dot_formatter(printer);
 	do_format_failure(formatter);
 	
@@ -22,8 +26,6 @@ void a_failing_test_prints_an_F(Test *test) {
 
 
 void a_passing_test_prints_a_dot(Test *test) {
-	printed_message = "something invalid";
-	
 	Formatter *formatter = make_dot_formatter(printer);
 	do_format_success(formatter);
 	
@@ -33,8 +35,8 @@ void a_passing_test_prints_a_dot(Test *test) {
 
 int main(int argsc, char *args[]) {
 	Suite *suite = create_suite("Dot formatter");
-	Formatter *formatter = make_dot_formatter(printer);
 
+	add_before_each(suite, before_each);
 	add_test(suite, a_failing_test_prints_an_F);
 	add_test(suite, a_passing_test_prints_a_dot);
 

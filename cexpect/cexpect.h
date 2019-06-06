@@ -1,10 +1,13 @@
 #ifndef CEXPECT_H
 #define CEXPECT_H
 
+
 typedef struct SuiteData Suite;
 typedef struct TestData Test;
 
+
 #include "cexpect_formatter.h"
+
 
 #define add_test(suite, test_function) add_test_to_suite(suite, test_function, __LINE__, __FILE__)
 typedef void (*test_function_type)(Test *test);
@@ -20,6 +23,14 @@ extern Suite *create_suite(char *suite_name);
  * 
  */
 extern void add_test_to_suite(Suite *suite, test_function_type test_function, int line_number, char *file_name);
+
+
+
+/*
+ * Add a function to run before each test:
+ * 
+ */
+extern void add_before_each(Suite *suite, void (*before_each_function)());
 
 
 /*
