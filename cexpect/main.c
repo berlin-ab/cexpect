@@ -43,6 +43,8 @@ int run_suite(Suite *suite) {
 
 
 void start_cexpect(Suite *suite) {
-	exit(run_suite(suite));
+	int status_code = run_suite(suite);
+
+	exit(status_code);
 }
 
