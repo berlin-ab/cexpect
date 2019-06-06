@@ -24,9 +24,6 @@ void add_test_to_suite(Suite *suite, test_function_type test_function, int line_
 }
 
 
-/*
- * Runner
- */
 int run_suite(Suite *suite) {
 	Formatter *formatter = get_formatter(suite);
 	perform_format_start(formatter, suite);

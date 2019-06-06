@@ -7,6 +7,7 @@ endif
 output_dir = build/
 lib_dir = build/lib
 include_dir = build/include
+internal_include_dir = build/include_internal
 test_dir = build/test
 coverage_dir = build/coverage
 
@@ -32,6 +33,7 @@ clean:
 	rm -rf $(output_dir)
 	mkdir -p $(lib_dir)
 	mkdir -p $(include_dir)
+	mkdir -p $(internal_include_dir)
 	mkdir -p $(test_dir)
 	mkdir -p build/coverage
 
@@ -43,7 +45,7 @@ present_external_interface: clean
 	
 
 present_internal_interface: clean
-	cp cexpect/cexpect_internal.h $(include_dir)
+	cp cexpect/cexpect_internal.h $(internal_include_dir)
 
 
 present_cexpect_dot_formatter_external_interface: present_external_interface
@@ -55,15 +57,14 @@ present_cexpect_void_formatter_external_interface: present_external_interface
 	
 	
 build_cexpect_core: clean present_external_interface present_internal_interface build_list
-	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect_core/*.c -l cexpect_list -o $(lib_dir)/libcexpect_core.so
+	$(CC) $(default_compile_flags) -I $(internal_include_dir) $(shared_library_flags) cexpect_core/*.c -l cexpect_list -o $(lib_dir)/libcexpect_core.so
 	
 	
 build_void_formatter: present_cexpect_void_formatter_external_interface
 	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect_void_formatter/*.c -l cexpect_list -l cexpect_core -o $(lib_dir)/libcexpect_void_formatter.so
 	
 
-build_cexpect: clean build_list present_cexpect_dot_formatter_external_interface build_cexpect_core
-	cp cexpect/*.h build/include/
+build_cexpect: clean build_list present_external_interface present_cexpect_dot_formatter_external_interface build_cexpect_core
 	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect/*.c cexpect_dot_formatter/*.c -l cexpect_list -l cexpect_core -o $(lib_dir)/libcexpect.so
 
 

@@ -17,6 +17,8 @@ typedef struct MatchResultData MatchResult;
  *   
  */
 extern void expect(Test *test, void *actual_value, Matcher *matcher);
+extern void pass_test(Test *test);
+extern void fail_test(Test *test, char *expected_value, char *actual_value);
 
 
 /*

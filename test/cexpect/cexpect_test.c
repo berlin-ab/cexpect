@@ -3,6 +3,7 @@
 
 
 #include "cexpect.h"
+#include "cexpect_cmatchers.h"
 #include "cexpect_void_formatter.h"
 #include "cexpect_dot_formatter.h"
 

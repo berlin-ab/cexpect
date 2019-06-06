@@ -1,4 +1,5 @@
-#include "cexpect_internal.h"
+#include "cexpect.h"
+#include "cexpect_list.h"
 
 
 /* 
