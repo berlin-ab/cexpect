@@ -30,6 +30,11 @@ void add_before_each(Suite *suite, void (*before_each_function)()) {
 }
 
 
+void add_after_each(Suite *suite, void (*after_each_function)()) {
+	add_after_each_to_suite(suite, after_each_function);
+}
+
+
 int run_suite(Suite *suite) {
 	Formatter *formatter = get_formatter(suite);
 	perform_format_start(formatter, suite);
@@ -38,6 +43,7 @@ int run_suite(Suite *suite) {
 		Test *test = list_value(item);
 		before_each(suite);
 		perform_test(test);
+		after_each(suite);
 	}
 
 	perform_format_summary(formatter, suite);

@@ -34,6 +34,13 @@ extern void add_before_each(Suite *suite, void (*before_each_function)());
 
 
 /*
+ * Add a function to run before each test:
+ * 
+ */
+extern void add_after_each(Suite *suite, void (*after_each_function)());
+
+
+/*
  * run suite without exiting:
  * 
  */

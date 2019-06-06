@@ -13,10 +13,12 @@ struct SuiteData {
 	int number_of_passing_tests;
 	Formatter *formatter;
 	void (*before_each)();
+	void (*after_each)();
 };
 
 
 static void default_before_each() {}
+static void default_after_each() {}
 
 
 /*
@@ -29,6 +31,7 @@ Suite *make_suite(char *suite_name, Formatter *formatter) {
 	suite->tests = make_list();
 	suite->failed_tests = make_list();
 	suite->before_each = default_before_each;
+	suite->after_each = default_after_each;
 
 	return suite;
 }
@@ -41,6 +44,11 @@ void set_formatter_for_suite(Suite *suite, Formatter *formatter) {
 
 void add_before_each_to_suite(Suite *suite, void (*before_each_function)()) {
 	suite->before_each = before_each_function;
+}
+
+
+void add_after_each_to_suite(Suite *suite, void (*after_each_function)()) {
+	suite->after_each = after_each_function;
 }
 
 
@@ -69,6 +77,11 @@ int number_of_passing_tests(Suite *suite) {
  */
 void before_each(Suite *suite) {
 	suite->before_each();
+}
+
+
+void after_each(Suite *suite) {
+	suite->after_each();
 }
 
 
