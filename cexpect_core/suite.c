@@ -111,7 +111,7 @@ List *get_tests(Suite *suite) {
 	return suite->tests;
 }
 
+
 List *get_failed_tests(Suite *suite) {
 	return suite->failed_tests;
 }
-

@@ -22,6 +22,7 @@ Test *make_test(Suite *suite, test_function_type test_function, int line_number,
 	return test;
 }
 
+
 Suite *get_suite_for_test(Test *test) {
 	return test->suite;
 }
@@ -29,12 +30,12 @@ Suite *get_suite_for_test(Test *test) {
 
 int get_line_number_for_test(Test *test) {
 	return test->line_number;
-};
+}
 
 
 char *get_file_name_for_test(Test *test) {
 	return test->file_name;
-};
+}
 
 
 void perform_test(Test *test) {
