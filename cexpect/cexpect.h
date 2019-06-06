@@ -25,7 +25,6 @@ extern Suite *create_suite(char *suite_name);
 extern void add_test_to_suite(Suite *suite, test_function_type test_function, int line_number, char *file_name);
 
 
-
 /*
  * Add a function to run before each test:
  * 
@@ -41,18 +40,25 @@ extern void add_after_each(Suite *suite, void (*after_each_function)());
 
 
 /*
- * run suite without exiting:
- * 
- */
-extern int run_suite(Suite *suite);
-
-/*
  * change formatter the suite uses:
  * 
  *   default = dot_formatter
  *   
  */
 extern void set_formatter(Suite *suite, Formatter *formatter);
+
+
+/*
+ * run suite without exiting:
+ * 
+ */
+extern int run_suite(Suite *suite);
+
+
+/*
+ * run suite and exit with appropriate status code:
+ * 
+ */
 extern void start_cexpect(Suite *suite);
 
 
