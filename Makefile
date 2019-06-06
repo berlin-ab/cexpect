@@ -64,7 +64,11 @@ build_void_formatter: present_cexpect_void_formatter_external_interface
 	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect_void_formatter/*.c -l cexpect_list -l cexpect_core -o $(lib_dir)/libcexpect_void_formatter.so
 	
 
-build_cexpect: clean build_list present_external_interface present_cexpect_dot_formatter_external_interface build_cexpect_core
+build_cexpect_dot_formatter: present_cexpect_dot_formatter_external_interface build_cexpect_core
+	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect_dot_formatter/*.c -l cexpect_core -o $(lib_dir)/libcexpect_dot_formatter.so
+
+
+build_cexpect: clean build_list present_external_interface build_cexpect_dot_formatter build_cexpect_core
 	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect/*.c cexpect_dot_formatter/*.c -l cexpect_list -l cexpect_core -o $(lib_dir)/libcexpect.so
 
 
@@ -101,6 +105,10 @@ build_list_test: build_list build_custom_list_matchers
 	$(CC) $(default_compile_flags) test/cexpect_list/list_test.c -l cexpect -l cexpect_cmatchers -l cexpect_list -l cexpect_core -l custom_list_matchers -o $(test_dir)/list_test.o
 
 
+build_cexpect_dot_formatter_test: clean build_cexpect_core build_cexpect build_cexpect_matchers build_cexpect_dot_formatter
+	$(CC) $(default_compile_flags) test/cexpect_dot_formatter/cexpect_dot_formatter_test.c -l cexpect -l cexpect_cmatchers -l cexpect_dot_formatter -l cexpect_core -o $(test_dir)/cexpect_dot_formatter_test.o
+
+
 test_cexpect: clean build_cexpect build_cexpect_matchers build_cexpect_test
 	./$(test_dir)/cexpect_test.o
 
@@ -115,11 +123,15 @@ test_booleans: clean build_cexpect build_cexpect_matchers build_booleans_test
 
 test_strings: clean build_cexpect build_cexpect_matchers build_strings_test
 	./$(test_dir)/strings_test.o
-	
+
 
 test_list: clean build_cexpect build_cexpect_matchers build_list_test
 	./$(test_dir)/list_test.o
-	
+
+
+test_cexpect_dot_formatter: clean build_cexpect build_cexpect_matchers build_cexpect_dot_formatter_test
+	./$(test_dir)/cexpect_dot_formatter_test.o
+
 
 build_readme_test:  clean build_cexpect build_cexpect_matchers
 	$(CC) $(default_compile_flags) test/examples/readme_test.c -l cexpect -l cexpect_cmatchers -l cexpect_core -o $(test_dir)/readme_test.o
@@ -129,4 +141,6 @@ readme_test: clean build_cexpect build_cexpect_matchers build_readme_test
 	./$(test_dir)/readme_test.o
 
 
-test: test_cexpect test_integers test_booleans test_list test_strings
+
+
+test: test_cexpect test_integers test_booleans test_list test_strings test_cexpect_dot_formatter

@@ -6,13 +6,18 @@
 #include "cexpect_list.h"
 
 
+typedef int (*printer_function_type)(const char *format, ...);
+
+static printer_function_type printer = printf;
+
+
 static void report_failing_test_with_dot() {
-	printf("F");
+	printer("F");
 }
 
 
 static void report_successful_test_with_dot() {
-	printf(".");
+	printer(".");
 }
 
 
@@ -47,7 +52,9 @@ static void report_summary_for_dots(
 }
 
 
-Formatter *make_dot_formatter() {
+Formatter *make_dot_formatter(printer_function_type new_printer) {
+	printer = new_printer;
+	
 	return make_formatter(
 		report_failing_test_with_dot,
 		report_successful_test_with_dot,

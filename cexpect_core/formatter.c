@@ -31,17 +31,17 @@ Formatter *make_formatter(
 
 
 void perform_format_success(Formatter *formatter, Test *test) {
-	formatter->success();
+	do_format_success(formatter);
 }
 
 
 void perform_format_fail(Formatter *formatter, Test *test) {
-	formatter->fail();
+	do_format_failure(formatter);
 }
 
 
 void perform_format_start(Formatter *formatter, Suite *suite) {
-	formatter->report_start(get_suite_name(suite));
+	do_format_start(formatter, get_suite_name(suite));
 }
 
 
@@ -56,11 +56,37 @@ void perform_format_summary(Formatter *formatter, Suite *suite) {
 		i++;
 	}
 	
-	
-	formatter->summary(
+	do_format_summary(
+		formatter,
 		number_of_tests(suite),
 		number_of_passing_tests(suite),
 		_number_of_failed_tests,
 		failed_tests
 		);
+}
+
+void do_format_start(Formatter *formatter, char *suite_name) {
+	formatter->report_start(suite_name);
+}
+
+void do_format_failure(Formatter *formatter) {
+	formatter->fail();
+}
+
+void do_format_success(Formatter *formatter) {
+	formatter->success();
+}
+
+void do_format_summary(Formatter *formatter,
+                       int number_of_tests,
+                       int number_of_passing_tests,
+                       int number_of_failed_tests,
+                       FailedTest failed_tests[]) {
+	
+	formatter->summary(
+		number_of_tests,
+		number_of_passing_tests,
+		number_of_failed_tests,
+		failed_tests
+	);
 }
