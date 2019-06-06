@@ -78,7 +78,7 @@ build_cexpect_matchers: clean build_cexpect_core
 
 
 build_cexpect_test: clean build_void_formatter
-	$(CC) $(default_compile_flags) test/cexpect/cexpect_test.c -l cexpect_core -l cexpect -l cexpect_void_formatter -o $(test_dir)/cexpect_test.o
+	$(CC) $(default_compile_flags) test/cexpect/cexpect_test.c -l cexpect_core -l cexpect -l cexpect_cmatchers -l cexpect_void_formatter -o $(test_dir)/cexpect_test.o
 
 
 build_integers_test: clean build_cexpect build_cexpect_matchers

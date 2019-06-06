@@ -35,6 +35,18 @@ void some_passing_test(Test *test) {
     expect_equal(test, 1, 1);
 }
 
+static char *some_before_each_value = "something invalid";
+
+
+void before_each() {
+	some_before_each_value = "changed by before each";
+}
+
+
+void a_test_depending_on_before_each_hook(Test *test) {
+	expect(test, some_before_each_value, is_string_equal_to("changed by before each"));
+}
+
 
 void add_suite_failing_suite(Suite *suite) {
     add_test(suite, some_failing_test);
@@ -95,6 +107,16 @@ void a_suite_should_contain_passes_and_failures(Test *test) {
     expect_equal(test, number_of_failed_tests(suite), 1);
 }
 
+void a_before_each_hook_should_work(Test *test) {
+	Suite *suite = create_suite("Successful suite.");
+	set_formatter(suite, make_void_formatter());
+	add_before_each(suite, before_each);
+	add_test(suite, a_test_depending_on_before_each_hook);
+	run_suite(suite);
+	expect_equal(test, number_of_passing_tests(suite), 1);
+}
+
+
 
 int main(int argc, char *args[]) {
     Suite *suite = create_suite("cexpect suite");
@@ -104,6 +126,7 @@ int main(int argc, char *args[]) {
     add_test(suite, a_suite_should_contain_passes_and_failures);
     add_test(suite, a_failing_suite_should_return_non_zero_status_code);
     add_test(suite, a_passing_suite_should_return_zero_status_code);
+    add_test(suite, a_before_each_hook_should_work);
 
     start_cexpect(suite);
 }
