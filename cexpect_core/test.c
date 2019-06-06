@@ -41,3 +41,25 @@ char *get_file_name_for_test(Test *test) {
 void perform_test(Test *test) {
 	test->test_function(test);
 }
+
+
+void pass_test(Test *test) {
+	Suite *suite = get_suite_for_test(test);
+	increment_passing_tests(suite);
+
+	Formatter *formatter = get_formatter(suite);
+	do_format_success(formatter);
+}
+
+
+void fail_test(Test *test, char *expected_value, char *actual_value) {
+	FailedTest *failed_test = make_failed_test(test, expected_value, actual_value);
+
+	Suite *suite = get_suite_for_test(test);
+
+	add_to_list(
+		get_failed_tests(suite),
+		failed_test);
+
+	do_format_failure(get_formatter(suite));
+}

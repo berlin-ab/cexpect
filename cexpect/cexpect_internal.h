@@ -25,6 +25,7 @@ extern List *get_tests(Suite *suite);
 extern char *get_suite_name(Suite *suite);
 extern Formatter *get_formatter(Suite *suite);
 extern List *get_failed_tests(Suite *suite);
+extern void increment_passing_tests(Suite *suite);
 
 
 // Failed tests
