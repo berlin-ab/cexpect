@@ -5,7 +5,7 @@
 #include "cexpect.h"
 #include "cexpect_formatter.h"
 
-#include "suite.h"
+#include "internal/suite.h"
 
 
 struct SuiteData {

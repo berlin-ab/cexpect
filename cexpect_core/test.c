@@ -2,8 +2,9 @@
 
 
 #include "cexpect.h"
-#include "suite.h"
-#include "failed_test.h"
+
+#include "internal/suite.h"
+#include "internal/failed_test.h"
 
 
 struct TestData {

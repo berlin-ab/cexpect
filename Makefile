@@ -33,7 +33,7 @@ clean:
 	rm -rf $(output_dir)
 	mkdir -p $(lib_dir)
 	mkdir -p $(include_dir)
-	mkdir -p $(internal_include_dir)
+	mkdir -p $(internal_include_dir)/internal
 	mkdir -p $(test_dir)
 	mkdir -p build/coverage
 
@@ -45,9 +45,9 @@ present_external_interface: clean
 	
 
 present_internal_interface: clean
-	cp cexpect/test.h $(internal_include_dir)
-	cp cexpect/suite.h $(internal_include_dir)
-	cp cexpect/failed_test.h $(internal_include_dir)
+	cp cexpect/internal/test.h $(internal_include_dir)/internal
+	cp cexpect/internal/suite.h $(internal_include_dir)/internal
+	cp cexpect/internal/failed_test.h $(internal_include_dir)/internal
 
 
 present_cexpect_dot_formatter_external_interface: present_external_interface
