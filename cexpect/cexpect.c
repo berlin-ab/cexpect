@@ -4,8 +4,10 @@
 
 #include "cexpect.h"
 #include "cexpect_list.h"
-#include "cexpect_internal.h"
 #include "cexpect_dot_formatter.h"
+
+#include "suite.h"
+#include "test.h"
 
 
 static void perform_format_summary(Formatter *formatter, Suite *suite) {

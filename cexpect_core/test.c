@@ -1,7 +1,9 @@
 #include <stdlib.h>
 
 
-#include "cexpect_internal.h"
+#include "cexpect.h"
+#include "suite.h"
+#include "failed_test.h"
 
 
 struct TestData {

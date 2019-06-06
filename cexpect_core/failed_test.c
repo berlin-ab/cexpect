@@ -1,8 +1,10 @@
 #include <stdlib.h>
 
 
-#include "cexpect_internal.h"
 #include "cexpect_list.h"
+#include "cexpect.h"
+#include "cexpect_formatter.h"
+#include "test.h"
 
 
 FailedTest *make_failed_test(Test *test, char *expected_value, char *actual_value) {

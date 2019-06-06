@@ -1,9 +1,11 @@
 #include <stdlib.h>
 
 
-#include "cexpect_internal.h"
 #include "cexpect_list.h"
-#include "cexpect_dot_formatter.h"
+#include "cexpect.h"
+#include "cexpect_formatter.h"
+
+#include "suite.h"
 
 
 struct SuiteData {
@@ -72,9 +74,6 @@ int number_of_passing_tests(Suite *suite) {
 }
 
 
-/*
- * Tests
- */
 void before_each(Suite *suite) {
 	suite->before_each();
 }

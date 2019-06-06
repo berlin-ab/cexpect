@@ -48,7 +48,6 @@ present_internal_interface: clean
 	cp cexpect/test.h $(internal_include_dir)
 	cp cexpect/suite.h $(internal_include_dir)
 	cp cexpect/failed_test.h $(internal_include_dir)
-	cp cexpect/cexpect_internal.h $(internal_include_dir)
 
 
 present_cexpect_dot_formatter_external_interface: present_external_interface
