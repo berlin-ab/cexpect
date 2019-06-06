@@ -9,6 +9,7 @@ struct FormatterData {
 	format_success success;
 	format_summary summary;
 	format_start report_start;
+	void *extra;
 };
 
 
@@ -19,13 +20,15 @@ Formatter *make_formatter(
 	format_failure fail,
 	format_success success,
 	format_summary summary,
-	format_start start
+	format_start start,
+	void *extra
 ) {
 	Formatter *formatter = calloc(1, sizeof(Formatter));
 	formatter->fail = fail;
 	formatter->success = success;
 	formatter->summary = summary;
 	formatter->report_start = start;
+	formatter->extra = extra;
 	return formatter;
 }
 
@@ -66,15 +69,15 @@ void perform_format_summary(Formatter *formatter, Suite *suite) {
 }
 
 void do_format_start(Formatter *formatter, char *suite_name) {
-	formatter->report_start(suite_name);
+	formatter->report_start(suite_name, formatter->extra);
 }
 
 void do_format_failure(Formatter *formatter) {
-	formatter->fail();
+	formatter->fail(formatter->extra);
 }
 
 void do_format_success(Formatter *formatter) {
-	formatter->success();
+	formatter->success(formatter->extra);
 }
 
 void do_format_summary(Formatter *formatter,
@@ -87,6 +90,7 @@ void do_format_summary(Formatter *formatter,
 		number_of_tests,
 		number_of_passing_tests,
 		number_of_failed_tests,
-		failed_tests
+		failed_tests,
+		formatter->extra
 	);
 }
