@@ -45,6 +45,14 @@ present_cexpect_dot_formatter_external_interface: present_external_interface
 	cp cexpect_dot_formatter/cexpect_dot_formatter.h $(include_dir)
 	
 
+present_cexpect_void_formatter_external_interface: present_external_interface
+	cp cexpect_void_formatter/cexpect_void_formatter.h $(include_dir)
+	
+	
+build_void_formatter: present_cexpect_void_formatter_external_interface
+	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect_void_formatter/*.c -l cexpect_list -l cexpect -o $(lib_dir)/libcexpect_void_formatter.so
+	
+
 build_cexpect: clean build_list present_cexpect_dot_formatter_external_interface
 	cp cexpect/*.h build/include/
 	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect/*.c cexpect_dot_formatter/*.c -l cexpect_list -o $(lib_dir)/libcexpect.so
@@ -55,20 +63,20 @@ build_cexpect_matchers: clean
 	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect_matchers/*.c -lcexpect -o $(lib_dir)/libcexpect_cmatchers.so
 
 
-build_cexpect_test:
-	$(CC) $(default_compile_flags) test/cexpect/cexpect_test.c -l cexpect -o $(test_dir)/cexpect_test.o
+build_cexpect_test: clean build_void_formatter
+	$(CC) $(default_compile_flags) test/cexpect/cexpect_test.c -l cexpect -l cexpect_void_formatter -o $(test_dir)/cexpect_test.o
 
 
 build_integers_test: clean build_cexpect build_cexpect_matchers
 	$(CC) $(default_compile_flags) test/cexpect_matchers/integers_test.c -l cexpect -l cexpect_cmatchers -o $(test_dir)/integers_test.o
 
 
-build_booleans_test:
-	$(CC) $(default_compile_flags) test/cexpect_matchers/booleans_test.c -l cexpect -l cexpect_cmatchers -o $(test_dir)/booleans_test.o
+build_booleans_test: clean build_cexpect build_void_formatter
+	$(CC) $(default_compile_flags) test/cexpect_matchers/booleans_test.c -l cexpect -l cexpect_cmatchers -l cexpect_void_formatter -o $(test_dir)/booleans_test.o
 	
 
-build_strings_test:
-	$(CC) $(default_compile_flags) test/cexpect_matchers/strings_test.c -l cexpect -l cexpect_cmatchers -o $(test_dir)/strings_test.o
+build_strings_test: clean build_cexpect build_void_formatter
+	$(CC) $(default_compile_flags) test/cexpect_matchers/strings_test.c -l cexpect -l cexpect_cmatchers -l cexpect_void_formatter -o $(test_dir)/strings_test.o
 	
 
 build_list:
