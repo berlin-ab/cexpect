@@ -1,7 +1,8 @@
 #include <stdlib.h>
+#include <stdbool.h>
 
 
-#include "cexpect_cmatchers.h"
+#include "cexpect_matchers.h"
 
 
 struct MatchResultData {
