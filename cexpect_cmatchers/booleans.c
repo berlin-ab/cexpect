@@ -24,7 +24,7 @@ MatchResult *match_booleans(Matcher *matcher, void *actual_value) {
 	char *actual_message = calloc(100, sizeof(char));
 	sprintf(expected_message, "%s", (expected_value ? "true" : "false"));
 	sprintf(actual_message, "%s", (actual ? "true" : "false"));
-	return match_failed(result, expected_message, actual_message);;
+	return match_failed(result, expected_message, actual_message);
 }
 
 

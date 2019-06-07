@@ -38,13 +38,16 @@ void do_format_start(Formatter *formatter, char *suite_name) {
 	formatter->report_start(suite_name, formatter->extra);
 }
 
+
 void do_format_failure(Formatter *formatter) {
 	formatter->fail(formatter->extra);
 }
 
+
 void do_format_success(Formatter *formatter) {
 	formatter->success(formatter->extra);
 }
+
 
 void do_format_summary(Formatter *formatter,
                        int number_of_tests,

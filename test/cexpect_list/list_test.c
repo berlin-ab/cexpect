@@ -69,7 +69,7 @@ void a_list_can_store_and_retrieve_values(Test *test) {
 		found_value = (char *)list_value(item);
 	}
 	
-	expect(test, strcmp(found_value, "abc"), is_int_equal_to(0));
+	expect(test, found_value, is_string_equal_to("abc"));
 }
 
 

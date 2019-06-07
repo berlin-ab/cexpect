@@ -1,12 +1,11 @@
 #ifndef CEXPECT_CEXPECT_MATCHERS_H
 #define CEXPECT_CEXPECT_MATCHERS_H
 
+
 #include "cexpect.h"
 
 
 typedef struct MatchResultData MatchResult;
-
-
 
 
 
