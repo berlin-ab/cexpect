@@ -4,7 +4,7 @@
 
 #include "cexpect_matchers.h"
 
-
+#include "internal/test.h"
 #include "internal/matcher.h"
 #include "internal/matcher_result.h"
 
@@ -30,6 +30,7 @@ void expect(Test *test, void *actual_value, Matcher *matcher) {
 			actual_message(result));
 	}
 }
+
 
 /* 
  * library extension functions:

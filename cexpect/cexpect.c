@@ -7,8 +7,8 @@
 #include "cexpect_dot_formatter.h"
 
 
-#include "internal/suite.h"
 #include "internal/test.h"
+#include "internal/suite.h"
 
 
 static void perform_format_summary(Formatter *formatter, Suite *suite) {

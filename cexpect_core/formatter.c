@@ -2,7 +2,6 @@
 
 
 #include "cexpect_formatter.h"
-#include "cexpect.h"
 
 
 struct FormatterData {

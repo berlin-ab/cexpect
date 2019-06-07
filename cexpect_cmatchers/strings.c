@@ -1,7 +1,6 @@
 #include <string.h>
 
 
-#include "cexpect.h"
 #include "cexpect_cmatchers.h"
 
 

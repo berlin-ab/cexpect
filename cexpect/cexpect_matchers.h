@@ -2,10 +2,8 @@
 #define CEXPECT_CEXPECT_MATCHERS_H
 
 
-#include "cexpect.h"
-
-
 typedef struct MatchResultData MatchResult;
+typedef struct MatcherData Matcher;
 
 
 

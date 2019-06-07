@@ -17,4 +17,5 @@ extern Formatter *get_formatter(Suite *suite);
 extern List *get_failed_tests(Suite *suite);
 extern void increment_passing_tests(Suite *suite);
 
+
 #endif //CEXPECT_SUITE_H

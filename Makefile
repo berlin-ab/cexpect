@@ -42,6 +42,7 @@ present_external_interface: clean
 	cp cexpect/cexpect.h $(include_dir)
 	cp cexpect/cexpect_formatter.h $(include_dir)
 	cp cexpect/cexpect_matchers.h $(include_dir)
+	cp cexpect/cexpect_suite_types.h $(include_dir)
 	cp cexpect_list/cexpect_list.h $(include_dir)
 	
 

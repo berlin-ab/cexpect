@@ -1,6 +1,4 @@
-#include "cexpect.h"
 #include "cexpect_formatter.h"
-#include "cexpect_list.h"
 
 
 typedef int (*printer_function_type)(const char *format, ...);
