@@ -6,6 +6,9 @@
 
 
 extern Test *make_test(Suite *suite, test_function_type test_function, int line_number, char *file_name);
+extern void pass_test(Test *test);
+extern void fail_test(Test *test, char *expected_value, char *actual_value);
+
 extern void perform_test(Test *test);
 extern int get_line_number_for_test(Test *test);
 extern char *get_file_name_for_test(Test *test);
