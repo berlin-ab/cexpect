@@ -45,5 +45,3 @@ char *get_file_name_for_test(Test *test) {
 void perform_test(Test *test) {
 	test->test_function(test);
 }
-
-
