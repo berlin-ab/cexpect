@@ -6,7 +6,7 @@
 
 #include "internal/test.h"
 #include "internal/matcher.h"
-#include "internal/matcher_result.h"
+#include "internal/match_result.h"
 
 
 struct MatcherData {

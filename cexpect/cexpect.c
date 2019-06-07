@@ -11,7 +11,7 @@
 #include "internal/suite.h"
 #include "internal/failed_test.h"
 #include "internal/matcher.h"
-#include "internal/matcher_result.h"
+#include "internal/match_result.h"
 
 
 static void perform_format_summary(Formatter *formatter, Suite *suite) {
