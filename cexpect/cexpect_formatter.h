@@ -2,9 +2,6 @@
 #define CEXPECT_FORMATTER_H
 
 
-#include "cexpect_list.h"
-
-
 typedef struct FormatterData Formatter;
 typedef struct FailedTestData FailedTest;
 
