@@ -9,7 +9,7 @@
  * boolean matchers:
  * 
  */
-MatchResult *match_booleans(Matcher *matcher, void *actual_value) {
+static MatchResult *match_booleans(Matcher *matcher, void *actual_value) {
 	bool expected_value = *(bool*)get_expected_value(matcher);
 	bool actual = *(bool *)actual_value;
 

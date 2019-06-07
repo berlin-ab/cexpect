@@ -8,7 +8,7 @@
  * string matchers:
  * 
  */
-MatchResult *string_matcher(Matcher *matcher, void *actual_value) {
+static MatchResult *string_matcher(Matcher *matcher, void *actual_value) {
 	char *actual = (char *)actual_value;
 	char *expected = (char *)get_expected_value(matcher);
 

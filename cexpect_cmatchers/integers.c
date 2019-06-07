@@ -9,7 +9,7 @@
  * primitive matchers:
  * 
  */
-MatchResult *match_integers(Matcher *matcher, void *actual_value) {
+static MatchResult *match_integers(Matcher *matcher, void *actual_value) {
 	MatchResult *result = make_match_result();
 
 	bool is_match = (int)get_expected_value(matcher) == (int)actual_value;
