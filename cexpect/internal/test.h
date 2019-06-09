@@ -9,7 +9,7 @@
  * make a new test:
  * 
  */
-extern Test *make_test(Suite *suite, test_function_type test_function, int line_number, char *file_name);
+extern Test *make_test(Suite *suite, test_function_type test_function);
 
 
 /*
@@ -24,7 +24,7 @@ extern void perform_test(Test *test);
  * 
  */
 extern void pass_test(Test *test);
-extern void fail_test(Test *test, char *expected_value, char *actual_value);
+extern void fail_test(Test *test, char *expected_value, char *actual_value, int line_number, char *file_name);
 
 
 /*

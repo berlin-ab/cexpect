@@ -44,10 +44,10 @@ void set_formatter(Suite *suite, Formatter *formatter) {
 }
 
 
-void add_test_to_suite(Suite *suite, test_function_type test_function, int line_number, char *file_name) {
+void add_test(Suite *suite, test_function_type test_function) {
 	add_to_list(
 		get_tests(suite), 
-		make_test(suite, test_function, line_number, file_name));
+		make_test(suite, test_function));
 }
 
 
@@ -82,7 +82,7 @@ int run_suite(Suite *suite) {
  * base expectation:
  * 
  */
-void expect(Test *test, void *actual_value, Matcher *matcher) {
+void expect_internal(Test *test, void *actual_value, Matcher *matcher, int line_number, char *file_name) {
 	MatchResult *result = perform_match(matcher, actual_value);
 	
 	if (is_match(result)) {
@@ -90,7 +90,9 @@ void expect(Test *test, void *actual_value, Matcher *matcher) {
 	} else {
 		fail_test(test,
 		          expected_message(result),
-		          actual_message(result));
+		          actual_message(result),
+		          line_number,
+		          file_name);
 	}
 }
 
@@ -104,8 +106,12 @@ void pass_test(Test *test) {
 }
 
 
-void fail_test(Test *test, char *expected_value, char *actual_value) {
-	FailedTest *failed_test = make_failed_test(test, expected_value, actual_value);
+void fail_test(Test *test, char *expected_value, char *actual_value, int line_number, char *file_name) {
+	FailedTest *failed_test = make_failed_test(
+		expected_value, 
+		actual_value, 
+		line_number, 
+		file_name);
 
 	Suite *suite = get_suite_for_test(test);
 

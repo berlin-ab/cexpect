@@ -16,11 +16,9 @@ struct TestData {
 };
 
 
-Test *make_test(Suite *suite, test_function_type test_function, int line_number, char *file_name) {
+Test *make_test(Suite *suite, test_function_type test_function) {
 	Test *test = calloc(1, sizeof(Test));
 	test->test_function = test_function;
-	test->line_number = line_number;
-	test->file_name = file_name;
 	test->suite = suite;
 
 	return test;

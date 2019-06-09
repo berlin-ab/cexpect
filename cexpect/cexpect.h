@@ -15,7 +15,8 @@
  *   expect(test, true, is_false()); # fails
  *   
  */
-extern void expect(Test *test, void *actual_value, Matcher *matcher);
+#define expect(test, actual_value, matcher)  expect_internal(test, actual_value, matcher, __LINE__, __FILE__) 
+extern void expect_internal(Test *test, void *actual_value, Matcher *matcher, int line_number, char *file_name);
 
 
 /*
@@ -29,9 +30,7 @@ extern Suite *create_suite(char *suite_name);
  * Add tests to a suite:
  * 
  */
-#define add_test(suite, test_function) add_test_to_suite(suite, test_function, __LINE__, __FILE__)
-
-extern void add_test_to_suite(Suite *suite, test_function_type test_function, int line_number, char *file_name);
+extern void add_test(Suite *suite, test_function_type test_function);
 
 
 

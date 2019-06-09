@@ -22,11 +22,11 @@ void a_list_starts_as_empty(Test *test) {
 void a_list_is_no_longer_empty_after_adding_to_list(Test *test) {
 	List *list = make_list();
 	char *something = "a";
-	
+
 	add_to_list(list, something);
 	int *expected_size = calloc(1, sizeof(int));
 	*expected_size = 1;
-	
+
 	expect(test, list, list_has_size(expected_size));
 }
 
@@ -62,13 +62,13 @@ void a_list_can_store_and_retrieve_values(Test *test) {
 	List *list = make_list();
 
 	add_to_list(list, "abc");
-	
+
 	char *found_value = "";
 
 	for (ListItem *item = list_first(list); item; item = list_next(item)) {
 		found_value = (char *)list_value(item);
 	}
-	
+
 	expect(test, found_value, is_string_equal_to("abc"));
 }
 
