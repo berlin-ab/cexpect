@@ -53,7 +53,7 @@ void do_format_summary(Formatter *formatter,
                        int number_of_passing_tests,
                        int number_of_failed_tests,
                        FailedTest failed_tests[]) {
-	
+
 	formatter->summary(
 		number_of_tests,
 		number_of_passing_tests,

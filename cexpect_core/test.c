@@ -29,17 +29,6 @@ Suite *get_suite_for_test(Test *test) {
 	return test->suite;
 }
 
-
-int get_line_number_for_test(Test *test) {
-	return test->line_number;
-}
-
-
-char *get_file_name_for_test(Test *test) {
-	return test->file_name;
-}
-
-
 void perform_test(Test *test) {
 	test->test_function(test);
 }

@@ -31,8 +31,6 @@ extern void fail_test(Test *test, char *expected_value, char *actual_value, int 
  * get information about a test:
  * 
  */
-extern int get_line_number_for_test(Test *test);
-extern char *get_file_name_for_test(Test *test);
 extern Suite *get_suite_for_test(Test *test);
 
 
