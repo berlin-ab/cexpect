@@ -18,7 +18,7 @@ coverage_flags = ""
 ifdef COVERAGE
 coverage_flags = --coverage
 
-coverage:
+coverage: test
 	gcov *.gc*
 	lcov --capture --directory . --output-file build/coverage.info
 	genhtml build/coverage.info --output-directory build/coverage
