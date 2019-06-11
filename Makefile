@@ -124,7 +124,7 @@ build_list_test: build_list build_custom_list_matchers
 
 
 build_cexpect_dot_formatter_test: clean build_cexpect_core build_cexpect build_cexpect_cmatchers build_cexpect_dot_formatter
-	$(CC) $(default_compile_flags) test/cexpect_dot_formatter/cexpect_dot_formatter_test.c -l cexpect -l cexpect_cmatchers -l cexpect_dot_formatter -l cexpect_core -o $(test_dir)/cexpect_dot_formatter_test.o
+	$(CC) $(default_compile_flags) test/cexpect_dot_formatter/cexpect_dot_formatter_test.c -l cexpect -l cexpect_cmatchers -l cexpect_dot_formatter -l cexpect_core -l cexpect_list -o $(test_dir)/cexpect_dot_formatter_test.o
 
 
 build_readme_test:  clean build_cexpect build_cexpect_cmatchers
