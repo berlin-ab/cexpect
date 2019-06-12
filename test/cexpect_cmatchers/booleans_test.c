@@ -64,6 +64,7 @@ void is_true_should_fail_when_given_a_false_statement(Test *test) {
     expect(test, number_of_failed_tests(suite), is_int_equal_to(1));
 }
 
+
 int main(int argc, char *args[]) {
     Suite *suite = create_suite("Booleans suite");
     add_test(suite, is_false_should_pass_when_given_a_false_statement);
