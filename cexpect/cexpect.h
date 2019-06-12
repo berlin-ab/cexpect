@@ -20,9 +20,9 @@
 	
 extern void make_expectation(
 	Test *test, 
-	void *actual_value, 
+	void *actual_value,
 	Matcher *matcher, 
-	const char *function_name, 
+	const char *test_name, 
 	int line_number, 
 	char *file_name);
 	
