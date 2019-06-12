@@ -24,7 +24,7 @@ extern void perform_test(Test *test);
  * 
  */
 extern void pass_test(Test *test);
-extern void fail_test(Test *test, char *expected_value, char *actual_value, int line_number, char *file_name);
+extern void fail_test(Test *test, char *expected_value, char *actual_value, char *test_name, int line_number, char *file_name);
 
 
 /*
@@ -32,7 +32,6 @@ extern void fail_test(Test *test, char *expected_value, char *actual_value, int 
  * 
  */
 extern Suite *get_suite_for_test(Test *test);
-extern void set_test_name(Test *test, char *test_name);
 
 
 #endif //CEXPECT_TEST_H

@@ -83,8 +83,13 @@ int run_suite(Suite *suite) {
  * base expectation:
  * 
  */
-void expect_internal(Test *test, void *actual_value, Matcher *matcher, const char function_name[55], int line_number, char *file_name) {
-	set_test_name(test, (char *)function_name);
+void expect_internal(
+	Test *test, 
+	void *actual_value, 
+	Matcher *matcher, 
+	const char test_name[55], 
+	int line_number, 
+	char *file_name) {
 	
 	MatchResult *result = perform_match(matcher, actual_value);
 	
@@ -94,6 +99,7 @@ void expect_internal(Test *test, void *actual_value, Matcher *matcher, const cha
 		fail_test(test,
 		          expected_message(result),
 		          actual_message(result),
+		          (char *)test_name,
 		          line_number,
 		          file_name);
 	}
