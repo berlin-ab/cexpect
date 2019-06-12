@@ -30,6 +30,7 @@ static void perform_format_summary(Formatter *formatter, Suite *suite) {
 		number_of_tests(suite),
 		number_of_passing_tests(suite),
 		_number_of_failed_tests,
+		number_of_pending_tests(suite),
 		failed_tests);
 }
 

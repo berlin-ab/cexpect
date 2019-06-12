@@ -22,6 +22,7 @@ static int printer(const char *format, ...) {
 static int list_printer(const char *format, const char *message, const char *other_message, char *file_name, int line_number) {
 	char *formatted_message = calloc(1000, sizeof(char));
 	sprintf(formatted_message, format, message, other_message, file_name, line_number);
+//	printf("%s", formatted_message);
 	add_to_list(printed_messages, (void *) formatted_message);
 	
 	return 0;
@@ -91,14 +92,22 @@ void a_failing_test_prints_a_message_about_the_failing_test(Test *test) {
 		1,
 		0,
 		1,
+		100,
 		failed_tests
 		);
 
-	contains_string = matches_string("expected true, got false -- some file name:1");
 	
 	bool *expected  = calloc(1, sizeof(bool));
-	*expected = contains_string;
 	
+	// Test failure expectation message
+	contains_string = matches_string("expected true, got false -- some file name:1");
+	*expected = contains_string;
+	expect(test, &contains_string, is_true());
+
+	
+	// Final count summary report
+	contains_string = matches_string("0 passed, 1 failed, 100 pending");
+	*expected = contains_string;
 	expect(test, &contains_string, is_true());
 }
 

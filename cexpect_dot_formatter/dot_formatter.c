@@ -32,6 +32,7 @@ static void report_summary_for_dots(
 	int number_of_tests, 
 	int number_of_passing_tests,
 	int number_of_failed_tests,
+	int number_of_pending_tests,
 	FailedTest failed_tests[],
 	void *extra
 	) {
@@ -39,10 +40,11 @@ static void report_summary_for_dots(
 	internal_printer("\n");
 	internal_printer("\n");
 	internal_printer("Summary:\n");
-	internal_printer("\nRan %d test(s).\n\n%d passed, %d failed",
+	internal_printer("\nRan %d test(s).\n\n%d passed, %d failed, %d pending",
 	       number_of_tests,
 	       number_of_passing_tests,
-	       number_of_failed_tests);
+	       number_of_failed_tests,
+	       number_of_pending_tests);
 	internal_printer("\n\n");
 	for(int i = 0; i < number_of_failed_tests; i++) {
 		FailedTest failed_test = failed_tests[i];

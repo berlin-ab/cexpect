@@ -22,6 +22,7 @@ typedef void (*format_summary)(
 	int number_of_tests,
 	int number_of_passing_tests,
 	int number_of_failed_tests,
+	int number_of_pending_tests,
 	FailedTest failed_tests[],
 	void *extra
 );
@@ -46,6 +47,7 @@ void do_format_summary(
 	int number_of_tests,
 	int number_of_passing_tests,
 	int number_of_failed_tests,
+	int number_of_pending_tests,
 	FailedTest failed_tests[]
 );
 

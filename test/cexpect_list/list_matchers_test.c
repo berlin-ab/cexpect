@@ -35,6 +35,7 @@ void capture_format_summary(
 	int number_of_tests,
 	int number_of_successful_tests,
 	int number_of_failing_tests,
+	int number_of_pending_tests,
 	FailedTest failed_tests[],
 	void *extra) {
 	expected_message = failed_tests[0].expected_value;
