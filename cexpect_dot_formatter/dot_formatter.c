@@ -10,6 +10,12 @@ static void report_failing_test_with_dot(void *extra) {
 }
 
 
+static void report_pending_test_with_dot(void *extra) {
+	printer_function_type internal_printer = extra;
+	internal_printer("*");
+}
+
+
 static void report_successful_test_with_dot(void *extra) {
 	printer_function_type internal_printer = extra;
 	internal_printer(".");
@@ -54,6 +60,7 @@ Formatter *make_dot_formatter(printer_function_type new_printer) {
 	return make_formatter(
 		report_failing_test_with_dot,
 		report_successful_test_with_dot,
+		report_pending_test_with_dot,
 		report_summary_for_dots,
 		report_start_for_dots,
 		new_printer

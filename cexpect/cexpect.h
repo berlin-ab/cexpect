@@ -77,6 +77,7 @@ extern void start_cexpect(Suite *suite);
 extern int number_of_tests(Suite *suite);
 extern int number_of_failed_tests(Suite *suite);
 extern int number_of_passing_tests(Suite *suite);
+extern int number_of_pending_tests(Suite *suite);
 
 
 #endif // CEXPECT_H

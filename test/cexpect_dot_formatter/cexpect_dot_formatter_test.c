@@ -49,6 +49,15 @@ void a_passing_test_prints_a_dot(Test *test) {
 	expect(test, printed_message, is_string_equal_to("."));
 }
 
+
+void a_pending_test_prints_an_asterix(Test *test) {
+	Formatter *formatter = make_dot_formatter(printer);
+	do_format_pending(formatter);
+
+	expect(test, printed_message, is_string_equal_to("*"));
+}
+
+
 bool matches_string(char *expected_string) {
 	bool contains_string = false;
 	
@@ -63,6 +72,8 @@ bool matches_string(char *expected_string) {
 	}
 	return contains_string;
 }
+
+
 void a_failing_test_prints_a_message_about_the_failing_test(Test *test) {
 	bool contains_string;
 	FailedTest failed_tests[1];
@@ -91,6 +102,7 @@ void a_failing_test_prints_a_message_about_the_failing_test(Test *test) {
 	expect(test, &contains_string, is_true());
 }
 
+
 int main(int argsc, char *args[]) {
 	Suite *suite = create_suite("Dot formatter");
 
@@ -98,6 +110,7 @@ int main(int argsc, char *args[]) {
 	add_test(suite, a_failing_test_prints_an_F);
 	add_test(suite, a_passing_test_prints_a_dot);
 	add_test(suite, a_failing_test_prints_a_message_about_the_failing_test);
+	add_test(suite, a_pending_test_prints_an_asterix);
 
 	start_cexpect(suite);
 }

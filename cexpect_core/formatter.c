@@ -7,6 +7,7 @@
 struct FormatterData {
 	format_failure fail;
 	format_success success;
+	format_pending pending;
 	format_summary summary;
 	format_start report_start;
 	void *extra;
@@ -19,6 +20,7 @@ struct FormatterData {
 Formatter *make_formatter(
 	format_failure fail,
 	format_success success,
+	format_pending pending,
 	format_summary summary,
 	format_start start,
 	void *extra
@@ -26,6 +28,7 @@ Formatter *make_formatter(
 	Formatter *formatter = calloc(1, sizeof(Formatter));
 	formatter->fail = fail;
 	formatter->success = success;
+	formatter->pending = pending;
 	formatter->summary = summary;
 	formatter->report_start = start;
 	formatter->extra = extra;
@@ -45,6 +48,11 @@ void do_format_failure(Formatter *formatter) {
 
 void do_format_success(Formatter *formatter) {
 	formatter->success(formatter->extra);
+}
+
+
+void do_format_pending(Formatter *formatter) {
+	formatter->pending(formatter->extra);
 }
 
 

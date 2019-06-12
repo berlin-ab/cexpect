@@ -53,10 +53,14 @@ void a_test_depending_on_after_each(Test *test) {
 }
 
 
+void a_test_without_an_expectation(Test *test) {
+	// no expectations made.
+}
+
+
 void add_suite_failing_suite(Suite *suite) {
 	add_test(suite, some_failing_test);
 }
-
 
 void add_suite_passing_suite(Suite *suite) {
 	add_test(suite, some_passing_test);
@@ -137,6 +141,20 @@ void an_after_each_hook_should_work(Test *test) {
 }
 
 
+void a_test_without_an_assertion_should_be_considered_pending(Test *test) {
+	Suite *suite = create_suite("Successful suite.");
+	set_formatter(suite, make_void_formatter());
+	add_test(suite, a_test_without_an_expectation);
+	run_suite(suite);
+	expect_equal(test, number_of_pending_tests(suite), 1);
+}
+
+
+void a_real_pending_test(Test *test) {
+	
+}
+
+
 int main(int argc, char *args[]) {
 	Suite *suite = create_suite("cexpect suite");
 	set_formatter(suite, make_dot_formatter(printf));
@@ -147,6 +165,8 @@ int main(int argc, char *args[]) {
 	add_test(suite, a_passing_suite_should_return_zero_status_code);
 	add_test(suite, a_before_each_hook_should_work);
 	add_test(suite, an_after_each_hook_should_work);
-
+	add_test(suite, a_test_without_an_assertion_should_be_considered_pending);
+	add_test(suite, a_real_pending_test);
+	
 	start_cexpect(suite);
 }

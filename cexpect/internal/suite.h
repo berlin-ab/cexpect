@@ -24,6 +24,7 @@ extern void set_formatter_for_suite(Suite *suite, Formatter *formatter);
  * 
  */
 extern void increment_passing_tests(Suite *suite);
+extern void increment_pending_tests(Suite *suite);
 
 
 /*

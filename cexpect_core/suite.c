@@ -13,6 +13,7 @@ struct SuiteData {
 	List *tests;
 	List *failed_tests;
 	int number_of_passing_tests;
+	int number_of_pending_tests;
 	Formatter *formatter;
 	void (*before_each)();
 	void (*after_each)();
@@ -74,6 +75,11 @@ int number_of_passing_tests(Suite *suite) {
 }
 
 
+int number_of_pending_tests(Suite *suite) {
+	return suite->number_of_pending_tests;
+}
+
+
 void before_each(Suite *suite) {
 	suite->before_each();
 }
@@ -86,6 +92,11 @@ void after_each(Suite *suite) {
 
 void increment_passing_tests(Suite *suite) {
 	suite->number_of_passing_tests++;
+}
+
+
+void increment_pending_tests(Suite *suite) {
+	suite->number_of_pending_tests++;
 }
 
 

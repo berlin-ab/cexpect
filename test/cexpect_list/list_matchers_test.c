@@ -6,14 +6,18 @@
 #include "cexpect_cmatchers.h"
 #include "custom_list_matchers.h"
 
+
 static char *expected_message = "something invalid";
 static char *expected_success_message = "something invalid";
 static char *expected_failure_message = "something invalid";
 static char *actual_message = "something invalid";
+static bool was_pending;
+
 
 void before_each(void) {
 	expected_message = "something invalid";
 	actual_message = "something invalid";
+	was_pending = false;
 }
 
 
@@ -41,15 +45,26 @@ void capture_format_summary(
 void capture_format_start(char *suite_name, void *extra) {}
 
 
+void capture_format_pending(void *extra) {
+	was_pending = true;
+}
+
+
 Formatter *make_capturing_formatter() {
 	return make_formatter(
 		capture_format_failure,
 		capture_format_success,
+		capture_format_pending,
 		capture_format_summary,
 		capture_format_start,
 		NULL
 		);
 }
+
+
+void a_pending_test(Test *test) {
+}
+
 
 void a_failing_test(Test *test) {
 	List *list = make_list();
@@ -111,6 +126,36 @@ void a_successful_test_for_list_size_captures_diagnostics(Test *test) {
 }
 
 
+void a_pending_test_captures_pending(Test *test) {
+	Suite *suite = create_suite("List matchers test");
+	set_formatter(suite, make_capturing_formatter());
+	
+	add_test(suite, a_pending_test);
+	
+	run_suite(suite);
+	
+	bool *was_pending_pointer = calloc(1, sizeof(bool));
+	*was_pending_pointer = was_pending;
+	
+	expect(test, was_pending_pointer, is_true());
+}
+
+
+void a_non_pending_test_does_not_capture_pending(Test *test) {
+	Suite *suite = create_suite("List matchers test");
+	set_formatter(suite, make_capturing_formatter());
+
+	add_test(suite, a_failing_test);
+
+	run_suite(suite);
+
+	bool *was_pending_pointer = calloc(1, sizeof(bool));
+	*was_pending_pointer = was_pending;
+
+	expect(test, was_pending_pointer, is_false());
+}
+
+
 int main(int argc, char *args[])
 {
 	Suite *suite = create_suite("List matchers test");
@@ -119,6 +164,8 @@ int main(int argc, char *args[])
 	add_test(suite, a_successful_test_for_list_size_captures_diagnostics);
 	add_test(suite, a_failing_test_for_list_size_provides_diagnostics);
 	add_test(suite, a_failing_test_for_list_is_empty_provides_diagnostics);
+	add_test(suite, a_pending_test_captures_pending);
+	add_test(suite, a_non_pending_test_does_not_capture_pending);
 
 	start_cexpect(suite);
 }

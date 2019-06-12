@@ -97,32 +97,6 @@ void expect_internal(Test *test, void *actual_value, Matcher *matcher, int line_
 }
 
 
-void pass_test(Test *test) {
-	Suite *suite = get_suite_for_test(test);
-	increment_passing_tests(suite);
-
-	Formatter *formatter = get_formatter(suite);
-	do_format_success(formatter);
-}
-
-
-void fail_test(Test *test, char *expected_value, char *actual_value, int line_number, char *file_name) {
-	FailedTest *failed_test = make_failed_test(
-		expected_value, 
-		actual_value, 
-		line_number, 
-		file_name);
-
-	Suite *suite = get_suite_for_test(test);
-
-	add_to_list(
-		get_failed_tests(suite),
-		failed_test);
-
-	do_format_failure(get_formatter(suite));
-}
-
-
 void start_cexpect(Suite *suite) {
 	int status_code = run_suite(suite);
 
