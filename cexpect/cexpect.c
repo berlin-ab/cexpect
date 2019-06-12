@@ -83,7 +83,9 @@ int run_suite(Suite *suite) {
  * base expectation:
  * 
  */
-void expect_internal(Test *test, void *actual_value, Matcher *matcher, int line_number, char *file_name) {
+void expect_internal(Test *test, void *actual_value, Matcher *matcher, const char function_name[55], int line_number, char *file_name) {
+	set_test_name(test, (char *)function_name);
+	
 	MatchResult *result = perform_match(matcher, actual_value);
 	
 	if (is_match(result)) {

@@ -7,6 +7,7 @@ typedef struct FailedTestData FailedTest;
 
 
 struct FailedTestData {
+	char *test_name;
 	char *expected_value;
 	char *actual_value;
 	int line_number;

@@ -48,11 +48,13 @@ static void report_summary_for_dots(
 	internal_printer("\n\n");
 	for(int i = 0; i < number_of_failed_tests; i++) {
 		FailedTest failed_test = failed_tests[i];
-		internal_printer("expected %s, got %s -- %s:%d\n",
+		internal_printer("expected %s, got %s -- %s -- %s:%d\n",
 		       failed_test.expected_value,
 		       failed_test.actual_value,
+		       failed_test.test_name,
 		       failed_test.file_name,
-		       failed_test.line_number);
+		       failed_test.line_number
+		       );
 	}
 	internal_printer("\n");
 }

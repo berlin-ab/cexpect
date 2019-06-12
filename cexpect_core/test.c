@@ -20,6 +20,7 @@ struct TestData {
 	Suite *suite;
 	int line_number;
 	char *file_name;
+	char *name;
 	enum PendingState is_pending;
 };
 
@@ -29,6 +30,7 @@ Test *make_test(Suite *suite, test_function_type test_function) {
 	test->is_pending = INITIAL_PENDING;
 	test->test_function = test_function;
 	test->suite = suite;
+	test->name = "unknown";
 
 	return test;
 }
@@ -96,6 +98,7 @@ void fail_test(Test *test, char *expected_value, char *actual_value, int line_nu
 	mark_no_longer_pending(test);
 	
 	FailedTest *failed_test = make_failed_test(
+		test->name,
 		expected_value,
 		actual_value,
 		line_number,
@@ -108,4 +111,8 @@ void fail_test(Test *test, char *expected_value, char *actual_value, int line_nu
 		failed_test);
 
 	do_format_failure(get_formatter(suite));
+}
+
+void set_test_name(Test *test, char *name) {
+	test->name = name;
 }

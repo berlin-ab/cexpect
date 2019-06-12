@@ -7,6 +7,7 @@
  * 
  */
 FailedTest *make_failed_test(
+	char *test_name,
 	char *expected_value, 
 	char *actual_value, 
 	int line_number, 
