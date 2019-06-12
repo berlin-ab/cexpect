@@ -83,7 +83,7 @@ int run_suite(Suite *suite) {
  * base expectation:
  * 
  */
-void expect_internal(
+void make_expectation(
 	Test *test, 
 	void *actual_value, 
 	Matcher *matcher, 

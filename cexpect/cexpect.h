@@ -16,9 +16,9 @@
  *   
  */
 #define expect(test, actual_value, matcher)  \
-	expect_internal(test, actual_value, matcher, (char *)__FUNCTION__, __LINE__, __FILE__)
+	make_expectation(test, actual_value, matcher, (char *)__FUNCTION__, __LINE__, __FILE__)
 	
-extern void expect_internal(
+extern void make_expectation(
 	Test *test, 
 	void *actual_value, 
 	Matcher *matcher, 
