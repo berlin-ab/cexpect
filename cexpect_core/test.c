@@ -9,22 +9,32 @@
 #include "internal/failed_test.h"
 
 
+enum PendingState {
+	INITIAL_PENDING,
+	MARKED_PENDING,
+	NOT_PENDING
+};
+
 struct TestData {
 	test_function_type test_function;
 	Suite *suite;
 	int line_number;
 	char *file_name;
-	bool is_pending;
+	enum PendingState is_pending;
 };
 
 
 Test *make_test(Suite *suite, test_function_type test_function) {
 	Test *test = calloc(1, sizeof(Test));
-	test->is_pending = true;
+	test->is_pending = INITIAL_PENDING;
 	test->test_function = test_function;
 	test->suite = suite;
 
 	return test;
+}
+
+void pending(Test *test) {
+	test->is_pending = MARKED_PENDING;
 }
 
 
@@ -34,7 +44,10 @@ Suite *get_suite_for_test(Test *test) {
 
 
 static bool is_still_pending(Test *test) {
-	return test->is_pending;
+	return (
+		test->is_pending == INITIAL_PENDING || 
+		test->is_pending == MARKED_PENDING
+	);
 }
 
 
@@ -47,7 +60,12 @@ static void notify_of_pending_test(Test *test) {
 
 
 static void mark_no_longer_pending(Test *test) {
-	test->is_pending = false;
+	test->is_pending = NOT_PENDING;
+}
+
+
+static bool is_marked_pending(Test *test) {
+	return test->is_pending == MARKED_PENDING;
 }
 
 
@@ -72,6 +90,9 @@ void pass_test(Test *test) {
 
 
 void fail_test(Test *test, char *expected_value, char *actual_value, int line_number, char *file_name) {
+	if (is_marked_pending(test))
+		return;
+	
 	mark_no_longer_pending(test);
 	
 	FailedTest *failed_test = make_failed_test(
@@ -88,5 +109,3 @@ void fail_test(Test *test, char *expected_value, char *actual_value, int line_nu
 
 	do_format_failure(get_formatter(suite));
 }
-
-

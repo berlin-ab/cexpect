@@ -151,7 +151,28 @@ void a_test_without_an_assertion_should_be_considered_pending(Test *test) {
 
 
 void a_real_pending_test(Test *test) {
+}
+
+
+void a_test_pending_test_with_an_expectation(Test *test) {
+	pending(test);
+
+	bool *expected_value = calloc(1, sizeof(bool));
+	*expected_value = true;
 	
+	expect(test, expected_value, is_false());
+}
+
+
+void a_pending_test_before_an_expectation_should_not_be_a_failure(Test *test) {
+	Suite *suite = create_suite("Successful suite.");
+	set_formatter(suite, make_void_formatter());
+	add_test(suite, a_test_pending_test_with_an_expectation);
+	
+	run_suite(suite);
+	
+	expect(test, number_of_pending_tests(suite), is_int_equal_to(1));
+	expect(test, number_of_failed_tests(suite), is_int_equal_to(0));
 }
 
 
@@ -166,7 +187,7 @@ int main(int argc, char *args[]) {
 	add_test(suite, a_before_each_hook_should_work);
 	add_test(suite, an_after_each_hook_should_work);
 	add_test(suite, a_test_without_an_assertion_should_be_considered_pending);
-	add_test(suite, a_real_pending_test);
+	add_test(suite, a_pending_test_before_an_expectation_should_not_be_a_failure);
 	
 	start_cexpect(suite);
 }

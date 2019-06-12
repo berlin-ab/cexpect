@@ -17,6 +17,7 @@
  */
 #define expect(test, actual_value, matcher)  expect_internal(test, actual_value, matcher, __LINE__, __FILE__) 
 extern void expect_internal(Test *test, void *actual_value, Matcher *matcher, int line_number, char *file_name);
+extern void pending(Test *test);
 
 
 /*
