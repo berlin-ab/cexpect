@@ -150,10 +150,6 @@ void a_test_without_an_assertion_should_be_considered_pending(Test *test) {
 }
 
 
-void a_real_pending_test(Test *test) {
-}
-
-
 void a_test_pending_test_with_an_expectation(Test *test) {
 	pending(test);
 
