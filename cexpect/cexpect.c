@@ -87,7 +87,7 @@ void expect_internal(
 	Test *test, 
 	void *actual_value, 
 	Matcher *matcher, 
-	const char test_name[55], 
+	const char *test_name, 
 	int line_number, 
 	char *file_name) {
 	
