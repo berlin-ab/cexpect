@@ -29,11 +29,27 @@ void some_passing_test(Test *test) {
 }
 
 
+void empty_tests_are_pending_tests(Test *test) {
+	// marked as pending
+}
+
+
+void tests_can_be_marked_pending(Test *test) {
+	// considered a pending test
+	pending(test);
+
+	// not considered a failing test
+	expect(test, true, is_false());
+}
+
+
 int main(int argc, char *args[]) {
 	Suite *suite = create_suite("Some suite name");
 	add_before_each(suite, before_each);
 	add_test(suite, some_failing_test);
 	add_test(suite, some_passing_test);
+	add_test(suite, empty_tests_are_pending_tests);
+	add_test(suite, tests_can_be_marked_pending);
 	add_after_each(suite, after_each);
 	start_cexpect(suite);
 }
