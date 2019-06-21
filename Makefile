@@ -71,29 +71,25 @@ present_cexpect_void_formatter_external_interface: present_external_interface
 #
 # Libraries
 #
-build_cexpect_core: clean present_external_interface present_internal_interface build_list
-	$(CC) $(default_compile_flags) -I $(internal_include_dir) $(shared_library_flags) cexpect_core/*.c -l cexpect_list -o $(lib_dir)/libcexpect_core.so
+build_cexpect_core: clean present_external_interface present_internal_interface
+	$(CC) $(default_compile_flags) -I $(internal_include_dir) $(shared_library_flags) cexpect_core/*.c cexpect_list/*.c -o $(lib_dir)/libcexpect_core.so
 
 
 build_void_formatter: present_cexpect_void_formatter_external_interface
-	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect_void_formatter/*.c -l cexpect_list -l cexpect_core -o $(lib_dir)/libcexpect_void_formatter.so
+	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect_void_formatter/*.c -l cexpect_core -o $(lib_dir)/libcexpect_void_formatter.so
 
 
 build_cexpect_dot_formatter: present_cexpect_dot_formatter_external_interface build_cexpect_core
 	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect_dot_formatter/*.c -l cexpect_core -o $(lib_dir)/libcexpect_dot_formatter.so
 
 
-build_cexpect: clean build_list present_external_interface build_cexpect_dot_formatter build_cexpect_core
-	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect/*.c cexpect_dot_formatter/*.c -l cexpect_list -l cexpect_core -o $(lib_dir)/libcexpect.so
+build_cexpect: clean present_external_interface build_cexpect_dot_formatter build_cexpect_core
+	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect/*.c cexpect_dot_formatter/*.c -l cexpect_core -o $(lib_dir)/libcexpect.so
 
 
 build_cexpect_cmatchers: clean build_cexpect_core
 	cp cexpect_cmatchers/*.h $(include_dir)
 	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect_cmatchers/*.c -lcexpect_core -o $(lib_dir)/libcexpect_cmatchers.so
-
-
-build_list: clean
-	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect_list/*.c -o $(lib_dir)/libcexpect_list.so
 
 
 #
@@ -116,15 +112,15 @@ build_strings_test: clean build_cexpect build_void_formatter
 
 
 build_custom_list_matchers:
-	$(CC) $(default_compile_flags) $(shared_library_flags) test/cexpect_list/custom_list_matchers.c  -l cexpect_core -l cexpect_cmatchers -l cexpect_list -o $(lib_dir)/libcustom_list_matchers.so
+	$(CC) $(default_compile_flags) $(shared_library_flags) test/cexpect_list/custom_list_matchers.c  -l cexpect_core -l cexpect_cmatchers -o $(lib_dir)/libcustom_list_matchers.so
 
 
-build_list_test: build_list build_custom_list_matchers
-	$(CC) $(default_compile_flags) test/cexpect_list/list_test.c -l cexpect -l cexpect_cmatchers -l cexpect_list -l cexpect_core -l custom_list_matchers -o $(test_dir)/list_test.o
+build_list_test: build_custom_list_matchers
+	$(CC) $(default_compile_flags) test/cexpect_list/list_test.c -l cexpect -l cexpect_cmatchers -l cexpect_core -l custom_list_matchers -o $(test_dir)/list_test.o
 
 
 build_cexpect_dot_formatter_test: clean build_cexpect_core build_cexpect build_cexpect_cmatchers build_cexpect_dot_formatter
-	$(CC) $(default_compile_flags) test/cexpect_dot_formatter/cexpect_dot_formatter_test.c -l cexpect -l cexpect_cmatchers -l cexpect_dot_formatter -l cexpect_core -l cexpect_list -o $(test_dir)/cexpect_dot_formatter_test.o
+	$(CC) $(default_compile_flags) test/cexpect_dot_formatter/cexpect_dot_formatter_test.c -l cexpect -l cexpect_cmatchers -l cexpect_dot_formatter -l cexpect_core -o $(test_dir)/cexpect_dot_formatter_test.o
 
 
 build_readme_test:  clean build_cexpect build_cexpect_cmatchers
@@ -132,7 +128,7 @@ build_readme_test:  clean build_cexpect build_cexpect_cmatchers
 
 
 build_cexpect_list_matchers_test: clean build_cexpect build_cexpect_core build_cexpect_cmatchers
-	$(CC) $(default_compile_flags) test/cexpect_list/list_matchers_test.c test/cexpect_list/custom_list_matchers.c -l cexpect -l cexpect_cmatchers -l cexpect_core -l cexpect_list -o $(test_dir)/cexpect_list_matchers_test.o
+	$(CC) $(default_compile_flags) test/cexpect_list/list_matchers_test.c test/cexpect_list/custom_list_matchers.c -l cexpect -l cexpect_cmatchers -l cexpect_core -o $(test_dir)/cexpect_list_matchers_test.o
 
 
 #
