@@ -10,8 +10,8 @@
 
 struct SuiteData {
 	char *name;
-	List *tests;
-	List *failed_tests;
+	Cexpect_List *tests;
+	Cexpect_List *failed_tests;
 	int number_of_passing_tests;
 	int number_of_pending_tests;
 	Formatter *formatter;
@@ -105,11 +105,11 @@ Formatter *get_formatter(Suite *suite) {
 }
 
 
-List *get_tests(Suite *suite) {
+Cexpect_List *get_tests(Suite *suite) {
 	return suite->tests;
 }
 
 
-List *get_failed_tests(Suite *suite) {
+Cexpect_List *get_failed_tests(Suite *suite) {
 	return suite->failed_tests;
 }

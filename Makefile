@@ -49,7 +49,7 @@ present_external_interface: clean
 	cp cexpect/cexpect_formatter.h $(include_dir)
 	cp cexpect/cexpect_matchers.h $(include_dir)
 	cp cexpect/cexpect_suite_types.h $(include_dir)
-	cp cexpect_list/cexpect_list.h $(include_dir)
+	cp cexpect/cexpect_list.h $(include_dir)
 	
 
 present_internal_interface: clean
@@ -72,7 +72,7 @@ present_cexpect_void_formatter_external_interface: present_external_interface
 # Libraries
 #
 build_cexpect_core: clean present_external_interface present_internal_interface
-	$(CC) $(default_compile_flags) -I $(internal_include_dir) $(shared_library_flags) cexpect_core/*.c cexpect_list/*.c -o $(lib_dir)/libcexpect_core.so
+	$(CC) $(default_compile_flags) -I $(internal_include_dir) $(shared_library_flags) cexpect_core/*.c -o $(lib_dir)/libcexpect_core.so
 
 
 build_void_formatter: present_cexpect_void_formatter_external_interface

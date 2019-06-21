@@ -38,7 +38,7 @@ MatchResult *is_list_empty(Matcher *matcher, void *list) {
 MatchResult *list_size_equals(Matcher *matcher, void *actual_value) {
 	MatchResult *match_result = make_match_result();
 
-	List *list = (List *)actual_value;
+	Cexpect_List *list = (Cexpect_List *)actual_value;
 	int expected_size = *(int*)get_expected_value(matcher);
 	int actual_size = list_size(list);
 
@@ -59,7 +59,7 @@ MatchResult *list_size_equals(Matcher *matcher, void *actual_value) {
 
 
 /*
- * List matchers
+ * Cexpect_List matchers
  */
 Matcher *list_is_empty() {
 	return make_inspection_matcher(is_list_empty);

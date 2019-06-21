@@ -68,7 +68,7 @@ void a_pending_test(Test *test) {
 
 
 void a_failing_test(Test *test) {
-	List *list = make_list();
+	Cexpect_List *list = make_list();
 	
 	int *expected_size_pointer = calloc(1, sizeof(int));
 	*expected_size_pointer = 1;
@@ -78,7 +78,7 @@ void a_failing_test(Test *test) {
 
 
 void a_failing_test_for_list_is_empty(Test *test) {
-	List *list = make_list();
+	Cexpect_List *list = make_list();
 	add_to_list(list, 1);
 
 	expect(test, list, list_is_empty());
@@ -86,13 +86,13 @@ void a_failing_test_for_list_is_empty(Test *test) {
 
 
 void a_successful_test(Test *test) {
-	List *list = make_list();
+	Cexpect_List *list = make_list();
 	expect(test, list, list_is_empty());
 }
 
 
 void a_failing_test_for_list_size_provides_diagnostics(Test *test) {
-	Suite *suite = create_suite("List matchers test");
+	Suite *suite = create_suite("Cexpect_List matchers test");
 	set_formatter(suite, make_capturing_formatter());
 	add_test(suite, a_failing_test);
 	
@@ -104,7 +104,7 @@ void a_failing_test_for_list_size_provides_diagnostics(Test *test) {
 
 
 void a_failing_test_for_list_is_empty_provides_diagnostics(Test *test) {
-	Suite *suite = create_suite("List matchers test");
+	Suite *suite = create_suite("Cexpect_List matchers test");
 	set_formatter(suite, make_capturing_formatter());
 	add_test(suite, a_failing_test_for_list_is_empty);
 
@@ -117,7 +117,7 @@ void a_failing_test_for_list_is_empty_provides_diagnostics(Test *test) {
 
 
 void a_successful_test_for_list_size_captures_diagnostics(Test *test) {
-	Suite *suite = create_suite("List matchers test");
+	Suite *suite = create_suite("Cexpect_List matchers test");
 	set_formatter(suite, make_capturing_formatter());
 
 	add_test(suite, a_successful_test);
@@ -128,7 +128,7 @@ void a_successful_test_for_list_size_captures_diagnostics(Test *test) {
 
 
 void a_pending_test_captures_pending(Test *test) {
-	Suite *suite = create_suite("List matchers test");
+	Suite *suite = create_suite("Cexpect_List matchers test");
 	set_formatter(suite, make_capturing_formatter());
 	
 	add_test(suite, a_pending_test);
@@ -143,7 +143,7 @@ void a_pending_test_captures_pending(Test *test) {
 
 
 void a_non_pending_test_does_not_capture_pending(Test *test) {
-	Suite *suite = create_suite("List matchers test");
+	Suite *suite = create_suite("Cexpect_List matchers test");
 	set_formatter(suite, make_capturing_formatter());
 
 	add_test(suite, a_failing_test);
@@ -159,7 +159,7 @@ void a_non_pending_test_does_not_capture_pending(Test *test) {
 
 int main(int argc, char *args[])
 {
-	Suite *suite = create_suite("List matchers test");
+	Suite *suite = create_suite("Cexpect_List matchers test");
 
 	add_before_each(suite, before_each);
 	add_test(suite, a_successful_test_for_list_size_captures_diagnostics);

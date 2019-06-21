@@ -48,10 +48,10 @@ extern void after_each(Suite *suite);
  * fetch data about the suite:
  * 
  */
-extern List *get_tests(Suite *suite);
+extern Cexpect_List *get_tests(Suite *suite);
 extern char *get_suite_name(Suite *suite);
 extern Formatter *get_formatter(Suite *suite);
-extern List *get_failed_tests(Suite *suite);
+extern Cexpect_List *get_failed_tests(Suite *suite);
 
 
 #endif //CEXPECT_SUITE_H
