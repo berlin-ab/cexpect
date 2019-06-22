@@ -2,7 +2,7 @@
 #define CEXPECT_SUITE_H
 
 
-#include "cexpect_list.h"
+#include "internal/list.h"
 
 
 /*

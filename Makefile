@@ -49,7 +49,6 @@ present_external_interface: clean
 	cp cexpect/cexpect_formatter.h $(include_dir)
 	cp cexpect/cexpect_matchers.h $(include_dir)
 	cp cexpect/cexpect_suite_types.h $(include_dir)
-	cp cexpect/cexpect_list.h $(include_dir)
 	
 
 present_internal_interface: clean
@@ -58,6 +57,7 @@ present_internal_interface: clean
 	cp cexpect/internal/failed_test.h $(internal_include_dir)/internal
 	cp cexpect/internal/matcher.h $(internal_include_dir)/internal
 	cp cexpect/internal/match_result.h $(internal_include_dir)/internal
+	cp cexpect/internal/list.h $(internal_include_dir)/internal
 
 
 present_cexpect_dot_formatter_external_interface: present_external_interface
@@ -84,7 +84,7 @@ build_cexpect_dot_formatter: present_cexpect_dot_formatter_external_interface bu
 
 
 build_cexpect: clean present_external_interface build_cexpect_dot_formatter build_cexpect_core
-	$(CC) $(default_compile_flags) $(shared_library_flags) cexpect/*.c cexpect_dot_formatter/*.c -l cexpect_core -o $(lib_dir)/libcexpect.so
+	$(CC) $(default_compile_flags) -I $(internal_include_dir) $(shared_library_flags) cexpect/*.c cexpect_dot_formatter/*.c -l cexpect_core -o $(lib_dir)/libcexpect.so
 
 
 build_cexpect_cmatchers: clean build_cexpect_core
@@ -112,15 +112,15 @@ build_strings_test: clean build_cexpect build_void_formatter
 
 
 build_custom_list_matchers:
-	$(CC) $(default_compile_flags) $(shared_library_flags) test/cexpect_list/custom_list_matchers.c  -l cexpect_core -l cexpect_cmatchers -o $(lib_dir)/libcustom_list_matchers.so
+	$(CC) $(default_compile_flags) -I $(internal_include_dir) $(shared_library_flags) test/cexpect_list/custom_list_matchers.c  -l cexpect_core -l cexpect_cmatchers -o $(lib_dir)/libcustom_list_matchers.so
 
 
 build_list_test: build_custom_list_matchers
-	$(CC) $(default_compile_flags) test/cexpect_list/list_test.c -l cexpect -l cexpect_cmatchers -l cexpect_core -l custom_list_matchers -o $(test_dir)/list_test.o
+	$(CC) $(default_compile_flags) -I $(internal_include_dir) test/cexpect_list/list_test.c -l cexpect -l cexpect_cmatchers -l cexpect_core -l custom_list_matchers -o $(test_dir)/list_test.o
 
 
 build_cexpect_dot_formatter_test: clean build_cexpect_core build_cexpect build_cexpect_cmatchers build_cexpect_dot_formatter
-	$(CC) $(default_compile_flags) test/cexpect_dot_formatter/cexpect_dot_formatter_test.c -l cexpect -l cexpect_cmatchers -l cexpect_dot_formatter -l cexpect_core -o $(test_dir)/cexpect_dot_formatter_test.o
+	$(CC) $(default_compile_flags) -I $(internal_include_dir) test/cexpect_dot_formatter/cexpect_dot_formatter_test.c -l cexpect -l cexpect_cmatchers -l cexpect_dot_formatter -l cexpect_core -o $(test_dir)/cexpect_dot_formatter_test.o
 
 
 build_readme_test:  clean build_cexpect build_cexpect_cmatchers
@@ -128,7 +128,7 @@ build_readme_test:  clean build_cexpect build_cexpect_cmatchers
 
 
 build_cexpect_list_matchers_test: clean build_cexpect build_cexpect_core build_cexpect_cmatchers
-	$(CC) $(default_compile_flags) test/cexpect_list/list_matchers_test.c test/cexpect_list/custom_list_matchers.c -l cexpect -l cexpect_cmatchers -l cexpect_core -o $(test_dir)/cexpect_list_matchers_test.o
+	$(CC) $(default_compile_flags) -I $(internal_include_dir) test/cexpect_list/list_matchers_test.c test/cexpect_list/custom_list_matchers.c -l cexpect -l cexpect_cmatchers -l cexpect_core -o $(test_dir)/cexpect_list_matchers_test.o
 
 
 #

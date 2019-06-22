@@ -3,7 +3,7 @@
 #include <string.h>
 
 
-#include "cexpect_list.h"
+#include "internal/list.h"
 #include "cexpect.h"
 #include "cexpect_cmatchers.h"
 #include "custom_list_matchers.h"

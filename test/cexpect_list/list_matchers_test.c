@@ -1,10 +1,12 @@
 #include <stdlib.h>
-#include <cexpect_list.h>
 
 #include "cexpect.h"
 #include "cexpect_formatter.h"
 #include "cexpect_cmatchers.h"
 #include "custom_list_matchers.h"
+
+
+#include "internal/list.h"
 
 
 static char *expected_message = "something invalid";

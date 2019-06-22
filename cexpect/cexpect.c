@@ -3,10 +3,10 @@
 
 
 #include "cexpect.h"
-#include "cexpect_list.h"
 #include "cexpect_dot_formatter.h"
 
 
+#include "internal/list.h"
 #include "internal/test.h"
 #include "internal/suite.h"
 #include "internal/failed_test.h"
