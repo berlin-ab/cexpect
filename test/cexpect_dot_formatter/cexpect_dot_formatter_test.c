@@ -89,7 +89,7 @@ void a_failing_test_prints_a_message_about_the_failing_test(Test *test) {
 	failed_test.line_number = 1;
 	failed_test.expected_value = "true";
 	failed_test.actual_value = "false";
-	failed_test.extra = list_printer;
+	failed_test.extra = (void *)list_printer;
 	failed_tests[0] = failed_test;
 	
 	Formatter *formatter = make_dot_formatter(list_printer);

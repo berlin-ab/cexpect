@@ -23,7 +23,7 @@ MatchResult *match_failed(MatchResult* match_result, char *expected_message, cha
 	match_result->expected_message = expected_message;
 	match_result->actual_message = actual_message;
 	return match_result;
-};
+}
 
 
 MatchResult *match_succeeded(MatchResult *match_result) {

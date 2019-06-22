@@ -17,7 +17,8 @@
  */
 #define expect(test, actual_value, matcher)  \
 	make_expectation(test, actual_value, matcher, (char *)__FUNCTION__, __LINE__, __FILE__)
-	
+
+
 extern void make_expectation(
 	Test *test, 
 	void *actual_value,
@@ -25,7 +26,8 @@ extern void make_expectation(
 	const char *test_name, 
 	int line_number, 
 	char *file_name);
-	
+
+
 extern void pending(Test *test);
 
 

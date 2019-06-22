@@ -28,7 +28,7 @@ coverage: test
 endif 
 
 
-default_compile_flags = -std=gnu99 -Wall -g $(coverage_flags) -Wno-int-conversion -Wno-pointer-to-int-cast -I $(include_dir) -L $(lib_dir)
+default_compile_flags = -pedantic -std=gnu99 -Wall -g $(coverage_flags) -Wno-int-conversion -Wno-pointer-to-int-cast -I $(include_dir) -L $(lib_dir)
 shared_library_flags = -shared -fPIC
 
 

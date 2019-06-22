@@ -5,25 +5,25 @@ typedef int (*printer_function_type)(const char *format, ...);
 
 
 static void report_failing_test_with_dot(void *extra) {
-	printer_function_type internal_printer = extra;
+	printer_function_type internal_printer = (printer_function_type) extra;
 	internal_printer("F");
 }
 
 
 static void report_pending_test_with_dot(void *extra) {
-	printer_function_type internal_printer = extra;
+	printer_function_type internal_printer = (printer_function_type) extra;
 	internal_printer("*");
 }
 
 
 static void report_successful_test_with_dot(void *extra) {
-	printer_function_type internal_printer = extra;
+	printer_function_type internal_printer = (printer_function_type) extra;
 	internal_printer(".");
 }
 
 
 static void report_start_for_dots(char *suite_name, void *extra) {
-	printer_function_type internal_printer = extra;
+	printer_function_type internal_printer = (printer_function_type) extra;
 	internal_printer("Running suite: %s\n", suite_name);
 }
 
@@ -36,7 +36,7 @@ static void report_summary_for_dots(
 	FailedTest failed_tests[],
 	void *extra
 	) {
-	printer_function_type internal_printer = extra;
+	printer_function_type internal_printer = (printer_function_type) extra;
 	internal_printer("\n");
 	internal_printer("\n");
 	internal_printer("Summary:\n");
@@ -67,6 +67,6 @@ Formatter *make_dot_formatter(printer_function_type new_printer) {
 		report_pending_test_with_dot,
 		report_summary_for_dots,
 		report_start_for_dots,
-		new_printer
+		(void *) new_printer
 		);
 }
