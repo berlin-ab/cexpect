@@ -18,7 +18,7 @@ coverage_flags = ""
 ifdef COVERAGE
 coverage_flags = --coverage
 
-coverage: test
+coverage: check
 	gcov *.gc*
 	lcov --capture --directory . --output-file build/coverage.info
 	genhtml build/coverage.info --output-directory build/coverage
@@ -169,4 +169,4 @@ readme_test: clean build_cexpect build_cexpect_cmatchers build_readme_test
 #
 # Run all tests
 #
-test: test_cexpect test_integers test_booleans test_list test_strings test_cexpect_list_matchers test_cexpect_dot_formatter
+check: test_cexpect test_integers test_booleans test_list test_strings test_cexpect_list_matchers test_cexpect_dot_formatter
