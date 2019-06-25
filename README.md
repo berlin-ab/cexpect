@@ -1,6 +1,6 @@
 # cexpect
 
-A testing framework for C inspired by hamcrest
+A BDD-style testing framework for C
 
 ## Usage
 
@@ -97,7 +97,7 @@ Summary:
 
 Ran 2 test(s).
 
-1 passed, 1 failed
+1 passed, 1 failed, 0 pending
 
 
 
