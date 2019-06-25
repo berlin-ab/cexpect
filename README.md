@@ -108,7 +108,7 @@ make: *** [readme_test] Error 1```
 ## Design goals
 
 
-* xUnit-like framework similar to hamcrest
+* BDD-style xUnit framework
 * Extensible matchers
 * Extensible formatting
 * No global state.
@@ -129,15 +129,13 @@ make: *** [readme_test] Error 1```
 ## Planned improvements
 
 * test-anything-protocol output formatter
-* lcov/gcov
 * make Makefile more idiomatic
 * matchers for all standard C primative data types
-* colorized output
+* colorized output for dot formatter
 * report only one passing test per test function.
-* separate user-facing headers from library-writer-facing headers
 
 ## Testing
 
 ```
-make test
+make check
 ```
