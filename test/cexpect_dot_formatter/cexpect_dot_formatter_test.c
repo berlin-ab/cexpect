@@ -43,7 +43,6 @@ static int list_printer(const char *format, const char *message, const char *oth
 		line_number 
 		);
 	
-//	printf("%s", formatted_message);
 	add_to_list(printed_messages, (void *) formatted_message);
 	
 	return 0;
