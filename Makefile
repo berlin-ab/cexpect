@@ -52,6 +52,7 @@ present_external_interface: clean
 	cp cexpect/cexpect_matchers.h $(include_dir)
 	cp cexpect/cexpect_suite_types.h $(include_dir)
 	cp cexpect_cmatchers/cexpect_cmatchers.h $(include_dir)
+	cp cexpect_dot_formatter/cexpect_dot_formatter.h $(include_dir)
 
 
 present_internal_interface: clean
@@ -63,16 +64,12 @@ present_internal_interface: clean
 	cp cexpect/internal/list.h $(internal_include_dir)/internal
 
 
-present_cexpect_dot_formatter_external_interface: present_external_interface
-	cp cexpect_dot_formatter/cexpect_dot_formatter.h $(include_dir)
-
-
 present_cexpect_void_formatter_external_interface: present_external_interface
 	cp cexpect_void_formatter/cexpect_void_formatter.h $(include_dir)
 
 
 #
-# Libraries
+# Static libraries
 #
 build_cexpect_core: clean present_external_interface present_internal_interface
 	$(CC) $(default_compile_flags) -I $(internal_include_dir) cexpect_core/*.c -c
@@ -80,23 +77,24 @@ build_cexpect_core: clean present_external_interface present_internal_interface
 	rm *.o
 
 
-build_void_formatter: present_cexpect_void_formatter_external_interface
-	$(CC) $(default_compile_flags) \
-		$(shared_library_flags) \
-		$(default_link_flags) \
-		cexpect_void_formatter/*.c \
-		-l cexpect_core \
-		-o $(lib_dir)/libcexpect_void_formatter.so
-
-
-build_cexpect_dot_formatter: present_cexpect_dot_formatter_external_interface build_cexpect_core
+build_cexpect_dot_formatter: present_external_interface build_cexpect_core
 	$(CC) $(default_compile_flags) cexpect_dot_formatter/*.c -c
 	libtool -static -o $(lib_dir)/libcexpect_dot_formatter.a *.o
 	rm *.o
 
 
+build_cexpect_cmatchers: clean present_external_interface
+	$(CC) $(default_compile_flags) cexpect_cmatchers/*.c -c
+	libtool -static -o $(lib_dir)/libcexpect_cmatchers.a *.o
+	rm *.o
+
+
+#
+# Shared libraries
+#
 build_cexpect: clean present_external_interface build_cexpect_dot_formatter build_cexpect_core build_cexpect_cmatchers
-	$(CC) $(default_compile_flags) -I $(internal_include_dir) \
+	$(CC) $(default_compile_flags) \
+		-I $(internal_include_dir) \
 		$(shared_library_flags) \
 		$(default_link_flags) \
 		cexpect/*.c \
@@ -107,10 +105,13 @@ build_cexpect: clean present_external_interface build_cexpect_dot_formatter buil
 		-o $(lib_dir)/libcexpect.so
 
 
-build_cexpect_cmatchers: clean present_external_interface
-	$(CC) $(default_compile_flags) cexpect_cmatchers/*.c -c
-	libtool -static -o $(lib_dir)/libcexpect_cmatchers.a *.o
-	rm *.o
+build_void_formatter: present_cexpect_void_formatter_external_interface
+	$(CC) $(default_compile_flags) \
+		$(shared_library_flags) \
+		$(default_link_flags) \
+		cexpect_void_formatter/*.c \
+		-l cexpect_core \
+		-o $(lib_dir)/libcexpect_void_formatter.so
 
 
 #
