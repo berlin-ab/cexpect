@@ -76,7 +76,7 @@ present_cexpect_void_formatter_external_interface: present_external_interface
 #
 build_cexpect_core: clean present_external_interface present_internal_interface
 	$(CC) $(default_compile_flags) -I $(internal_include_dir) cexpect_core/*.c -c
-	ar -r $(lib_dir)/libcexpect_core.a *.o 
+	libtool -static -o $(lib_dir)/libcexpect_core.a *.o
 	rm *.o
 
 
@@ -91,7 +91,7 @@ build_void_formatter: present_cexpect_void_formatter_external_interface
 
 build_cexpect_dot_formatter: present_cexpect_dot_formatter_external_interface build_cexpect_core
 	$(CC) $(default_compile_flags) cexpect_dot_formatter/*.c -c
-	ar -r $(lib_dir)/libcexpect_dot_formatter.a *.o
+	libtool -static -o $(lib_dir)/libcexpect_dot_formatter.a *.o
 	rm *.o
 
 
@@ -109,7 +109,7 @@ build_cexpect: clean present_external_interface build_cexpect_dot_formatter buil
 
 build_cexpect_cmatchers: clean present_external_interface
 	$(CC) $(default_compile_flags) cexpect_cmatchers/*.c -c
-	ar -r $(lib_dir)/libcexpect_cmatchers.a *.o
+	libtool -static -o $(lib_dir)/libcexpect_cmatchers.a *.o
 	rm *.o
 
 
