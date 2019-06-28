@@ -6,7 +6,7 @@
 #include "custom_list_matchers.h"
 
 
-#include "internal/list.h"
+#include "../../cexpect_core/internal/list.h"
 
 
 static char *expected_message = "something invalid";

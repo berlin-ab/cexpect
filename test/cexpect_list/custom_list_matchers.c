@@ -4,7 +4,7 @@
 
 // Dependencies
 #include "cexpect_matchers.h"
-#include "internal/list.h"
+#include "../../cexpect_core/internal/list.h"
 
 
 // Implements

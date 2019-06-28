@@ -39,6 +39,13 @@ extern Suite *create_suite(char *suite_name);
 
 
 /*
+ * make a new suite:
+ * 
+ */
+extern Suite *make_suite(char *suite_name, Formatter *formatter);
+
+
+/*
  * Add tests to a suite:
  * 
  */

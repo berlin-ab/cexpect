@@ -2,14 +2,7 @@
 #define CEXPECT_SUITE_H
 
 
-#include "internal/list.h"
-
-
-/*
- * make a new suite:
- * 
- */
-extern Suite *make_suite(char *suite_name, Formatter *formatter);
+#include "list.h"
 
 
 /*

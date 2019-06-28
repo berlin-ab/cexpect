@@ -6,7 +6,7 @@
 #include "cexpect.h"
 #include "cexpect_dot_formatter.h"
 #include "cexpect_cmatchers.h"
-#include "internal/list.h"
+#include "../../cexpect_core/internal/list.h"
 
 
 static char *printed_message = "";
