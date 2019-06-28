@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <stdbool.h>
 
 
@@ -7,6 +6,7 @@
 
 #include "internal/suite.h"
 #include "internal/failed_test.h"
+#include "internal/memory_allocation.h"
 
 
 enum PendingState {
@@ -24,7 +24,7 @@ struct TestData {
 
 
 Test *make_test(Suite *suite, test_function_type test_function) {
-	Test *test = calloc(1, sizeof(Test));
+	Test *test = allocate_memory(1, sizeof(Test));
 	test->is_pending = INITIAL_PENDING;
 	test->test_function = test_function;
 	test->suite = suite;

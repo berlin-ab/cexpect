@@ -1,6 +1,5 @@
-#include <stdlib.h>
 
-
+#include "internal/memory_allocation.h"
 #include "internal/list.h"
 
 
@@ -19,14 +18,14 @@ struct Cexpect_ListData {
  * Cexpect_List Functions
  */
 Cexpect_List *make_list(void) {
-	Cexpect_List *list = calloc(1, sizeof(Cexpect_List));
+	Cexpect_List *list = allocate_memory(1, sizeof(Cexpect_List));
 	list->first = NULL;
 	return list;
 }
 
 
 void add_to_list(Cexpect_List *list, void *value) {
-	Cexpect_ListItem *new_item = calloc(1, sizeof(Cexpect_ListItem));
+	Cexpect_ListItem *new_item = allocate_memory(1, sizeof(Cexpect_ListItem));
 	new_item->next = NULL;
 	new_item->value = value;
 

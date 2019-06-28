@@ -1,11 +1,10 @@
-#include <stdlib.h>
-
-
-#include "internal/list.h"
 #include "cexpect.h"
 #include "cexpect_formatter.h"
 
+
+#include "internal/list.h"
 #include "internal/suite.h"
+#include "internal/memory_allocation.h"
 
 
 struct SuiteData {
@@ -27,8 +26,9 @@ static void default_after_each() {}
 /*
  * Suite
  */
-Suite *make_suite(char *suite_name, Formatter *formatter) {
-	Suite *suite = calloc(1, sizeof(Suite));
+Suite *make_suite(char *suite_name, Formatter *formatter, allocate_memory_func allocate_memory_function) {
+	allocate_memory = allocate_memory_function;
+	Suite *suite = allocate_memory(1, sizeof(Suite));
 	suite->formatter = formatter;
 	suite->name = suite_name;
 	suite->tests = make_list();

@@ -1,7 +1,7 @@
-#include <stdlib.h>
-
-
 #include "cexpect_formatter.h"
+
+
+#include "internal/memory_allocation.h"
 
 
 struct FormatterData {
@@ -25,7 +25,7 @@ Formatter *make_formatter(
 	format_start start,
 	void *extra
 ) {
-	Formatter *formatter = calloc(1, sizeof(Formatter));
+	Formatter *formatter = allocate_memory(1, sizeof(Formatter));
 	formatter->fail = fail;
 	formatter->success = success;
 	formatter->pending = pending;

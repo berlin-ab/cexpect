@@ -2,6 +2,9 @@
 #define CEXPECT_H
 
 
+#include "stddef.h"
+
+
 #include "cexpect_formatter.h"
 #include "cexpect_matchers.h"
 #include "cexpect_suite_types.h"
@@ -41,8 +44,14 @@ extern Suite *create_suite(char *suite_name);
 /*
  * make a new suite:
  * 
+ * allows for:
+ *
+ * - custom formatters
+ * - custom memory allocation function (matching signature of calloc)
+ *
  */
-extern Suite *make_suite(char *suite_name, Formatter *formatter);
+typedef void* (*allocate_memory_func)(size_t num, size_t size);
+extern Suite *make_suite(char *suite_name, Formatter *formatter, allocate_memory_func allocate_memory);
 
 
 /*

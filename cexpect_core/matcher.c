@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <stdbool.h>
 
 
@@ -7,6 +6,7 @@
 #include "internal/test.h"
 #include "internal/matcher.h"
 #include "internal/match_result.h"
+#include "internal/memory_allocation.h"
 
 
 struct MatcherData {
@@ -20,14 +20,14 @@ struct MatcherData {
  * 
  */
 Matcher *make_inspection_matcher(MatchResult *(*inspection_function)(Matcher *matcher, void *actual_value)) {
-	Matcher *matcher = calloc(1, sizeof(Matcher));
+	Matcher *matcher = allocate_memory(1, sizeof(Matcher));
 	matcher->match = inspection_function;
 	return matcher;
 }
 
 
 Matcher *make_comparison_matcher(MatchResult *(*comparison_function)(Matcher *matcher, void *actual_value), void *expected_value) {
-	Matcher *matcher = calloc(1, sizeof(Matcher));
+	Matcher *matcher = allocate_memory(1, sizeof(Matcher));
 	matcher->match = comparison_function;
 	matcher->expected_value = expected_value;
 	return matcher;

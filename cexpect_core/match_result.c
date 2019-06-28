@@ -1,8 +1,8 @@
 #include <stdbool.h>
-#include <stdlib.h>
 
 
 #include "cexpect_matchers.h"
+#include "internal/memory_allocation.h"
 
 
 struct MatchResultData {
@@ -13,7 +13,7 @@ struct MatchResultData {
 
 
 MatchResult *make_match_result() {
-	MatchResult *match_result = calloc(1, sizeof(MatchResult));
+	MatchResult *match_result = allocate_memory(1, sizeof(MatchResult));
 	return match_result;
 }
 
