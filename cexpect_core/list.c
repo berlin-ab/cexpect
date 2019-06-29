@@ -3,29 +3,29 @@
 #include "internal/list.h"
 
 
-struct Cexpect_ListItemData {
-	Cexpect_ListItem *next;
+struct ListItemData {
+	ListItem *next;
 	void *value;
 };
 
 
-struct Cexpect_ListData {
-	Cexpect_ListItem *first;
+struct ListData {
+	ListItem *first;
 };
 
 
 /*
- * Cexpect_List Functions
+ * List Functions
  */
-Cexpect_List *make_list(void) {
-	Cexpect_List *list = allocate_memory(1, sizeof(Cexpect_List));
+List *make_list(void) {
+	List *list = allocate_memory(1, sizeof(List));
 	list->first = NULL;
 	return list;
 }
 
 
-void add_to_list(Cexpect_List *list, void *value) {
-	Cexpect_ListItem *new_item = allocate_memory(1, sizeof(Cexpect_ListItem));
+void add_to_list(List *list, void *value) {
+	ListItem *new_item = allocate_memory(1, sizeof(ListItem));
 	new_item->next = NULL;
 	new_item->value = value;
 
@@ -34,7 +34,7 @@ void add_to_list(Cexpect_List *list, void *value) {
 		return;
 	}
 
-	Cexpect_ListItem *item;
+	ListItem *item;
 	
 	for(item = list_first(list); list_next(item); item = list_next(item)) {
 		// do nothing
@@ -44,10 +44,10 @@ void add_to_list(Cexpect_List *list, void *value) {
 }
 
 
-int list_size(Cexpect_List *list) {
+int list_size(List *list) {
 	int size = 0;
 	
-	for (Cexpect_ListItem *item = list_first(list); item; item = list_next(item)) {
+	for (ListItem *item = list_first(list); item; item = list_next(item)) {
 		size++;
 	}
 
@@ -55,16 +55,16 @@ int list_size(Cexpect_List *list) {
 }
 
 
-Cexpect_ListItem *list_first(Cexpect_List *list) {
+ListItem *list_first(List *list) {
 	return list->first;
 }
 
 
-Cexpect_ListItem *list_next(Cexpect_ListItem *item) {
+ListItem *list_next(ListItem *item) {
 	return item->next;
 }
 
 
-void *list_value(Cexpect_ListItem *item) {
+void *list_value(ListItem *item) {
 	return item->value;
 }

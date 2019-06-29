@@ -10,11 +10,11 @@
 
 
 static char *printed_message = "";
-static Cexpect_List *printed_messages;
+static List *printed_messages;
 
 
 bool output_matches_string(char *expected_string) {
-	for (Cexpect_ListItem *item = list_first(printed_messages); item; item = list_next(item)) {
+	for (ListItem *item = list_first(printed_messages); item; item = list_next(item)) {
 		char *actual_value = (char *) list_value(item);
 		if (strstr(actual_value, expected_string) != NULL)
 			return true;

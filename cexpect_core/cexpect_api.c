@@ -16,7 +16,7 @@ static void perform_format_summary(Formatter *formatter, Suite *suite) {
 
 	int i = 0;
 
-	for(Cexpect_ListItem *list_item = list_first(get_failed_tests(suite)); list_item; list_item = list_next(list_item)) {
+	for(ListItem *list_item = list_first(get_failed_tests(suite)); list_item; list_item = list_next(list_item)) {
 		failed_tests[i] = *(FailedTest *)list_value(list_item);
 		i++;
 	}
@@ -57,7 +57,7 @@ int run_suite(Suite *suite) {
 	Formatter *formatter = get_formatter(suite);
 	do_format_start(formatter, get_suite_name(suite));
 
-	for (Cexpect_ListItem *item = list_first(get_tests(suite)); item; item = list_next(item)) {
+	for (ListItem *item = list_first(get_tests(suite)); item; item = list_next(item)) {
 		Test *test = list_value(item);
 		before_each(suite);
 		perform_test(test);
