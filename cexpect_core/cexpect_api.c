@@ -10,16 +10,11 @@
 #include "internal/match_result.h"
 
 
+
 static void perform_format_summary(Formatter *formatter, Suite *suite) {
 	int _number_of_failed_tests = number_of_failed_tests(suite);
 	FailedTest failed_tests[_number_of_failed_tests];
-
-	int i = 0;
-
-	for(ListItem *list_item = list_first(get_failed_tests(suite)); list_item; list_item = list_next(list_item)) {
-		failed_tests[i] = *(FailedTest *)list_value(list_item);
-		i++;
-	}
+	populate_failed_tests(suite, failed_tests);
 
 	do_format_summary(
 		formatter,

@@ -114,3 +114,18 @@ List *get_tests(Suite *suite) {
 List *get_failed_tests(Suite *suite) {
 	return suite->failed_tests;
 }
+
+
+void populate_failed_tests(Suite *suite, FailedTest *failed_tests) {
+	int i = 0;
+
+	for(ListItem *list_item = list_first(get_failed_tests(suite));
+		list_item;
+		list_item = list_next(list_item)) {
+
+		failed_tests[i] = *(FailedTest *)list_value(list_item);
+		i++;
+	}
+}
+
+
