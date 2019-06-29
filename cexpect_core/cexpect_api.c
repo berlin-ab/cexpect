@@ -84,14 +84,15 @@ void make_expectation(
 
 	MatchResult *result = perform_match(matcher, actual_value);
 
-	if (is_match(result)) {
-		pass_test(test);
-	} else {
+	if (!is_match(result)) {
 		fail_test(test,
-		          expected_message(result),
-		          actual_message(result),
-		          (char *)test_name,
-		          line_number,
-		          file_name);
+			expected_message(result),
+			actual_message(result),
+			(char *)test_name,
+			line_number,
+			file_name);
+		return;
 	}
+
+	pass_test(test);
 }
