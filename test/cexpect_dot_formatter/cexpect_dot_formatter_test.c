@@ -115,6 +115,11 @@ void a_failing_test_prints_a_message_about_the_failing_test(Test *test) {
 	contains_string = output_matches_string("0 passed, 1 failed, 100 pending");
 	*expected = contains_string;
 	expect(test, &contains_string, is_true());
+
+	// Ensure output_matches_string works as expected
+	contains_string = output_matches_string("nonsense");
+	*expected = contains_string;
+	expect(test, &contains_string, is_false());
 }
 
 
