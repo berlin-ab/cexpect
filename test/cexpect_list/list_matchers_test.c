@@ -55,6 +55,7 @@ void capture_format_pending(void *extra) {
 
 Formatter *make_capturing_formatter() {
 	return make_formatter(
+		calloc,
 		capture_format_failure,
 		capture_format_success,
 		capture_format_pending,

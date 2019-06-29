@@ -1,10 +1,7 @@
-#include <stdlib.h>
-
-
 #include "cexpect.h"
 #include "internal/memory_allocation.h"
 
-static allocate_memory_func allocate_memory_internal = calloc;
+static allocate_memory_func allocate_memory_internal;
 
 /*
  * Allow a custom memory allocation mechanism:

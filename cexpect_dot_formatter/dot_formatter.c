@@ -1,7 +1,5 @@
 #include "cexpect_formatter.h"
-
-
-typedef int (*printer_function_type)(const char *format, ...);
+#include "cexpect_dot_formatter.h"
 
 
 static void report_failing_test_with_dot(void *extra) {
@@ -60,8 +58,12 @@ static void report_summary_for_dots(
 }
 
 
-Formatter *make_dot_formatter(printer_function_type new_printer) {
+Formatter *make_dot_formatter(
+	printer_function_type new_printer,
+	allocate_formatter_memory_func calloc_func) {
+
 	return make_formatter(
+		calloc_func,
 		report_failing_test_with_dot,
 		report_successful_test_with_dot,
 		report_pending_test_with_dot,

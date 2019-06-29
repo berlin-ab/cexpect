@@ -174,7 +174,7 @@ void a_pending_test_before_an_expectation_should_not_be_a_failure(Test *test) {
 
 int main(int argc, char *args[]) {
 	Suite *suite = create_suite("cexpect suite");
-	set_formatter(suite, make_dot_formatter(printf));
+	set_formatter(suite, make_dot_formatter(printf, calloc));
 	add_test(suite, a_suite_should_fail);
 	add_test(suite, a_suite_should_report_successful_tests);
 	add_test(suite, a_suite_should_contain_passes_and_failures);

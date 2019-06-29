@@ -1,6 +1,10 @@
 #ifndef CEXPECT_FORMATTER_H
 #define CEXPECT_FORMATTER_H
 
+#include "stddef.h"
+
+typedef void* (*allocate_formatter_memory_func)(size_t num, size_t size);
+
 
 typedef struct FormatterData Formatter;
 typedef struct FailedTestData FailedTest;
@@ -31,6 +35,7 @@ typedef void (*format_start)(char *suite_name, void *extra);
 
 
 Formatter *make_formatter(
+	allocate_formatter_memory_func func,
 	format_failure failure,
 	format_success success,
 	format_pending pending,

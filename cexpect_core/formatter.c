@@ -18,6 +18,7 @@ struct FormatterData {
  * Formatter extension point
  */
 Formatter *make_formatter(
+	allocate_formatter_memory_func func,
 	format_failure fail,
 	format_success success,
 	format_pending pending,
@@ -25,7 +26,7 @@ Formatter *make_formatter(
 	format_start start,
 	void *extra
 ) {
-	Formatter *formatter = allocate_memory(1, sizeof(Formatter));
+	Formatter *formatter = func(1, sizeof(Formatter));
 	formatter->fail = fail;
 	formatter->success = success;
 	formatter->pending = pending;

@@ -36,6 +36,7 @@ static void report_start_for_void(char *suite_name, void *extra) {
 
 Formatter *make_void_formatter() {
 	return make_formatter(
+		calloc,
 		report_failing_test_with_void,
 		report_successful_test_with_void,
 		report_pending_test_with_void,
