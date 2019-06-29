@@ -23,6 +23,7 @@ coverage: check
 	genhtml build/coverage.info --output-directory build/coverage
 	rm *.gcno
 	rm *.gcda
+	rm default.profraw
 	open build/coverage/index.html
 endif 
 
