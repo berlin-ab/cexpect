@@ -47,7 +47,9 @@ extern Suite *create_suite(char *suite_name);
  * allows for:
  *
  * - custom formatters
- * - custom memory allocation function (matching signature of calloc)
+ * - custom memory allocation function:
+ *     * matching signature of calloc
+ *     * default is calloc from stdlib
  *
  */
 typedef void* (*allocate_memory_func)(size_t num, size_t size);
