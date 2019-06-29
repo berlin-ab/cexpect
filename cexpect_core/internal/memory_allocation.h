@@ -5,7 +5,8 @@
 #include "cexpect.h"
 
 
-extern allocate_memory_func allocate_memory;
+void set_memory_allocation(allocate_memory_func func);
+void *allocate_memory(size_t num, size_t size);
 
 
 #endif //CEXPECT_INTERNAL_MEMORY_ALLOCATION_H

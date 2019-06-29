@@ -27,7 +27,8 @@ static void default_after_each() {}
  * Suite
  */
 Suite *make_suite(char *suite_name, Formatter *formatter, allocate_memory_func allocate_memory_function) {
-	allocate_memory = allocate_memory_function;
+	set_memory_allocation(allocate_memory_function);
+
 	Suite *suite = allocate_memory(1, sizeof(Suite));
 	suite->formatter = formatter;
 	suite->name = suite_name;
