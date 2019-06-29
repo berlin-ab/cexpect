@@ -21,7 +21,8 @@ typedef struct MatcherData Matcher;
  *      expect(test, list, is_empty_list());
  * 
  */
-extern Matcher *make_inspection_matcher(MatchResult *(*inspection_function)(Matcher *matcher, void *actual_value));
+extern Matcher *make_inspection_matcher(
+	MatchResult *(*inspection_function)(Matcher *matcher, void *actual_value));
 
 /*
  * make_comparison_matcher:
@@ -45,11 +46,10 @@ extern Matcher *make_comparison_matcher(
  *  - Use `get_expected_value()` to perform a comparison against the actual value.
  *  
  */
-extern MatchResult *make_match_result();
+extern MatchResult *make_match_result(void);
 extern MatchResult *match_succeeded(MatchResult *match_result);
 extern MatchResult *match_failed(MatchResult* match_result, char *expected_message, char *actual_message);
 extern void *get_expected_value(Matcher *matcher);
-
 
 
 #endif //CEXPECT_CEXPECT_MATCHERS_H
