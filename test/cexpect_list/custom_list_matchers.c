@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <stdio.h>
 
 
@@ -24,11 +23,11 @@ MatchResult *is_list_empty(Matcher *matcher, void *list) {
 		return match_result;
 	}
 
-	char *expected_message = calloc(100, sizeof(char));
-	char *actual_message = calloc(100, sizeof(char));
+	char *expected_message = allocate_memory(100, sizeof(char));
+	char *actual_message = allocate_memory(100, sizeof(char));
 
-	sprintf(expected_message, "list size of 0");
-	sprintf(actual_message, "actual size of %d", actual_size);
+	snprintf(expected_message, 100, "list size of 0");
+	snprintf(actual_message, 100, "actual size of %d", actual_size);
 
 	match_failed(match_result, expected_message, actual_message);
 	return match_result;
@@ -47,11 +46,11 @@ MatchResult *list_size_equals(Matcher *matcher, void *actual_value) {
 		return match_result;
 	}
 
-	char *expected_message = calloc(100, sizeof(char));
-	sprintf(expected_message, "list to have size = %d", expected_size);
+	char *expected_message = allocate_memory(100, sizeof(char));
+	snprintf(expected_message, 100, "list to have size = %d", expected_size);
 
-	char *actual_message = calloc(100, sizeof(char));
-	sprintf(actual_message, "size = %d", actual_size);
+	char *actual_message = allocate_memory(100, sizeof(char));
+	snprintf(actual_message, 100, "size = %d", actual_size);
 
 	match_failed(match_result, expected_message, actual_message);
 	return match_result;
