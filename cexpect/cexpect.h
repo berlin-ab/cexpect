@@ -61,6 +61,13 @@ extern Suite *make_suite(
 	free_memory_func free);
 
 
+/*
+ * Free suite:
+ *
+ *  - clean up data created by the suite, and also
+ *    the data for the formatter
+ *
+ */
 extern void free_suite(Suite *suite);
 
 
