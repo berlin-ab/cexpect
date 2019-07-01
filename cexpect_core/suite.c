@@ -57,6 +57,7 @@ Suite *make_suite(char *suite_name,
 void free_suite(Suite *suite) {
 	free_list(suite->tests);
 	free_list(suite->failed_tests);
+	free_formatter(suite->formatter);
 	deallocate_memory(suite);
 }
 

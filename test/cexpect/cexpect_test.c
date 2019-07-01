@@ -172,6 +172,78 @@ void a_pending_test_before_an_expectation_should_not_be_a_failure(Test *test) {
 }
 
 
+void *allocate_memory_spy(size_t num, size_t size) {
+	return calloc(num, size);
+}
+
+
+#include "../../cexpect_core/internal/list.h"
+
+
+List *free_memory_spy_list = NULL;
+
+
+void free_memory_spy(void *pointer) {
+	if (free_memory_spy_list == NULL)
+		free_memory_spy_list = make_list();
+
+	add_to_list(free_memory_spy_list, pointer);
+
+	free(pointer);
+}
+
+int void_printer(const char *format, ...) {
+	return 0;
+}
+
+
+bool list_includes_address(List *list, void *address) {
+	bool list_includes_formatter_address = false;
+
+	for(ListItem *list_item = list_first(list);
+         list_item;
+         list_item = list_next(list_item)){
+
+		if (list_value(list_item) == address)
+			list_includes_formatter_address = true;
+	}
+
+	return list_includes_formatter_address;
+}
+
+
+void a_formatter_is_freed_along_with_the_suite(Test *test) {
+	Formatter *formatter = make_dot_formatter(
+		void_printer, 
+		allocate_memory_spy, 
+		free_memory_spy);
+	
+	Formatter *other_formatter = make_dot_formatter(
+		void_printer, 
+		allocate_memory_spy, 
+		free_memory_spy);
+	
+	Suite *suite = make_suite("some suite", 
+		formatter, 
+		allocate_memory_spy, 
+		free_memory_spy);
+
+	free_suite(suite);
+
+	bool list_includes_formatter_address = list_includes_address(
+		free_memory_spy_list, 
+		formatter);
+	
+	expect(test, &list_includes_formatter_address, is_true());
+
+	bool list_includes_other_formatter_address = list_includes_address(
+		free_memory_spy_list,
+		other_formatter);
+	
+	expect(test, &list_includes_other_formatter_address, is_false());
+}
+
+
 int main(int argc, char *args[]) {
 	Suite *suite = create_suite("cexpect suite");
 	set_formatter(suite, make_dot_formatter(printf, calloc, free));
@@ -184,6 +256,7 @@ int main(int argc, char *args[]) {
 	add_test(suite, an_after_each_hook_should_work);
 	add_test(suite, a_test_without_an_assertion_should_be_considered_pending);
 	add_test(suite, a_pending_test_before_an_expectation_should_not_be_a_failure);
+	add_test(suite, a_formatter_is_freed_along_with_the_suite);
 	
 	start_cexpect(suite);
 }
