@@ -8,6 +8,9 @@
 #include "cexpect_dot_formatter.h"
 
 
+#include "../../cexpect_core/internal/list.h"
+
+
 /*
  * Assertions
  */
@@ -21,6 +24,43 @@ void expect_equal(Test *test, int expected_value, int actual_value) {
  */
 static char *some_before_each_value = "something invalid";
 static char *some_after_each_value = "something invalid";
+
+List *free_memory_spy_list = NULL;
+
+
+void *allocate_memory_spy(size_t num, size_t size) {
+	return calloc(num, size);
+}
+
+
+void free_memory_spy(void *pointer) {
+	if (free_memory_spy_list == NULL)
+		free_memory_spy_list = make_list();
+
+	add_to_list(free_memory_spy_list, pointer);
+
+	free(pointer);
+}
+
+
+int void_printer(const char *format, ...) {
+	return 0;
+}
+
+
+bool list_includes_address(List *list, void *address) {
+	bool list_includes_formatter_address = false;
+
+	for(ListItem *list_item = list_first(list);
+	    list_item;
+	    list_item = list_next(list_item)){
+
+		if (list_value(list_item) == address)
+			list_includes_formatter_address = true;
+	}
+
+	return list_includes_formatter_address;
+}
 
 
 void some_failing_test(Test *test) {
@@ -169,46 +209,6 @@ void a_pending_test_before_an_expectation_should_not_be_a_failure(Test *test) {
 	
 	expect(test, number_of_pending_tests(suite), is_int_equal_to(1));
 	expect(test, number_of_failed_tests(suite), is_int_equal_to(0));
-}
-
-
-void *allocate_memory_spy(size_t num, size_t size) {
-	return calloc(num, size);
-}
-
-
-#include "../../cexpect_core/internal/list.h"
-
-
-List *free_memory_spy_list = NULL;
-
-
-void free_memory_spy(void *pointer) {
-	if (free_memory_spy_list == NULL)
-		free_memory_spy_list = make_list();
-
-	add_to_list(free_memory_spy_list, pointer);
-
-	free(pointer);
-}
-
-int void_printer(const char *format, ...) {
-	return 0;
-}
-
-
-bool list_includes_address(List *list, void *address) {
-	bool list_includes_formatter_address = false;
-
-	for(ListItem *list_item = list_first(list);
-         list_item;
-         list_item = list_next(list_item)){
-
-		if (list_value(list_item) == address)
-			list_includes_formatter_address = true;
-	}
-
-	return list_includes_formatter_address;
 }
 
 
