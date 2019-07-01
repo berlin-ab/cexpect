@@ -4,6 +4,9 @@
 #include "internal/memory_allocation.h"
 
 
+static free_formatter_func free_formatter_func_internal;
+
+
 struct FormatterData {
 	format_failure fail;
 	format_success success;
@@ -14,11 +17,17 @@ struct FormatterData {
 };
 
 
+static void store_formatter_free_func(free_formatter_func free) {
+	free_formatter_func_internal = free;
+}
+
+
 /*
  * Formatter extension point
  */
 Formatter *make_formatter(
 	allocate_formatter_memory_func func,
+	free_formatter_func free,
 	format_failure fail,
 	format_success success,
 	format_pending pending,
@@ -26,6 +35,8 @@ Formatter *make_formatter(
 	format_start start,
 	void *extra
 ) {
+	store_formatter_free_func(free);
+
 	Formatter *formatter = func(1, sizeof(Formatter));
 	formatter->fail = fail;
 	formatter->success = success;
@@ -34,6 +45,11 @@ Formatter *make_formatter(
 	formatter->report_start = start;
 	formatter->extra = extra;
 	return formatter;
+}
+
+
+void free_formatter(Formatter *formatter) {
+	free_formatter_func_internal(formatter);
 }
 
 

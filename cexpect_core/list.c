@@ -14,6 +14,17 @@ struct ListData {
 };
 
 
+static void free_list_item_recursively(ListItem *list_item) {
+	if (!list_item)
+		return;
+
+	if (list_item->next)
+		free_list_item_recursively(list_item->next);
+
+	deallocate_memory(list_item);
+}
+
+
 /*
  * List Functions
  */
@@ -21,6 +32,12 @@ List *make_list(void) {
 	List *list = allocate_memory(1, sizeof(List));
 	list->first = NULL;
 	return list;
+}
+
+
+void free_list(List *list) {
+	free_list_item_recursively(list_first(list));
+	deallocate_memory(list);
 }
 
 

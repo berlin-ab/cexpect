@@ -52,11 +52,16 @@ extern Suite *create_suite(char *suite_name);
  *
  */
 typedef void* (*allocate_memory_func)(size_t num, size_t size);
+typedef void (*free_memory_func)(void *pointer);
 
 extern Suite *make_suite(
 	char *suite_name, 
 	Formatter *formatter, 
-	allocate_memory_func allocate_memory);
+	allocate_memory_func allocate_memory,
+	free_memory_func free);
+
+
+extern void free_suite(Suite *suite);
 
 
 /*
@@ -88,6 +93,7 @@ extern void add_after_each(Suite *suite, void (*after_each_function)());
  *   
  */
 extern void set_formatter(Suite *suite, Formatter *formatter);
+extern Formatter *get_formatter(Suite *suite);
 
 
 /*

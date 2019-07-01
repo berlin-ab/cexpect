@@ -10,6 +10,7 @@ typedef struct ListData List;
  * List
  */
 List *make_list(void);
+void free_list(List *list);
 void add_to_list(List *list, void *value);
 int list_size(List *list);
 

@@ -4,6 +4,7 @@
 #include "stddef.h"
 
 typedef void* (*allocate_formatter_memory_func)(size_t num, size_t size);
+typedef void (*free_formatter_func)(void *pointer);
 
 
 typedef struct FormatterData Formatter;
@@ -36,6 +37,7 @@ typedef void (*format_start)(char *suite_name, void *extra);
 
 Formatter *make_formatter(
 	allocate_formatter_memory_func func,
+	free_formatter_func free,
 	format_failure failure,
 	format_success success,
 	format_pending pending,
@@ -43,6 +45,10 @@ Formatter *make_formatter(
 	format_start start,
 	void *extra
 	);
+
+
+void free_formatter(Formatter *formatter);
+
 
 void do_format_success(Formatter *formatter);
 void do_format_failure(Formatter *formatter);

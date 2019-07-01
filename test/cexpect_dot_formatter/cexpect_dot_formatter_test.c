@@ -56,7 +56,7 @@ void before_each(void) {
 
 
 void a_failing_test_prints_an_F(Test *test) {
-	Formatter *formatter = make_dot_formatter(printer, calloc);
+	Formatter *formatter = make_dot_formatter(printer, calloc, free);
 	do_format_failure(formatter);
 	
 	expect(test, printed_message, is_string_equal_to("F"));
@@ -64,7 +64,7 @@ void a_failing_test_prints_an_F(Test *test) {
 
 
 void a_passing_test_prints_a_dot(Test *test) {
-	Formatter *formatter = make_dot_formatter(printer, calloc);
+	Formatter *formatter = make_dot_formatter(printer, calloc, free);
 	do_format_success(formatter);
 	
 	expect(test, printed_message, is_string_equal_to("."));
@@ -72,7 +72,7 @@ void a_passing_test_prints_a_dot(Test *test) {
 
 
 void a_pending_test_prints_an_asterix(Test *test) {
-	Formatter *formatter = make_dot_formatter(printer, calloc);
+	Formatter *formatter = make_dot_formatter(printer, calloc, free);
 	do_format_pending(formatter);
 
 	expect(test, printed_message, is_string_equal_to("*"));
@@ -93,7 +93,7 @@ void a_failing_test_prints_a_message_about_the_failing_test(Test *test) {
 	
 	Formatter *formatter = make_dot_formatter(
 		(printer_function_type) list_printer,
-		calloc);
+		calloc, free);
 
 	do_format_summary(
 		formatter,

@@ -43,7 +43,6 @@ extern void after_each(Suite *suite);
  */
 extern List *get_tests(Suite *suite);
 extern char *get_suite_name(Suite *suite);
-extern Formatter *get_formatter(Suite *suite);
 extern List *get_failed_tests(Suite *suite);
 extern void populate_failed_tests(Suite *suite, FailedTest *failed_tests);
 

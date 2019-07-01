@@ -24,10 +24,17 @@ static void default_after_each() {}
 
 
 /*
- * Suite
+ * Suite:
+ * 
+ * Note: the caller is responsible for choosing when to deallocate the suite.
+ * 
  */
-Suite *make_suite(char *suite_name, Formatter *formatter, allocate_memory_func allocate_memory_function) {
-	set_memory_allocation(allocate_memory_function);
+Suite *make_suite(char *suite_name,
+	Formatter *formatter,
+	allocate_memory_func allocate_memory_function,
+	free_memory_func free) {
+
+	set_memory_allocation(allocate_memory_function, free);
 
 	Suite *suite = allocate_memory(1, sizeof(Suite));
 	suite->formatter = formatter;
@@ -38,6 +45,19 @@ Suite *make_suite(char *suite_name, Formatter *formatter, allocate_memory_func a
 	suite->after_each = default_after_each;
 
 	return suite;
+}
+
+
+/*
+ * free_suite:
+ *
+ * deallocate the suite's memory
+ *
+ */
+void free_suite(Suite *suite) {
+	free_list(suite->tests);
+	free_list(suite->failed_tests);
+	deallocate_memory(suite);
 }
 
 
