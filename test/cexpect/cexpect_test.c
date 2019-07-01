@@ -245,6 +245,23 @@ void a_formatter_is_freed_along_with_the_suite(Test *test) {
 	expect(test, &list_includes_other_formatter_address, is_false());
 }
 
+void a_test_with_an_explicit_failure(Test *test) {
+	failed(test, "early failure");
+
+	expect(test, 1, is_int_equal_to(1));
+}
+
+void a_test_that_calls_fail_should_be_a_failure(Test *test) {
+	Suite *suite = create_suite("Suite with explicit failure.");
+	set_formatter(suite, make_void_formatter());
+	add_test(suite, a_test_with_an_explicit_failure);
+
+	run_suite(suite);
+
+	expect(test, number_of_failed_tests(suite), is_int_equal_to(1));
+	expect(test, number_of_passing_tests(suite), is_int_equal_to(0));
+}
+
 
 int main(int argc, char *args[]) {
 	Suite *suite = create_suite("cexpect suite");
@@ -258,6 +275,7 @@ int main(int argc, char *args[]) {
 	add_test(suite, an_after_each_hook_should_work);
 	add_test(suite, a_test_without_an_assertion_should_be_considered_pending);
 	add_test(suite, a_pending_test_before_an_expectation_should_not_be_a_failure);
+	add_test(suite, a_test_that_calls_fail_should_be_a_failure);
 	add_test(suite, a_formatter_is_freed_along_with_the_suite);
 	
 	start_cexpect(suite);

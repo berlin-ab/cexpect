@@ -33,6 +33,7 @@ Test *make_test(Suite *suite, test_function_type test_function) {
 	return test;
 }
 
+
 void pending(Test *test) {
 	test->is_pending = MARKED_PENDING;
 }
@@ -109,4 +110,13 @@ void fail_test(Test *test, char *expected_value, char *actual_value, char *test_
 		failed_test);
 
 	do_format_failure(get_formatter(suite));
+}
+
+void make_explicit_failure(Test *test,
+                           const char *message,
+                           const char *test_name,
+                           int line_number,
+                           char *file_name) {
+
+	fail_test(test, (char *)message, (char *)message, (char *)test_name, line_number, file_name);
 }

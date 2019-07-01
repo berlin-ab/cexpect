@@ -34,12 +34,12 @@ void empty_tests_are_pending_tests(Test *test) {
 }
 
 
-void tests_can_be_marked_pending(Test *test) {
-	// considered a pending test
-	pending(test);
+void tests_can_be_marked_as_failed(Test *test) {
+	// considered a failed test
+	failed(test, "expected failure");
 
-	// not considered a failing test
-	expect(test, true, is_false());
+	// not considered a passing test
+	expect(test, true, is_true());
 }
 
 
@@ -50,6 +50,7 @@ int main(int argc, char *args[]) {
 	add_test(suite, some_passing_test);
 	add_test(suite, empty_tests_are_pending_tests);
 	add_test(suite, tests_can_be_marked_pending);
+	add_test(suite, tests_can_be_marked_as_failed);
 	add_after_each(suite, after_each);
 	start_cexpect(suite);
 }

@@ -31,8 +31,31 @@ extern void make_expectation(
 	int line_number, 
 	char *file_name);
 
-
+/*
+ * Mark a test as pending:
+ *
+ * - to mean not yet implemented and should not count as a failure.
+ *
+ */
 extern void pending(Test *test);
+
+
+/*
+ * Manually mark a test as a failure explicitly.
+ *
+ */
+#define failed(test, message) \
+	do { \
+		make_explicit_failure(test, message, (char *)__FUNCTION__, __LINE__, __FILE__); \
+		return; \
+	} while(0)
+
+
+extern void make_explicit_failure(Test *test,
+	const char *message,
+	const char *test_name,
+	int line_number,
+	char *file_name);
 
 
 /*
