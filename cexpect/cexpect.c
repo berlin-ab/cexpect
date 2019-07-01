@@ -18,5 +18,5 @@ void start_cexpect(Suite *suite) {
 	free_suite(suite);
 
 	exit(status_code);
-}
+} // LCOV_EXCL_LINE
 

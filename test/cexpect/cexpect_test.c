@@ -248,7 +248,7 @@ void a_formatter_is_freed_along_with_the_suite(Test *test) {
 void a_test_with_an_explicit_failure(Test *test) {
 	failed(test, "early failure");
 
-	expect(test, 1, is_int_equal_to(1));
+	expect(test, 1, is_int_equal_to(1)); // LCOV_EXCL_LINE
 }
 
 void a_test_that_calls_fail_should_be_a_failure(Test *test) {
