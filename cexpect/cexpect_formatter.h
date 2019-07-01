@@ -17,10 +17,16 @@ struct FailedTestData {
 	char *actual_value;
 	int line_number;
 	char *file_name;
+
+	/* store implementation details of a custom formatter */
 	void *extra;
 };
 
-
+/*
+ * Callback functions used to notify the custom formatter implementation
+ * of the status of the suite during execution.
+ *
+ */
 typedef void (*format_failure)(void *extra);
 typedef void (*format_success)(void *extra);
 typedef void (*format_pending)(void *extra);
@@ -34,7 +40,11 @@ typedef void (*format_summary)(
 );
 typedef void (*format_start)(char *suite_name, void *extra);
 
-
+/*
+ * provide memory management, callbacks, and implementation specific storage
+ * as an argument, get back an instance of a formatter:
+ *
+ */
 Formatter *make_formatter(
 	allocate_formatter_memory_func func,
 	free_formatter_func free,
@@ -43,13 +53,24 @@ Formatter *make_formatter(
 	format_pending pending,
 	format_summary summary,
 	format_start start,
-	void *extra
-	);
+	void *extra);
 
 
+/*
+ * free_formatter:
+ *
+ * release memory created by the core framework for the formatter
+ *
+ */
 void free_formatter(Formatter *formatter);
 
 
+/*
+ * Formatter API methods:
+ *
+ * - useful for testing implementations of a formatter
+ *
+ */
 void do_format_success(Formatter *formatter);
 void do_format_failure(Formatter *formatter);
 void do_format_pending(Formatter *formatter);
