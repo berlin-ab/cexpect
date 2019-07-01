@@ -2,6 +2,10 @@
 #define CEXPECT_CEXPECT_MATCHERS_H
 
 
+#include "cexpect_memory_allocation_types.h"
+
+
+
 typedef struct MatchResultData MatchResult;
 typedef struct MatcherData Matcher;
 

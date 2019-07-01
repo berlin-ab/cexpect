@@ -1,4 +1,3 @@
-#include <stdlib.h>
 #include <stdio.h>
 
 
@@ -17,10 +16,10 @@ static MatchResult *match_integers(Matcher *matcher, void *actual_value) {
 	if (is_match)
 		return match_succeeded(result);
 
-	char *expected_message = calloc(100, sizeof(char));
-	char *actual_message = calloc(100, sizeof(char));
-	sprintf(expected_message, "%d", (int)get_expected_value(matcher));
-	sprintf(actual_message, "%d", (int)actual_value);
+	char *expected_message = allocate_memory(100, sizeof(char));
+	char *actual_message = allocate_memory(100, sizeof(char));
+	snprintf(expected_message, 100, "%d", (int)get_expected_value(matcher));
+	snprintf(actual_message, 100, "%d", (int)actual_value);
 	return match_failed(result, expected_message, actual_message);
 }
 

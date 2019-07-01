@@ -46,10 +46,7 @@ clean:
 # Headers
 #
 present_external_interface: clean
-	cp cexpect/cexpect.h $(include_dir)
-	cp cexpect/cexpect_formatter.h $(include_dir)
-	cp cexpect/cexpect_matchers.h $(include_dir)
-	cp cexpect/cexpect_suite_types.h $(include_dir)
+	cp cexpect/*.h $(include_dir)
 	cp cexpect_cmatchers/cexpect_cmatchers.h $(include_dir)
 	cp cexpect_dot_formatter/cexpect_dot_formatter.h $(include_dir)
 
