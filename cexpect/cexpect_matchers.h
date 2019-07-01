@@ -10,9 +10,16 @@ typedef struct MatchResultData MatchResult;
 typedef struct MatcherData Matcher;
 
 
-
 /*
- * Extending matchers:
+ * Create a custom matcher:
+ *
+ * 1. Decide if you are making a comparison matcher or an inspection matcher (defined below)
+ * 2. Implement a function that takes a matcher and the actual value as an argument.
+ *    - find the expected value by calling get_expected_value()
+ *    - compare the expected value against the actual value
+ *    - use allocate_memory() to construct expected and actual messages
+ *    - call match_succeeded() or match_failed() from within the function
+ *
  */
 
 /*
