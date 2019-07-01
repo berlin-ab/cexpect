@@ -18,7 +18,8 @@ MatchResult *make_match_result() {
 }
 
 
-MatchResult *match_failed(MatchResult* match_result, char *expected_message, char *actual_message) {
+MatchResult *match_failed(char *expected_message, char *actual_message) {
+	MatchResult *match_result = make_match_result();
 	match_result->is_match = false;
 	match_result->expected_message = expected_message;
 	match_result->actual_message = actual_message;
@@ -26,7 +27,8 @@ MatchResult *match_failed(MatchResult* match_result, char *expected_message, cha
 }
 
 
-MatchResult *match_succeeded(MatchResult *match_result) {
+MatchResult *match_succeeded() {
+	MatchResult *match_result = make_match_result();
 	match_result->is_match = true;
 	return match_result;
 }

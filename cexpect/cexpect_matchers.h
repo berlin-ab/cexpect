@@ -50,9 +50,8 @@ extern Matcher *make_comparison_matcher(
  *  - Use `get_expected_value()` to perform a comparison against the actual value.
  *  
  */
-extern MatchResult *make_match_result(void);
-extern MatchResult *match_succeeded(MatchResult *match_result);
-extern MatchResult *match_failed(MatchResult* match_result, char *expected_message, char *actual_message);
+extern MatchResult *match_succeeded();
+extern MatchResult *match_failed(char *expected_message, char *actual_message);
 extern void *get_expected_value(Matcher *matcher);
 
 

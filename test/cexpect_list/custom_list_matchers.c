@@ -14,13 +14,10 @@
  * list matcher comparisons
  */
 MatchResult *is_list_empty(Matcher *matcher, void *list) {
-	MatchResult *match_result = make_match_result();
-
 	int actual_size = list_size(list);
 
 	if (actual_size == 0) {
-		match_succeeded(match_result);
-		return match_result;
+		return match_succeeded();
 	}
 
 	char *expected_message = allocate_memory(100, sizeof(char));
@@ -29,21 +26,17 @@ MatchResult *is_list_empty(Matcher *matcher, void *list) {
 	snprintf(expected_message, 100, "list size of 0");
 	snprintf(actual_message, 100, "actual size of %d", actual_size);
 
-	match_failed(match_result, expected_message, actual_message);
-	return match_result;
+	return match_failed(expected_message, actual_message);
 }
 
 
 MatchResult *list_size_equals(Matcher *matcher, void *actual_value) {
-	MatchResult *match_result = make_match_result();
-
 	List *list = (List *)actual_value;
 	int expected_size = *(int*)get_expected_value(matcher);
 	int actual_size = list_size(list);
 
 	if (actual_size == expected_size) {
-		match_succeeded(match_result);
-		return match_result;
+		return match_succeeded();
 	}
 
 	char *expected_message = allocate_memory(100, sizeof(char));
@@ -52,8 +45,7 @@ MatchResult *list_size_equals(Matcher *matcher, void *actual_value) {
 	char *actual_message = allocate_memory(100, sizeof(char));
 	snprintf(actual_message, 100, "size = %d", actual_size);
 
-	match_failed(match_result, expected_message, actual_message);
-	return match_result;
+	return match_failed(expected_message, actual_message);
 }
 
 

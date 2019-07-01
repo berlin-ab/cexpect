@@ -11,18 +11,16 @@
 static MatchResult *match_booleans(Matcher *matcher, void *actual_value) {
 	bool expected_value = *(bool*)get_expected_value(matcher);
 	bool actual = *(bool *)actual_value;
-
-	MatchResult *result = make_match_result();
 	bool is_match = expected_value == actual;
 
 	if (is_match)
-		return match_succeeded(result);
+		return match_succeeded();
 
 	char *expected_message = allocate_memory(100, sizeof(char));
 	char *actual_message = allocate_memory(100, sizeof(char));
 	snprintf(expected_message, 100, "%s", (expected_value ? "true" : "false"));
 	snprintf(actual_message, 100, "%s", (actual ? "true" : "false"));
-	return match_failed(result, expected_message, actual_message);
+	return match_failed(expected_message, actual_message);
 }
 
 
