@@ -19,8 +19,8 @@ coverage_flags = --coverage
 
 coverage: check
 	gcov *.gc*
-	lcov --capture --directory . --output-file build/coverage.info
-	genhtml build/coverage.info --output-directory build/coverage
+	lcov --capture --directory . --output-file build/coverage.info --rc lcov_branch_coverage=1 
+	genhtml build/coverage.info --output-directory build/coverage --branch-coverage --legend --highlight --sort
 	rm *.gcno
 	rm *.gcda
 	rm default.profraw

@@ -137,6 +137,16 @@ make: *** [readme_test] Error 1```
 
 ## Testing
 
-```
+
+### run all tests
+```bash
 make check
+```
+
+### show coverage
+
+Assumes lcov and genhtml are installed.
+
+```bash
+COVERAGE=true make coverage
 ```
