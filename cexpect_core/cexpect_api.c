@@ -8,6 +8,7 @@
 #include "internal/failed_test.h"
 #include "internal/matcher.h"
 #include "internal/match_result.h"
+#include "internal/formatter.h"
 
 
 

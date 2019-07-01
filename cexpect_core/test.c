@@ -5,6 +5,7 @@
 
 
 #include "internal/suite.h"
+#include "internal/formatter.h"
 #include "internal/failed_test.h"
 #include "internal/memory_allocation.h"
 

@@ -37,7 +37,7 @@ extern void pending(Test *test);
 
 /*
  * create a new suite instance:
- * 
+ *
  */
 extern Suite *create_suite(char *suite_name);
 
@@ -48,13 +48,14 @@ extern Suite *create_suite(char *suite_name);
  * allows for:
  *
  * - custom formatters
- * - custom memory allocation function:
+ * - custom memory allocation functions:
  *     * matching signature of calloc
+ *     * matching signature of free
  *
  */
 extern Suite *make_suite(
-	char *suite_name, 
-	Formatter *formatter, 
+	char *suite_name,
+	Formatter *formatter,
 	allocate_memory_func allocate_memory,
 	free_memory_func free);
 
@@ -98,7 +99,6 @@ extern void add_after_each(Suite *suite, void (*after_each_function)());
  *   
  */
 extern void set_formatter(Suite *suite, Formatter *formatter);
-extern Formatter *get_formatter(Suite *suite);
 
 
 /*
