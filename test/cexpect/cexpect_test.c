@@ -228,6 +228,8 @@ void a_formatter_is_freed_along_with_the_suite(Test *test) {
 		allocate_memory_spy, 
 		free_memory_spy);
 
+	add_test(suite, some_passing_test);
+	run_suite(suite);
 	free_suite(suite);
 
 	bool list_includes_formatter_address = list_includes_address(
