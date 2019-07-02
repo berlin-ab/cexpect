@@ -1,8 +1,19 @@
 .PHONY: test
 
+
 ifndef VERBOSE
 .SILENT:
 endif
+
+
+#
+# Run all tests
+#
+check: test_cexpect test_integers test_booleans test_list test_strings test_cexpect_list_matchers test_cexpect_dot_formatter
+
+
+test: check
+
 
 output_dir = build/
 lib_dir = build/lib
@@ -12,20 +23,15 @@ coverage_dir = build/coverage
 
 
 coverage_flags = ""
-
-
-ifdef COVERAGE
-coverage_flags = --coverage
-
+coverage: coverage_flags += --coverage
 coverage: check
 	gcov *.gc*
 	lcov --capture --directory . --output-file build/coverage.info --rc lcov_branch_coverage=1 
-	genhtml build/coverage.info --output-directory build/coverage --branch-coverage --legend --highlight --sort
+	genhtml build/coverage.info --output-directory $(coverage_dir) --branch-coverage --legend --highlight --sort
 	rm *.gcno
 	rm *.gcda
 	rm default.profraw
 	open build/coverage/index.html
-endif 
 
 
 default_compile_flags = -pedantic-errors -std=gnu99 -Wall -g $(coverage_flags) -Wno-int-conversion -Wno-pointer-to-int-cast -I $(include_dir)
@@ -172,11 +178,3 @@ test_cexpect_list_matchers: clean build_cexpect build_cexpect_cmatchers build_ce
 
 readme_test: clean build_cexpect build_cexpect_cmatchers build_readme_test
 	./$(test_dir)/readme_test.o
-
-
-#
-# Run all tests
-#
-check: test_cexpect test_integers test_booleans test_list test_strings test_cexpect_list_matchers test_cexpect_dot_formatter
-
-test: check
